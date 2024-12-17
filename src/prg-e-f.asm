@@ -857,8 +857,9 @@ StartGame:
 	STA PPUMASK
 	JSR DisableNMI
 
-	LDA #PRGBank_0_1
-	STA GameMilestoneCounter
+;	LDA #PRGBank_0_1
+;	STA GameMilestoneCounter
+  LDA #PRGBank_C_D
 	JSR ChangeMappedPRGBank
 
 	JSR TitleScreen ; The whole title screen is a subroutine, lol

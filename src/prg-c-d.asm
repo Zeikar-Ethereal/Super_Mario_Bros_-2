@@ -2592,3 +2592,7 @@ byte_BANKC_93A6:
 	.db $7A
 	.db $C8
 	.db $60
+
+.pad $a000, $ff
+
+.include "src/title-screen/title-screen-main.asm"
