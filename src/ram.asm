@@ -407,8 +407,10 @@ ENDIF
 SoundEffectTimer2:
 	.dsb 1 ; $00c4
 ; FOR RENT
+CursorLocation:
 	.dsb 1 ; $00c5
 ; FOR RENT
+GamePlayMode:
 	.dsb 1 ; $00c6
 PlayerAnimationFrame:
 	.dsb 1 ; $00c7

@@ -11,5 +11,4 @@ loc_BANK0_9C2A:
 	INY
 	CPY #$F0
 	BCC loc_BANK0_9C2A
-
 	JMP HideAllSprites
