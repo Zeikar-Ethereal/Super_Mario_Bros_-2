@@ -33,7 +33,21 @@ InitMemoryLoop2:
 	INY
 	BNE InitMemoryLoop2
 
-	JSR LoadTitleScreenCHRBanks
+;	JSR LoadTitleScreenCHRBanks FREE LATER
+
+; Graphic banks setup
+	LDY #CHRBank_TitleScreenBG1
+  STY SpriteCHR1
+  INY
+  STY SpriteCHR2
+  INY
+  STY SpriteCHR3
+  INY
+  STY SpriteCHR4
+  LDA #$3C
+  STA BackgroundCHR1
+  LDA #$3E
+  STA BackgroundCHR2
 
 	JSR ClearNametablesAndSprites
 
@@ -59,9 +73,11 @@ InitTitleBackgroundPalettesLoop:
 	STA RAM_PPUDataBufferPointer + 1
 	LDA #Stack100_Menu
 	STA StackArea
-	LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite0000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
+	;LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
+  LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
 	STA PPUCtrlMirror
 	STA PPUCTRL
+  STA PPUCTRLForIRQ
 	JSR WaitForNMI_TitleScreen
 
 ; Draw the title screen (ScreenUpdateIndex is using TitleScreenPPUDataPointers)
@@ -72,4 +88,6 @@ InitTitleBackgroundPalettesLoop:
 ; Cue the music!
 	LDA #Music1_Title
 	STA MusicQueue1
+  JSR CopyDMADataTableTitleScreen
 	JSR WaitForNMI_TitleScreen_TurnOnPPU
+  CLI

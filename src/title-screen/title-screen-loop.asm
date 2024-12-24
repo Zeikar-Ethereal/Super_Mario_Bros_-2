@@ -1,9 +1,11 @@
 TitleScreenLoop:
   JSR ReadInputTitleScreen
+  JSR UpdateSpriteTitleScreen
 LoopWait:
   JSR WaitForNMI_TitleScreen
   JMP TitleScreenLoop
 
+; Start of input reading for the title screen
 ReadInputTitleScreen:
   LDA Player1JoypadPress
   AND #ControllerInput_Select | ControllerInput_Down
@@ -43,9 +45,7 @@ TitleScreenStart:
 LoadOptionMenu:
   BRK
 LeaveTitleScreen:
-  PLA
-  PLA
-  RTS
+  JMP TitleScreen_Exit
 
 TitleScreenSideInput:
   LDX CursorLocation
@@ -67,4 +67,9 @@ TitleScreenSideInc:
   EOR #$05
   STA GamePlayMode
 LeaveTitleScreenSideInput:
+  RTS
+; End of title screen input
+
+
+UpdateSpriteTitleScreen:
   RTS

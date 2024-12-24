@@ -2255,10 +2255,14 @@ NMI_Transition:
 	JMP NMI_Exit
 
 
-;
+
 ; NMI logic for during the pause menu
-;
 NMI_PauseOrMenu:
+  LDA #$81 ; Scanline 192
+  STA MMC3_IRQLatch
+  STA MMC3_IRQReload
+  STA MMC3_IRQEnable
+
 	LDA #$00
 	STA PPUMASK
 	STA OAMADDR
@@ -6153,7 +6157,7 @@ ENDIF
 ; Note that this is NOT CODE.
 ; If the NES actually hits a BRK, the game will probably just explode.
 ; If you wanted, you could write some sort of crash handler though.
-IRQ:
+;IRQ:
 IFDEF PRESERVE_UNUSED_SPACE
 	.db $DF
 	.db $E6

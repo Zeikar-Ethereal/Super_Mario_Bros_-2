@@ -823,11 +823,14 @@ SpriteFlickerSlot:
 	.dsb 1 ; $0400
 
 ; FOR RENT
+PPUCTRLForIRQ:
 	.dsb 1 ; $0401
 ; FOR RENT
 BossTileset:
+XPositionIRQ:
 	.dsb 1 ; $0402
 ; FOR RENT
+BoolIRQ:
 	.dsb 1 ; $0403
 ; unused? written but never read
 PreviousCharacter:

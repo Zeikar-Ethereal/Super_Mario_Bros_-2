@@ -29,6 +29,10 @@ TitleLayout:
 	.db $21, $EE, $04, $FC, $FC, $FC, $20
 	.db $22, $0E, $04, $22, $22, $22, $21
 
+; test for scrolling
+  .db $22, $BF, $01, $F8
+  .db $27, $38, $01, $F8
+
 ; Attribute table
 	.db $23, $CA, $04, $80, $A0, $A0, $20
 	.db $23, $D1, $0E, $80, $A8, $AA, $AA, $A2, $22, $00, $00, $88, $AA, $AA, $AA, $AA, $22

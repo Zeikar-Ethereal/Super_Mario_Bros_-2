@@ -6,6 +6,9 @@
 ; Graphicssssss
 .include "src/title-screen/title-screen-gfx.asm"
 
+; Sprite logic here
+.include "src/title-screen/title-screen-sprite.asm"
+
 ; Initialisation and drawing are located here!
 .include "src/title-screen/title-screen-init.asm"
 
@@ -14,3 +17,6 @@
 
 ; Leaving the titlescreen is here
 .include "src/title-screen/title-screen-quit.asm"
+
+; IRQ
+.include "src/title-screen/title-screen-irq.asm"
