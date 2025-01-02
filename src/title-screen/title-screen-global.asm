@@ -3,6 +3,7 @@
 TitleScreenPPUDataPointers:
 	.dw PPUBuffer_301
 	.dw TitleLayout
+  .dw PPU_UpdatePalette
 
 WaitForNMI_TitleScreen_TurnOnPPU:
 	LDA #PPUMask_ShowLeft8Pixels_BG | PPUMask_ShowLeft8Pixels_SPR | PPUMask_ShowBackground | PPUMask_ShowSprites

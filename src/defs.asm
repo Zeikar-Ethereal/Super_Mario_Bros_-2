@@ -850,4 +850,8 @@ CHRBank_MarioSleepingBackground10 = $74
 CHRBank_MarioSleepingBackground11 = $78
 CHRBank_MarioSleepingBackground12 = $7C
 
+CHRAnimationSpeedTitleScreen = $08
+SpritePaletteTimer = $06
+SpritePaletteStartingIndex = $0B
+
 .endinl

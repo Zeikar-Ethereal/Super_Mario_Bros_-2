@@ -1,11 +1,14 @@
 TitleScreenLoop:
   JSR ReadInputTitleScreen
   JSR UpdateSpriteTitleScreen
+  JSR TitleScreenCHRHandling
 LoopWait:
   JSR WaitForNMI_TitleScreen
   JMP TitleScreenLoop
 
-; Start of input reading for the title screen
+; ------------------------------------------------------------
+; Input reading subroutine part of the main title screen loop
+; ------------------------------------------------------------
 ReadInputTitleScreen:
   LDA Player1JoypadPress
   AND #ControllerInput_Select | ControllerInput_Down
@@ -15,61 +18,113 @@ ReadInputTitleScreen:
   BEQ TitleScreenCursorUp
   CMP #ControllerInput_Start
   BEQ TitleScreenStart
-  AND #ControllerInput_Left | ControllerInput_Right
-  BNE TitleScreenSideInput
   RTS
 
 TitleScreenCursorDown:
-  INC CursorLocation
   LDA CursorLocation
+  STA PrevCursorLocation
+  CLC
+  ADC #$01
   CMP #$03
   BNE LeaveTitleScreenCursorDown
   EOR #$03
-  STA CursorLocation
 LeaveTitleScreenCursorDown:
+  STA CursorLocation
+  JSR UpdateTextPalette
   RTS
 
 TitleScreenCursorUp:
-  DEC CursorLocation
+  LDY CursorLocation
+  STY PrevCursorLocation
+  DEY
   BPL LeaveTitleScreenCursorUp
-  LDA #$02
-  STA CursorLocation
+  LDY #$02
 LeaveTitleScreenCursorUp:
+  STY CursorLocation
+  JSR UpdateTextPalette
   RTS
 
 TitleScreenStart:
   LDA CursorLocation
   BEQ LeaveTitleScreen
-  CMP #$01
-  BEQ TitleScreenSideInc
+;  CMP #$01
+;  BEQ TitleScreenSideInc
 LoadOptionMenu:
   BRK
 LeaveTitleScreen:
   JMP TitleScreen_Exit
 
-TitleScreenSideInput:
-  LDX CursorLocation
-  CPX #$01
-  BNE LeaveTitleScreenSideInput
-  CMP #ControllerInput_Right
-  BEQ TitleScreenSideInc
-TitleScreenSideDec:
-  DEC GamePlayMode
-  BPL LeaveTitleScreenSideInput
-  LDA #$04
-  STA GamePlayMode
-  RTS
-TitleScreenSideInc:
-  INC GamePlayMode
-  LDA GamePlayMode
-  CMP #$05
-  BNE LeaveTitleScreenSideInput
-  EOR #$05
-  STA GamePlayMode
-LeaveTitleScreenSideInput:
-  RTS
-; End of title screen input
+PaletteColorTableTitleScreen:
+  .db $35, $34, $33, $32, $31, $3C, $3B, $3A, $39, $38, $37, $36
 
-
+; ------------------------------------------------------------
+; Sprite update subroutine
+; Update sprite palette on a timer
+; ------------------------------------------------------------
 UpdateSpriteTitleScreen:
+
+UpdateSpritePalette:
+  DEC PaletteTimer
+  BPL LeaveUpdateSpriteTitleScreen
+  LDA #SpritePaletteTimer ; Reset back the timer
+  STA PaletteTimer
+  LDA #$02
+  STA ScreenUpdateIndex ; Tell the NMI to update the palette
+  LDY TitleScreenPaletteSpriteIndex
+  DEY
+  BPL SetNewPaletteSprite
+  LDY #SpritePaletteStartingIndex
+SetNewPaletteSprite:
+  LDA PaletteColorTableTitleScreen, Y
+  STA PPU_UpdatePalette + 3
+  STY TitleScreenPaletteSpriteIndex
+LeaveUpdateSpriteTitleScreen:
   RTS
+
+; ------------------------------------------------------------
+; Title screen GFX handling
+; Include palette update, graphic update and nametable udpate
+; ------------------------------------------------------------
+TitleScreenCHRHandling:
+CoolDownChrAnimationHandling:
+  DEC CHRTableTimer
+  BPL LeaveTitleScreenChrHandling
+  LDA #CHRAnimationSpeedTitleScreen
+  STA CHRTableTimer
+UpdateCHRAnimation:
+  LDY SpriteCHR3
+  INY
+  INY
+  CPY #CHRBank_Animated8 + 2
+  BNE UpdateChrTable
+  LDY #CHRBank_Animated1
+UpdateChrTable:
+  STY SpriteCHR3
+  INY
+  STY SpriteCHR4
+LeaveTitleScreenChrHandling:
+  RTS
+
+
+
+;TitleScreenSideInput:
+;  LDX CursorLocation
+;  CPX #$01
+;  BNE LeaveTitleScreenSideInput
+;  CMP #ControllerInput_Right
+;  BEQ TitleScreenSideInc
+;TitleScreenSideDec:
+;  DEC GamePlayMode
+;  BPL LeaveTitleScreenSideInput
+;  LDA #$04
+;  STA GamePlayMode
+;  RTS
+;TitleScreenSideInc:
+;  INC GamePlayMode
+;  LDA GamePlayMode
+;  CMP #$05
+;  BNE LeaveTitleScreenSideInput
+;  EOR #$05
+;  STA GamePlayMode
+;LeaveTitleScreenSideInput:
+;  RTS

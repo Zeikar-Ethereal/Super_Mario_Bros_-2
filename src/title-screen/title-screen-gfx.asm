@@ -30,14 +30,22 @@ TitleLayout:
 	.db $22, $0E, $04, $22, $22, $22, $21
 
 ; test for scrolling
-  .db $22, $BF, $01, $F8
-  .db $27, $38, $01, $F8
+  .db $22, $50, $02, $B0, $B1
+  .db $22, $70, $04, $98, $9A, $9C, $9E
+  .db $22, $90, $04, $99, $9B, $9D, $9F
+  .db $23, $A0, $60, $BF
+  .db $27, $A0, $60, $BF
+  .db $23, $80, $60, $BF
+  .db $27, $80, $60, $BF
+  .db $23, $60, $60, $BE
+  .db $27, $60, $60, $BE
 
 ; Attribute table
-	.db $23, $CA, $04, $80, $A0, $A0, $20
-	.db $23, $D1, $0E, $80, $A8, $AA, $AA, $A2, $22, $00, $00, $88, $AA, $AA, $AA, $AA, $22
-	.db $23, $E3, $02, $88, $22
-	.db $23, $EA, $04, $F0, $F8, $F2, $F0
+;	.db $23, $CA, $04, $80, $A0, $A0, $20
+;	.db $23, $D1, $0E, $80, $A8, $AA, $AA, $A2, $22, $00, $00, $88, $AA, $AA, $AA, $AA, $22
+;	.db $23, $E3, $02, $88, $22
+;	.db $23, $EA, $04, $F0, $F8, $F2, $F0
+
 ; End
 	.db $00
 
@@ -73,3 +81,7 @@ TitleAttributeData2:
 	.db $23, $EA, $44, $FF
 	.db $23, $E9, $01, $CC
 	.db $23, $EE, $01, $33
+
+UpdateTableTitleScreen:
+  .db $3F, $1D, $01, $27 ; Color palette for the sprite
+  .db $00

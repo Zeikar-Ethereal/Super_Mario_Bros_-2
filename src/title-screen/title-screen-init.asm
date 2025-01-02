@@ -1,7 +1,6 @@
-; Main logic here is to zero out the memory and init everything before the titlescreen loop kicks in!
-; Also include drawing routine
-
-
+; ------------------------------------------------------------
+; Zero out memory
+; ------------------------------------------------------------
 TitleScreen:
 	LDY #$07 ; Does initialization of RAM.
 	STY byte_RAM_1 ; This clears $200 to $7FF.
@@ -33,14 +32,19 @@ InitMemoryLoop2:
 	INY
 	BNE InitMemoryLoop2
 
-;	JSR LoadTitleScreenCHRBanks FREE LATER
+; Restore bank C/D after the memory got zero'd out
+  LDA #PRGBank_C_D
+  STA MMC3PRGBankTemp
 
-; Graphic banks setup
+; ------------------------------------------------------------
+; Graphic initialisation
+; ------------------------------------------------------------
+SetBankNametbleTitleScreen:
 	LDY #CHRBank_TitleScreenBG1
   STY SpriteCHR1
   INY
   STY SpriteCHR2
-  INY
+  LDY #CHRBank_Animated1
   STY SpriteCHR3
   INY
   STY SpriteCHR4
@@ -48,6 +52,24 @@ InitMemoryLoop2:
   STA BackgroundCHR1
   LDA #$3E
   STA BackgroundCHR2
+
+DumpPPU_BufferInRam:
+  LDY #$00
+DumpPPU_BufferInRamLoop:
+  LDA UpdateTableTitleScreen, Y
+  STA PPU_UpdatePalette, Y
+  INY
+  CPY #$05
+  BNE DumpPPU_BufferInRamLoop
+
+  LDA #CHRAnimationSpeedTitleScreen  ; Set chr animation speed for the titlescreen
+  STA CHRTableTimer
+
+  LDA #SpritePaletteStartingIndex ; Set sprite palette index
+  STA TitleScreenPaletteSpriteIndex
+
+  LDA #SpritePaletteTimer ; Set sprite palette countdown until a color swap
+  STA PaletteTimer
 
 	JSR ClearNametablesAndSprites
 
@@ -64,8 +86,6 @@ InitTitleBackgroundPalettesLoop:
 	CPY #$20
 	BCC InitTitleBackgroundPalettesLoop
 
-  LDA #PRGBank_C_D ; Restore bank C/D after the memory got zero'd out
-  STA MMC3PRGBankTemp
 
 	LDA #$01
 	STA RAM_PPUDataBufferPointer
@@ -90,4 +110,4 @@ InitTitleBackgroundPalettesLoop:
 	STA MusicQueue1
   JSR CopyDMADataTableTitleScreen
 	JSR WaitForNMI_TitleScreen_TurnOnPPU
-  CLI
+  CLI ; Enable IRQ

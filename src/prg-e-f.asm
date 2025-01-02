@@ -2258,7 +2258,7 @@ NMI_Transition:
 
 ; NMI logic for during the pause menu
 NMI_PauseOrMenu:
-  LDA #$81 ; Scanline 192
+  LDA #$80 ; Scanline 193
   STA MMC3_IRQLatch
   STA MMC3_IRQReload
   STA MMC3_IRQEnable
@@ -5841,15 +5841,6 @@ CheckResetCHRLatch:
 CheckResetCHRLatch_Exit:
 	RTS
 ENDIF
-
-
-LoadTitleScreenCHRBanks:
-	LDA #CHRBank_TitleScreenBG1
-	STA BackgroundCHR1
-	LDA #CHRBank_TitleScreenBG2
-	STA BackgroundCHR2
-	RTS
-
 
 LoadCelebrationSceneBackgroundCHR:
 	LDA #CHRBank_CelebrationBG1

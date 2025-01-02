@@ -80,9 +80,11 @@ TitleScreenPPULength:
 	.dsb 1 ; 1                ; $0016
 MarioSnoringWaveFrame:
 TitleScreenStoryNeedsClear: ; set when the text area needs to be cleared for the story
+CHRTableTimer:
 	.dsb 1 ; 2                ; $0017
 MarioSnoringWaveFrameCounter: ; controls waving speed
 TitleScreenStoryTextIndex:
+PaletteTimer:
 	.dsb 1 ; 3                ; $0018
 MarioSnoringCounter5:
 TitleScreenStoryDone: ; RAM $0002 check will restart title screen when set
@@ -91,12 +93,14 @@ MarioSnoringCounter6:
 TitleScreenStoryTextLineTimer: ; used to pause between writing lines of text
 	.dsb 1 ; 5                ; $001a
 MarioSnoringCounter7:
+TitleScreenPaletteSpriteIndex:
 	.dsb 1 ; 6                ; $001b
 MarioSnoringTheEndFrameCounter: ; controls writing speed
+PrevCursorLocation:
 	.dsb 1 ; 7                ; $001c
 MarioSnoringCounter9:
+CursorLocation:
 	.dsb 1 ; 8                ; $001d
-
 PlayerYHi:
 CastRollSpriteSetupTemp:
 	.dsb 1 ; $001e
@@ -407,7 +411,6 @@ ENDIF
 SoundEffectTimer2:
 	.dsb 1 ; $00c4
 ; FOR RENT
-CursorLocation:
 	.dsb 1 ; $00c5
 ; FOR RENT
 GamePlayMode:
@@ -2217,6 +2220,8 @@ IFDEF CONTROLLER_2_DEBUG
 ENDIF
 
 ItemCarryYOffsetsRAM = $7f00
+
+PPU_UpdatePalette = $7E00
 
 MMC3_BankSelect = $8000
 MMC3_BankData = $8001

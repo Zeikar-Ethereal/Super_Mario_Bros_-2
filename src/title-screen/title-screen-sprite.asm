@@ -1,25 +1,29 @@
 SpriteTitleScreenDMAInitTable:
-  .db $8E, $EC, $03, $55 ; S
-  .db $8E, $ED, $03, $5D ; T
-  .db $8E, $DA, $03, $65 ; A
-  .db $8E, $EB, $03, $6D ; R
-  .db $8E, $ED, $03, $75 ; T
+  .db $9C, $D1, $03, $60 ; 1
+  .db $9C, $E9, $03, $70 ; P
+  .db $9C, $E5, $03, $78 ; L
+  .db $9C, $DA, $03, $80 ; A
+  .db $9C, $F2, $03, $88 ; Y
+  .db $9C, $DE, $03, $90 ; E
+  .db $9C, $EB, $03, $98 ; R
 
-  .db $AE, $E6, $03, $55 ; M
-  .db $AE, $E8, $03, $5D ; O
-  .db $AE, $DD, $03, $65 ; D
-  .db $AE, $DE, $03, $6D ; E
-  .db $AE, $CE, $03, $75 ; :
+  .db $AF, $D2, $02, $60 ; 2
+  .db $AF, $E9, $02, $70 ; P
+  .db $AF, $E5, $02, $78 ; L
+  .db $AF, $DA, $02, $80 ; A
+  .db $AF, $F2, $02, $88 ; Y
+  .db $AF, $DE, $02, $90 ; E
+  .db $AF, $EB, $02, $98 ; R
 
-  .db $CE, $E8, $03, $55 ; O
-  .db $CE, $E9, $03, $5D ; P
-  .db $CE, $ED, $03, $65 ; T
-  .db $CE, $E2, $03, $6D ; I
-  .db $CE, $E8, $03, $75 ; O
-  .db $CE, $E7, $03, $7D ; N
-  .db $CE, $EC, $03, $85 ; S
+  .db $C1, $E8, $02, $60 ; O
+  .db $C1, $E9, $02, $68 ; P
+  .db $C1, $ED, $02, $70 ; T
+  .db $C1, $E2, $02, $78 ; I
+  .db $C1, $E8, $02, $80 ; O
+  .db $C1, $E7, $02, $88 ; N
+  .db $C1, $EC, $02, $90 ; S
 
-SpriteDMAInitSize = $40
+SpriteDMAInitSize = $54
 
 CopyDMADataTableTitleScreen:
   LDY #$00 ; Index
@@ -31,8 +35,34 @@ CopyDMADataTitleScreenLoop:
   BNE CopyDMADataTitleScreenLoop
   RTS
 
-MoveCursorSpriteUp:
+; Faster than using a multiplication subroutine
+DMATextStartingAddress:
+  .db $02, $1E, $3A
+
+UpdateTextPalette:
+  LDY PrevCursorLocation
+  LDA DMATextStartingAddress, Y
+  TAY
+  LDA #$02
+  JSR WriteUpdateTextPalette
+  LDY CursorLocation
+  LDA DMATextStartingAddress, Y
+  TAY
+  LDA #$03
+  JSR WriteUpdateTextPalette
   RTS
 
-MoveCursorSpriteDown:
+; A value to set
+; Y Ram offset
+WriteUpdateTextPalette:
+  LDX #$00
+WriteUpdateTextPaletteLoop:
+  STA SpriteDMAArea, Y
+  INY
+  INY
+  INY
+  INY ; 8 total cycle, better versus CLC ADC TYA LDA
+  INX
+  CPX #$07
+  BNE WriteUpdateTextPaletteLoop
   RTS
