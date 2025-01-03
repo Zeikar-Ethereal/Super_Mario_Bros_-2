@@ -103,19 +103,26 @@ CursorLocation:
 	.dsb 1 ; 8                ; $001d
 PlayerYHi:
 CastRollSpriteSetupTemp:
+FirstIRQ:
 	.dsb 1 ; $001e
 ObjectYHi:
 CastRollSprite1A:
+XPositionFirstIRQ:
 	.dsb 1 ; $001f
 CastRollSprite1B:
+FirstIRQScreen:
 	.dsb 1 ; 1                ; $0020
 CastRollSprite1C:
+SecondIRQScreen:
 	.dsb 1 ; 2                ; $0021
 CastRollSprite2A:
+SecondIRQTimer:
 	.dsb 1 ; 3                ; $0022
 CastRollSprite2B:
+XPositionSecondIRQ:
 	.dsb 1 ; 4                ; $0023
 CastRollSprite2C:
+PPUCtrlSecondIRQ:
 	.dsb 1 ; 5                ; $0024
 CastRollSprite3A:
 	.dsb 1 ; 6                ; $0025
@@ -830,10 +837,8 @@ PPUCTRLForIRQ:
 	.dsb 1 ; $0401
 ; FOR RENT
 BossTileset:
-XPositionIRQ:
 	.dsb 1 ; $0402
 ; FOR RENT
-BoolIRQ:
 	.dsb 1 ; $0403
 ; unused? written but never read
 PreviousCharacter:

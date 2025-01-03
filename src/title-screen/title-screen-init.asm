@@ -98,6 +98,7 @@ InitTitleBackgroundPalettesLoop:
 	STA PPUCtrlMirror
 	STA PPUCTRL
   STA PPUCTRLForIRQ
+  STA PPUCtrlSecondIRQ
 	JSR WaitForNMI_TitleScreen
 
 ; Draw the title screen (ScreenUpdateIndex is using TitleScreenPPUDataPointers)

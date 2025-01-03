@@ -1,5 +1,9 @@
+; ------------------------------------------------------------
+; IRQ for the title screen
+; First IRQ scanline get set in the NMI
+; Second one get setup here
+; ------------------------------------------------------------
 IRQ:
- ; SEI
   ; Save all register and the PS
   PHP
   PHA
@@ -8,62 +12,39 @@ IRQ:
   TYA
   PHA
 
-  LDA PPUCTRLForIRQ ; Could zero work?
-  STA MMC3_IRQDisable ; I KNOW YOU ARE HERE
-  LDY XPositionIRQ
+  LDA FirstIRQ
+  BNE SecondIRQHandling
 
-Wait:
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
-  NOP
+; ------------------------------------------------------------
+; First IRQ setup under the logo
+; Constant horizontal scrolling
+; Also setup the scanline counter for the next IRQ
+; ------------------------------------------------------------
+  LDA #$55 ; Scanline 215
+  STA MMC3_IRQDisable
+  STA MMC3_IRQLatch
+  STA MMC3_IRQReload
+  STA MMC3_IRQEnable
 
-  STA PPUCTRL
-  STY PPUSCROLL
+  LDA PPUCTRLForIRQ
+  LDX XPositionFirstIRQ
+  LDY #$01 ; Loop to wait
+  JSR WaitSubRoutineIRQ
 
-  INC XPositionIRQ
+  STA PPUCTRL ; Swap between PPUCtrl_Base2000 and PPUCtrl_Base2400
+  STX PPUSCROLL ; X Position
+  STY PPUSCROLL ; Y Position
 
-  LDA XPositionIRQ
-  BNE EXIT_IRQ
-  LDA BoolIRQ
+  INC FirstIRQ ; Increment so we jump to the second subroutine the next IRQ
+  INC XPositionFirstIRQ
+
+  BNE SetPPUCtrlFirstIRQ
+  LDA PPUCTRLForIRQ
   EOR #$01
-  STA BoolIRQ
-  BNE SetPPUScreenTwo
-  
-SetPPUScreenOne:
-  LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
-  JMP UPDATE
-SetPPUScreenTwo:
-  LDA #PPUCtrl_Base2400 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
 
-UPDATE:
+SetPPUCtrlFirstIRQ:
   STA PPUCTRLForIRQ
-EXIT_IRQ:
+Exit_IRQ:
   ; Restore all register and the PS
   PLA
   TAY
@@ -72,3 +53,39 @@ EXIT_IRQ:
   PLA
   PLP
   RTI
+
+; ------------------------------------------------------------
+; Second IRQ
+; Disable the IRQ
+; Scroll the screen on a timer
+; ------------------------------------------------------------
+SecondIRQHandling:
+  DEC FirstIRQ ; Set back value so it does the other subroutine first
+  LDA PPUCtrlSecondIRQ
+  STA MMC3_IRQDisable ; acknowledge the IRQ by disabling it
+  DEC SecondIRQTimer
+  BPL IRQLoadScroll
+  LDY #SecondIRQScrollTimer
+  STY SecondIRQTimer ; Reset scroll timer
+  DEC XPositionSecondIRQ
+UpdatePPUSctrlSecond:
+  BNE IRQLoadScroll
+  EOR #$01
+  STA PPUCtrlSecondIRQ
+
+IRQLoadScroll:
+  LDX XPositionSecondIRQ
+  LDY #$00
+
+SetSecondIRQScroll:
+  STA PPUCTRL ; Swap between PPUCtrl_Base2000 and PPUCtrl_Base2400
+  STX PPUSCROLL ; X Position
+  STY PPUSCROLL ; Y Position
+
+  JMP Exit_IRQ
+
+; X the amount of loop to do
+WaitSubRoutineIRQ:
+  DEY
+  BNE WaitSubRoutineIRQ
+  RTS

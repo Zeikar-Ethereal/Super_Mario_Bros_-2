@@ -2258,7 +2258,7 @@ NMI_Transition:
 
 ; NMI logic for during the pause menu
 NMI_PauseOrMenu:
-  LDA #$80 ; Scanline 193
+  LDA #$83 ; Scanline 129
   STA MMC3_IRQLatch
   STA MMC3_IRQReload
   STA MMC3_IRQEnable

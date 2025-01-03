@@ -853,5 +853,6 @@ CHRBank_MarioSleepingBackground12 = $7C
 CHRAnimationSpeedTitleScreen = $08
 SpritePaletteTimer = $06
 SpritePaletteStartingIndex = $0B
+SecondIRQScrollTimer = $02
 
 .endinl
