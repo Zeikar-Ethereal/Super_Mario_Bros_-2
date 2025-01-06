@@ -23,6 +23,8 @@ SpriteTitleScreenDMAInitTable:
   .db $C1, $E7, $02, $88 ; N
   .db $C1, $EC, $02, $90 ; S
 
+;  .db $9C, $CC, $03, $40 No cursor yet
+
 SpriteDMAInitSize = $54
 
 CopyDMADataTableTitleScreen:

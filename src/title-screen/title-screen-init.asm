@@ -80,7 +80,8 @@ DumpPPU_BufferInRamLoop:
 	STY PPUADDR
 
 InitTitleBackgroundPalettesLoop:
-	LDA TitleBackgroundPalettes, Y
+;	LDA TitleBackgroundPalettes, Y
+  LDA #$0F
 	STA PPUDATA
 	INY
 	CPY #$20

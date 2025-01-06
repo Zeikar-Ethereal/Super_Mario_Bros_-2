@@ -50,8 +50,10 @@ byte_RAM_C:
 byte_RAM_D:
 	.dsb 1 ; $000d
 byte_RAM_E:
+LoPalette:
 	.dsb 1 ; $000e
 byte_RAM_F:
+HiPalette:
 	.dsb 1 ; $000f
 ; This is used as a global counter.
 ; It continuouly increments during gameplay and freezes for the pause screen
@@ -2227,6 +2229,9 @@ ENDIF
 ItemCarryYOffsetsRAM = $7f00
 
 PPU_UpdatePalette = $7E00
+
+; 3 bytes params + 32 bytes for the zero long $7E05-$FC2B
+PPU_PaletteBuf = $7E05
 
 MMC3_BankSelect = $8000
 MMC3_BankData = $8001
