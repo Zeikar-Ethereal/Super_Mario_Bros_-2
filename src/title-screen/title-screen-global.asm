@@ -3,8 +3,7 @@
 TitleScreenPPUDataPointers:
 	.dw PPUBuffer_301
 	.dw TitleLayout
-  .dw PPU_UpdatePalette
-  .dw PPU_PaletteBuf
+  .dw PPU_PaletteBuffer
 
 WaitForNMI_TitleScreen_TurnOnPPU:
 	LDA #PPUMask_ShowLeft8Pixels_BG | PPUMask_ShowLeft8Pixels_SPR | PPUMask_ShowBackground | PPUMask_ShowSprites
@@ -33,25 +32,70 @@ WaitForNMI_TitleScreenLoop:
 ;         Hi palette address 0x000F
 ; It's your responsability to save 0x000E-0x000F
 ; Use SaveBytes/RestoreBytes routine to save/restore them
+; A lot of this code is taken from smb3 source code
 ; ------------------------------------------------------------
 PaletteFadeIn:
-  JSR SetupPaletteFadeIn
-  RTS
-
-; ------------------------------------------------------------
-; 
-; ------------------------------------------------------------
-SetupPaletteFadeIn:
+; Setup for palette fade in
   LDA #$3F ; Setup PPU dump parameters
-  STA PPU_PaletteBuf
+  STA PPU_PaletteBuffer
   LDA #$00
-  STA PPU_PaletteBuf + 1
+  STA PPU_PaletteBuffer + 1
+  STA PPU_PaletteBufferEnd
   LDA #$20
-  STA PPU_PaletteBuf + 2
+  STA PPU_PaletteBuffer + 2
+  LDY #$1F
+SetupPaletteFadeInLoop:
+  LDA (LoPaletteAddress), Y
+  LDX #$00
+SubtractLoop:
+  SEC
+  SBC #$30
+  BCS SetResultSubtraction ; Branch if A is negative
+  LDA #$0F ; Set to black by default if A is negative
+SetResultSubtraction:
+  STA PPU_PaletteBufferBegin, Y
+  DEY
+  BPL SetupPaletteFadeInLoop
+
+  LDA #$04
+  STA FadeOutCounter
+LoopFadeIn:
+  LDA #UpdatePallettePPUBuffer
+  STA ScreenUpdateIndex
+  JSR WaitFixedAmountNMI
+  DEC FadeOutCounter
+  BEQ FadeInDone
+  JSR IncreaseBrightnessPalette
+  BMI LoopFadeIn
+FadeInDone:
+  RTS
+
+; -----------------------------------------------------------------
+; Increase brightness of the color until it match with the original
+; -----------------------------------------------------------------
+IncreaseBrightnessPalette:
+  LDY #$19
+IncreaseBrightnessPaletteLoop:
+  LDA PPU_PaletteBufferBegin, Y
+  CMP #$0F ; Check if black
+  BNE BrightnessAddition
+  LDA (LoPaletteAddress), Y ; Take the palette from the index and get the darkest shade of the color
+  AND #$0F
+  BPL SetBrightnessResult ; BUG BUG check if this bug out later
+BrightnessAddition:
+  CMP (LoPaletteAddress), Y ; Check if the color is already matching with the target color
+  BEQ DecreaseBrightnessLoop
+  CLC
+  ADC #$10
+SetBrightnessResult:
+  STA PPU_PaletteBufferBegin, Y
+DecreaseBrightnessLoop:
+  DEY
+  BPL IncreaseBrightnessPaletteLoop
   RTS
 
 ; ------------------------------------------------------------
-; Color fade in routine
+; Color fade out routine
 ; Params: Lo palette address 0x000E
 ;         Hi palette address 0x000F
 ; It's your responsability to save 0x000E-0x000F
@@ -98,16 +142,31 @@ RestoreBytes:
 ; ------------------------------------------------------------
 BlackOutPalette:
   LDA #$3F ; Setup PPU dump parameters
-  STA PPU_PaletteBuf
+  STA PPU_PaletteBuffer
   LDA #$00
-  STA PPU_PaletteBuf + 1
+  STA PPU_PaletteBuffer + 1
   LDA #$20
-  STA PPU_PaletteBuf + 2
+  STA PPU_PaletteBuffer + 2
 
   LDA #$0F ; Black out the entire PPU Buffer
   LDY #$1F
 LoopBlackOut:
-  STA PPU_PaletteBuf + 3, Y
+  STA PPU_PaletteBuffer + 3, Y
   DEY
   BPL LoopBlackOut
+  RTS
+
+; ------------------------------------------------------------
+; params:
+;         Define for loops or
+;         Y = Numbers of loops to wait
+; Wait a fix amount of NMI
+; Call JSR WaitFixedAmountNMILoop if using the Y param
+; ------------------------------------------------------------
+WaitFixedAmountNMI:
+  LDY #FadeoutTimer
+WaitFixedAmountNMILoop:
+  JSR WaitForNMI_TitleScreen
+  DEY
+  BNE WaitFixedAmountNMILoop
   RTS

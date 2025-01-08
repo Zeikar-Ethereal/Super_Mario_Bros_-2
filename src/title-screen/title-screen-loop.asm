@@ -76,7 +76,7 @@ UpdateSpritePalette:
   LDY #SpritePaletteStartingIndex
 SetNewPaletteSprite:
   LDA PaletteColorTableTitleScreen, Y
-  STA PPU_UpdatePalette + 3
+  STA PPU_PaletteBuffer + 3
   STY TitleScreenPaletteSpriteIndex
 LeaveUpdateSpriteTitleScreen:
   RTS

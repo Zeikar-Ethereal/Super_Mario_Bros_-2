@@ -50,10 +50,10 @@ byte_RAM_C:
 byte_RAM_D:
 	.dsb 1 ; $000d
 byte_RAM_E:
-LoPalette:
+LoPaletteAddress:
 	.dsb 1 ; $000e
 byte_RAM_F:
-HiPalette:
+HiPaletteAddress:
 	.dsb 1 ; $000f
 ; This is used as a global counter.
 ; It continuouly increments during gameplay and freezes for the pause screen
@@ -127,6 +127,7 @@ CastRollSprite2C:
 PPUCtrlSecondIRQ:
 	.dsb 1 ; 5                ; $0024
 CastRollSprite3A:
+FadeOutCounter:
 	.dsb 1 ; 6                ; $0025
 CastRollSprite3B:
 	.dsb 1 ; 7                ; $0026
@@ -2228,10 +2229,10 @@ ENDIF
 
 ItemCarryYOffsetsRAM = $7f00
 
-PPU_UpdatePalette = $7E00
-
-; 3 bytes params + 32 bytes for the zero long $7E05-$FC2B
-PPU_PaletteBuf = $7E05
+; Allocate 36 bytes total. 3 bytes for the parameters, 32 bytes for colors and 1 bytes for the terminating 0
+PPU_PaletteBuffer = $7E00
+PPU_PaletteBufferBegin = $7E03
+PPU_PaletteBufferEnd = $7E23
 
 MMC3_BankSelect = $8000
 MMC3_BankData = $8001

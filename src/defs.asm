@@ -850,9 +850,12 @@ CHRBank_MarioSleepingBackground10 = $74
 CHRBank_MarioSleepingBackground11 = $78
 CHRBank_MarioSleepingBackground12 = $7C
 
+; Custom define for the title screen
+UpdatePallettePPUBuffer = $02
 CHRAnimationSpeedTitleScreen = $08
 SpritePaletteTimer = $06
 SpritePaletteStartingIndex = $0B
 SecondIRQScrollTimer = $02
+FadeoutTimer = $08
 
 .endinl

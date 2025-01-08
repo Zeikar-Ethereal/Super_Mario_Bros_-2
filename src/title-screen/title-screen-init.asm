@@ -53,15 +53,6 @@ SetBankNametbleTitleScreen:
   LDA #$3E
   STA BackgroundCHR2
 
-DumpPPU_BufferInRam:
-  LDY #$00
-DumpPPU_BufferInRamLoop:
-  LDA UpdateTableTitleScreen, Y
-  STA PPU_UpdatePalette, Y
-  INY
-  CPY #$05
-  BNE DumpPPU_BufferInRamLoop
-
   LDA #CHRAnimationSpeedTitleScreen  ; Set chr animation speed for the titlescreen
   STA CHRTableTimer
 
@@ -107,9 +98,27 @@ InitTitleBackgroundPalettesLoop:
 	STA ScreenUpdateIndex
 	JSR WaitForNMI_TitleScreen
 
+  JSR CopyDMADataTableTitleScreen
+	JSR WaitForNMI_TitleScreen_TurnOnPPU
+
+; Fade in the colors
+  LDA #<TitleBackgroundPalettes
+  STA LoPaletteAddress
+  LDA #>TitleBackgroundPalettes
+  STA HiPaletteAddress
+  JSR PaletteFadeIn
+
+DumpPPU_BufferInRam:
+  LDY #$00
+DumpPPU_BufferInRamLoop:
+  LDA UpdateTableTitleScreen, Y
+  STA PPU_PaletteBuffer, Y
+  INY
+  CPY #$05
+  BNE DumpPPU_BufferInRamLoop
+
 ; Cue the music!
 	LDA #Music1_Title
 	STA MusicQueue1
-  JSR CopyDMADataTableTitleScreen
-	JSR WaitForNMI_TitleScreen_TurnOnPPU
-  CLI ; Enable IRQ
+  JSR WaitForNMI_TitleScreen
+;  CLI ; Enable IRQ
