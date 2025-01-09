@@ -127,7 +127,7 @@ CastRollSprite2C:
 PPUCtrlSecondIRQ:
 	.dsb 1 ; 5                ; $0024
 CastRollSprite3A:
-FadeOutCounter:
+FadeCounter:
 	.dsb 1 ; 6                ; $0025
 CastRollSprite3B:
 	.dsb 1 ; 7                ; $0026

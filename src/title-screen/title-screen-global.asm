@@ -35,14 +35,7 @@ WaitForNMI_TitleScreenLoop:
 ; A lot of this code is taken from smb3 source code
 ; ------------------------------------------------------------
 PaletteFadeIn:
-; Setup for palette fade in
-  LDA #$3F ; Setup PPU dump parameters
-  STA PPU_PaletteBuffer
-  LDA #$00
-  STA PPU_PaletteBuffer + 1
-  STA PPU_PaletteBufferEnd
-  LDA #$20
-  STA PPU_PaletteBuffer + 2
+  JSR InitPPUPaletteBufferParams
   LDY #$1F
 SetupPaletteFadeInLoop:
   LDA (LoPaletteAddress), Y
@@ -58,21 +51,23 @@ SetResultSubtraction:
   BPL SetupPaletteFadeInLoop
 
   LDA #$04
-  STA FadeOutCounter
+  STA FadeCounter
 LoopFadeIn:
   LDA #UpdatePallettePPUBuffer
   STA ScreenUpdateIndex
-  JSR WaitFixedAmountNMI
-  DEC FadeOutCounter
+  DEC FadeCounter
   BEQ FadeInDone
+  JSR WaitFixedAmountNMI
   JSR IncreaseBrightnessPalette
   BMI LoopFadeIn
 FadeInDone:
+  JSR WaitForNMI_TitleScreen
   RTS
 
-; -----------------------------------------------------------------
-; Increase brightness of the color until it match with the original
-; -----------------------------------------------------------------
+; ---------------------------------------------------------------------
+; Increase brightness of every colors until it match with the original
+; Params: None
+; ---------------------------------------------------------------------
 IncreaseBrightnessPalette:
   LDY #$19
 IncreaseBrightnessPaletteLoop:
@@ -102,6 +97,44 @@ DecreaseBrightnessLoop:
 ; Use SaveBytes/RestoreBytes routine to save/restore them
 ; ------------------------------------------------------------
 PaletteFadeOut:
+  JSR InitPPUPaletteBufferParams
+  LDY #$1F
+DumpPaletteLoop:
+  LDA (LoPaletteAddress), Y
+  STA PPU_PaletteBufferBegin, Y 
+  DEY
+  BPL DumpPaletteLoop
+
+  LDA #$04
+  STA FadeCounter
+FadeOutLoop:
+  JSR DecreaseBrightnessPalette
+  LDA #UpdatePallettePPUBuffer
+  STA ScreenUpdateIndex
+  JSR WaitFixedAmountNMI
+  DEC FadeCounter
+  BPL FadeOutLoop
+  RTS
+
+; --------------------------------------------------------------------
+; Decrease brightness of every colors until it match with the original
+; Params: None
+; --------------------------------------------------------------------
+DecreaseBrightnessPalette:
+  LDY #$1F
+DecreaseBrightnessPaletteLoop:
+  LDA PPU_PaletteBufferBegin, Y
+  CMP #$0F
+  BEQ DecLoopDecreaseBrightness
+  SEC
+  SBC #$10
+  BCS SetResultDecDecBrightness
+  LDA #$0F
+SetResultDecDecBrightness:
+  STA PPU_PaletteBufferBegin, Y
+DecLoopDecreaseBrightness:
+  DEY
+  BPL DecreaseBrightnessPaletteLoop
   RTS
 
 ; ------------------------------------------------------------
@@ -169,4 +202,17 @@ WaitFixedAmountNMILoop:
   JSR WaitForNMI_TitleScreen
   DEY
   BNE WaitFixedAmountNMILoop
+  RTS
+
+; ------------------------------------------------------------
+; Initialisation of full palette buffer
+; ------------------------------------------------------------
+InitPPUPaletteBufferParams:
+  LDA #$3F ; Setup PPU dump parameters
+  STA PPU_PaletteBuffer
+  LDA #$00
+  STA PPU_PaletteBuffer + 1
+  STA PPU_PaletteBufferEnd
+  LDA #$20
+  STA PPU_PaletteBuffer + 2
   RTS

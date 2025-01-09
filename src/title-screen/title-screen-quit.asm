@@ -6,6 +6,8 @@ TitleScreen_Exit:
 	STA MusicQueue2
 	JSR WaitForNMI_TitleScreen
 
+  JSR PaletteFadeOut
+
 	LDA #$00
 	TAY
 

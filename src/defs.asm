@@ -856,6 +856,6 @@ CHRAnimationSpeedTitleScreen = $08
 SpritePaletteTimer = $06
 SpritePaletteStartingIndex = $0B
 SecondIRQScrollTimer = $02
-FadeoutTimer = $08
+FadeoutTimer = $04
 
 .endinl
