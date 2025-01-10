@@ -10,8 +10,8 @@ Option menu:
   0%
 
 Bug fixes:
-  8 CHR animation 0%
-  B dropping item while crouching 0%
+  8 CHR animation 100%
+  B dropping item while crouching 100%
   Fixing enemy stack bug 0%
 
 Game mode single player:

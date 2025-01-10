@@ -2574,7 +2574,8 @@ PlayerStartJump_CheckXSpeed:
 	BCC PlayerStartJump_SetYVelocity
 
 	; Clear Player1JoypadHeld for a crouch jump
-	LDA #$00
+	LDA Player1JoypadHeld ; TODO check overhead later!
+  AND #ControllerInput_B
 	STA Player1JoypadHeld
 
 PlayerStartJump_SetYVelocity:
