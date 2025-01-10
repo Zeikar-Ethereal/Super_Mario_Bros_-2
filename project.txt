@@ -1,0 +1,26 @@
+Smb2 ++ planner
+
+Title screen:
+  IRQ = 90% done, but fix needed
+  Glowing text 100% done
+  Fade in/out 100% done
+  Graphic 10% done
+
+Option menu:
+  0%
+
+Bug fixes:
+  8 CHR animation 0%
+  B dropping item while crouching 0%
+  Fixing enemy stack bug 0%
+
+Game mode single player:
+  Vanilla 100%
+  Tag 0%
+
+  2 Player:
+    Traditional = Require both controllers
+    2P1C = Require both controllers
+    Tag team = Require both controllers
+    Chaos = Require both controllers
+    Chaos Char swap = Require both controllers
