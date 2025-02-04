@@ -2595,4 +2595,8 @@ byte_BANKC_93A6:
 
 .pad $a000, $ff
 
-.include "src/title-screen/title-screen-main.asm"
+.include "src/title-screen/main.asm"
+
+.pad $b000, $ff
+
+.include "src/option-select/main.asm"
