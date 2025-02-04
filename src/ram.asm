@@ -421,6 +421,7 @@ ENDIF
 SoundEffectTimer2:
 	.dsb 1 ; $00c4
 ; FOR RENT
+CurrentPlayer:
 	.dsb 1 ; $00c5
 ; FOR RENT
 GamePlayMode:
@@ -1246,8 +1247,10 @@ PokeyTempScreenX:
 StopwatchTimer:
 	.dsb 1 ; $04ff
 ; FOR RENT
+HpFuncPointerLo:
 	.dsb 1 ; $0500
 ; FOR RENT
+HpFuncPointerHi:
 	.dsb 1 ; $0501
 ; Flag enabled while the area is rendering on initialization
 byte_RAM_502:

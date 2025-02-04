@@ -959,7 +959,7 @@ HorizontalLevel_Loop:
 	JSR WaitForNMI_TurnOnPPU
 
 HorizontalLevel_CheckScroll:
-	JSR WaitForNMI
+	JSR WaitForNMI_InputRead
 
 	; Disable pause detection while scrolling
 	LDA NeedsScroll
@@ -1019,7 +1019,7 @@ VerticalLevel_Loop:
 	JSR WaitForNMI_TurnOnPPU
 
 VerticalLevel_CheckScroll:
-	JSR WaitForNMI
+	JSR WaitForNMI_InputRead
 
 	; Disable pause detection while scrolling
 	; This is likely a work-around to avoid getting the PPU into a weird state
@@ -2109,6 +2109,24 @@ WaitForNMILoop:
 
 	RTS ; If yes, go back to what we were doing
 
+WaitForNMI_InputRead:
+	LDA ScreenUpdateIndex
+	ASL A
+	TAX
+	LDA ScreenUpdateBufferPointers, X
+	STA RAM_PPUDataBufferPointer
+	LDA ScreenUpdateBufferPointers + 1, X
+	STA RAM_PPUDataBufferPointer + 1
+
+	LDA #$00
+	STA NMIWaitFlag ; Start waiting for NMI to finish
+WaitForNMILoop_InputRead:
+	LDA NMIWaitFlag ; Has the NMI routine set the flag yet?
+	BPL WaitForNMILoop_InputRead ; If no, wait some more
+;  RTS
+
+  JMP OnePlayerTwoControllers
+;	JMP $xD ; If yes, go back to what we were doing
 
 ; =============== S U B R O U T I N E =======================================
 
@@ -2352,7 +2370,7 @@ NMI:
   STX JOY1                        ; put get put get
   DEX                             ; put get
   STX JOY1                        ; put get put get
-loop:
+InputReadingloop:
   LDA JOY2                        ; put get put GET  <- loop code must take an even number of cycles total
   AND #3                          ; put get
   CMP #1                          ; put get
@@ -2361,7 +2379,7 @@ loop:
   AND #3                          ; put get
   CMP #1                          ; put get
   ROL Player1JoypadPress + 0      ; put get put get put
-  BCC loop                        ; get put [get]    <- this branch must not be allowed to cross a page
+  BCC InputReadingloop            ; get put [get]    <- this branch must not be allowed to cross a page
 
   JSR UpdateHeld
 
@@ -4989,28 +5007,28 @@ WarpDestinations:
 ;
 ; Updates joypad press/held values
 ;
-UpdateJoypads:
-	JSR ReadJoypads
-
-UpdateJoypads_DoubleCheck:
-	; Work around DPCM sample bug,
-	; where some spurious inputs are read
-IFDEF CONTROLLER_2_DEBUG
-	LDY Player2JoypadPress
-	STY UpdateJoypadsTemp
-ENDIF
-	LDY Player1JoypadPress
-	JSR ReadJoypads
-
-	CPY Player1JoypadPress
-	BNE UpdateJoypads_DoubleCheck
-
-IFDEF CONTROLLER_2_DEBUG
-	LDY UpdateJoypadsTemp
-	CPY Player2JoypadPress
-	BNE UpdateJoypads_DoubleCheck
-ENDIF
-
+;UpdateJoypads:
+;	JSR ReadJoypads
+;
+;UpdateJoypads_DoubleCheck:
+;	; Work around DPCM sample bug,
+;	; where some spurious inputs are read
+;IFDEF CONTROLLER_2_DEBUG
+;	LDY Player2JoypadPress
+;	STY UpdateJoypadsTemp
+;ENDIF
+;	LDY Player1JoypadPress
+;	JSR ReadJoypads
+;
+;	CPY Player1JoypadPress
+;	BNE UpdateJoypads_DoubleCheck
+;
+;IFDEF CONTROLLER_2_DEBUG
+;	LDY UpdateJoypadsTemp
+;	CPY Player2JoypadPress
+;	BNE UpdateJoypads_DoubleCheck
+;ENDIF
+;
 UpdateHeld:
 	LDX #$01
 
@@ -5034,35 +5052,35 @@ ENDIF
 ;
 ; Reads joypad pressed input
 ;
-ReadJoypads:
-	LDX #$01
-	STX JOY1
-	DEX
-	STX JOY1
-
-	LDX #$08
-ReadJoypadLoop:
-	LDA JOY1
-	LSR A
-	; Read D0 standard controller data
-	ROL Player1JoypadPress
-	LSR A
-	; Read D1 expansion port controller data
-	;
-	; Before you get too excited, keep in mind that this code is basically ported from the FDS bios.
-	; Code to mux D1 and D0 isn't present, so even if you had an expansion port controller that used
-	; D1, the game wouldn't use it!
-	ROL Player1JoypadExpansionPress
-
-	LDA JOY2
-	LSR A
-	ROL Player2JoypadPress
-	LSR A
-	ROL Player2JoypadExpansionPress
-	DEX
-	BNE ReadJoypadLoop
-
-	RTS
+;ReadJoypads:
+;	LDX #$01
+;	STX JOY1
+;	DEX
+;	STX JOY1
+;
+;	LDX #$08
+;ReadJoypadLoop:
+;	LDA JOY1
+;	LSR A
+;	; Read D0 standard controller data
+;	ROL Player1JoypadPress
+;	LSR A
+;	; Read D1 expansion port controller data
+;	;
+;	; Before you get too excited, keep in mind that this code is basically ported from the FDS bios.
+;	; Code to mux D1 and D0 isn't present, so even if you had an expansion port controller that used
+;	; D1, the game wouldn't use it!
+;	ROL Player1JoypadExpansionPress
+;
+;	LDA JOY2
+;	LSR A
+;	ROL Player2JoypadPress
+;	LSR A
+;	ROL Player2JoypadExpansionPress
+;	DEX
+;	BNE ReadJoypadLoop
+;
+;	RTS
 
 
 ;
@@ -5762,6 +5780,88 @@ FindSpriteSlot_CheckInactiveSlot:
 IFDEF DEBUG
 	.include "src/extras/debug-f.asm"
 ENDIF
+
+; ------------------------------------------------------------
+; SoloMode, GameplayMode = 0
+; Nothing happen here, normal behaviour for playing solo
+; ------------------------------------------------------------
+SoloMode:
+  RTS
+
+; -----------------------------------------------------------------
+; Traditional mode, GameplayMode = 1
+; Each player take turns to play
+; CurrentPlayer swap everytime a player die or beat a level
+; Enable the players to pick a different character or the same one
+; -----------------------------------------------------------------
+TraditionalMode:
+  LDA CurrentPlayer
+  BEQ LeaveTraditionalMode
+  LDA Player2JoypadPress ; Swap input if player 2 is playing
+  STA Player1JoypadPress
+  LDA Player2JoypadHeld
+  STA Player1JoypadHeld
+LeaveTraditionalMode:
+  RTS
+
+; -----------------------------------------------------------------
+; Tag mode, GameplayMode = 2
+; Pressing select on the current player will hand over
+; the control to the other player.
+; Enable the players to pick a different character or the same one
+; -----------------------------------------------------------------
+TagMode:
+  RTS
+
+; ------------------------------------------------------------
+; 1P2C, GameplayMode = 3
+; 1P2C is short for 1 player 2 controller
+; Player 1 controls the dpad
+; Player 2 controls the A/B buttons
+; ------------------------------------------------------------
+OnePlayerTwoControllers:
+  LDA Player1JoypadPress
+  AND #$3F ; Keep everything except A/B
+  STA Player1JoypadPress
+  LDA Player2JoypadPress
+  AND #ControllerInput_A + #ControllerInput_B ; Only keep A/B
+  ORA Player1JoypadPress
+  STA Player1JoypadPress
+; Same thing here but for Held, unrolling it is faster
+  LDA Player1JoypadHeld
+  AND #$3F ; Keep everything except A/B
+  STA Player1JoypadHeld
+  LDA Player2JoypadHeld
+  AND #ControllerInput_A + #ControllerInput_B ; Only keep A/B
+  ORA Player1JoypadHeld
+  STA Player1JoypadHeld
+  RTS
+
+; ------------------------------------------------------------
+; Chaos mode, GameplayMode = 4
+; Players control the same character, but who controls it
+; swap at random time
+; ------------------------------------------------------------
+ChaosMode:
+  RTS
+
+; ------------------------------------------------------------
+; Chaos mode , GameplayMode = 5
+; Players control the same character, but who controls it
+; swap at random time
+; ------------------------------------------------------------
+ChaosModeExtra:
+  RTS
+
+TestFunc:
+  LDA CurrentPlayer
+  BEQ LeaveTestFunc
+  LDA Player2JoypadPress
+  STA Player1JoypadPress
+  LDA Player2JoypadHeld
+  STA Player1JoypadHeld
+LeaveTestFunc:
+  RTS
 
 ; Unused space in the original ($FB36 - $FDFF)
 unusedSpace $FE00, $FF
