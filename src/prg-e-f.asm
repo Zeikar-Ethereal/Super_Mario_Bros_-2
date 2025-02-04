@@ -2239,10 +2239,10 @@ ENDIF
 ; NMI logic for during a transition
 ;
 NMI_Transition:
-	LDA #$00
-	STA OAMADDR
-	LDA #$02
-	STA OAM_DMA
+;	LDA #$00
+;	STA OAMADDR
+;	LDA #$02
+;	STA OAM_DMA
 	JSR ChangeCHRBanks
 
 	LDA PPUMaskMirror
@@ -2262,12 +2262,12 @@ NMI_PauseOrMenu:
   STA MMC3_IRQLatch
   STA MMC3_IRQReload
   STA MMC3_IRQEnable
-
-	LDA #$00
-	STA PPUMASK
-	STA OAMADDR
-	LDA #$02
-	STA OAM_DMA
+;
+;	LDA #$00
+;	STA PPUMASK
+;	STA OAMADDR
+;	LDA #$02
+;	STA OAM_DMA
 	JSR ChangeCHRBanks
 
 	JSR UpdatePPUFromBufferWithOptions
@@ -2339,16 +2339,36 @@ NMI:
 	TYA
 	PHA
 
-	BIT StackArea
-	BPL NMI_PauseOrMenu ; branch if bit 7 was 0
-
-	BVC NMI_Transition ; branch if bit 6 was 0
-
 	LDA #$00
 	STA PPUMASK
 	STA OAMADDR
 	LDA #$02
 	STA OAM_DMA
+
+; Controller input reading code taken from https://www.nesdev.org/wiki/Controller_reading_code
+; Optimal for what I need!
+  LDX #1                          ; get put          <- strobe code must take an odd number of cycles total
+  STX Player1JoypadPress + 0      ; get put get      <- buttons must be in the zeropage
+  STX JOY1                        ; put get put get
+  DEX                             ; put get
+  STX JOY1                        ; put get put get
+loop:
+  LDA JOY2                        ; put get put GET  <- loop code must take an even number of cycles total
+  AND #3                          ; put get
+  CMP #1                          ; put get
+  ROL Player1JoypadPress + 1, x   ; put get put get put get (X = 0; waste 1 cycle for alignment)
+  LDA JOY1                        ; put get put GET
+  AND #3                          ; put get
+  CMP #1                          ; put get
+  ROL Player1JoypadPress + 0      ; put get put get put
+  BCC loop                        ; get put [get]    <- this branch must not be allowed to cross a page
+
+  JSR UpdateHeld
+
+	BIT StackArea
+	BPL NMI_PauseOrMenu ; branch if bit 7 was 0
+
+	BVC NMI_Transition ; branch if bit 6 was 0
 
 	JSR ChangeCHRBanks
 
@@ -2468,7 +2488,7 @@ NMI_CheckScreenUpdateIndex:
 NMI_ResetScreenUpdateIndex:
 	LDA #ScreenUpdateBuffer_RAM_301
 	STA ScreenUpdateIndex
-	JSR UpdateJoypads
+;	JSR UpdateJoypads
 
 	DEC NMIWaitFlag
 
@@ -4991,6 +5011,7 @@ IFDEF CONTROLLER_2_DEBUG
 	BNE UpdateJoypads_DoubleCheck
 ENDIF
 
+UpdateHeld:
 	LDX #$01
 
 UpdateJoypads_Loop:
