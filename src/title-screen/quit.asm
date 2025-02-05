@@ -1,5 +1,5 @@
 TitleScreen_Exit:
-  SEI
+  SEI ; Disable IRQ
   PLA
   PLA
 	LDA #Music2_StopMusic
@@ -8,12 +8,15 @@ TitleScreen_Exit:
 
   JSR PaletteFadeOut
 
-	LDA #$00
-	TAY
+  JMP OptionSelectInit
 
-TitleScreenExitZeroOut:
-	STA byte_RAM_0, Y
-	INY
-	CPY #$F0
-	BCC TitleScreenExitZeroOut
-	JMP HideAllSprites
+;	LDA #$00
+;	TAY
+;
+;TitleScreenExitZeroOut:
+;	STA byte_RAM_0, Y
+;	INY
+;	CPY #$F0
+;	BCC TitleScreenExitZeroOut
+;	JSR HideAllSprites
+;  JMP OptionSelectInit

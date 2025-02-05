@@ -11,7 +11,7 @@ LoopWait:
 ; ------------------------------------------------------------
 ReadInputTitleScreen:
   LDA Player1JoypadPress
-  AND #ControllerInput_Select | ControllerInput_Down
+  AND #ControllerInput_Select | ControllerInput_Down | ControllerInput_Up
   BNE TitleScreenCursorDown
   LDA Player1JoypadPress
   CMP #ControllerInput_Up
