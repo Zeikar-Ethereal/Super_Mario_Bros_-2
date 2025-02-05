@@ -85,3 +85,7 @@ TitleAttributeData2:
 UpdateTableTitleScreen:
   .db $3F, $1D, $01, $27 ; Color palette for the sprite
   .db $00
+
+
+PaletteColorTableTitleScreen:
+  .db $35, $34, $33, $32, $31, $3C, $3B, $3A, $39, $38, $37, $36

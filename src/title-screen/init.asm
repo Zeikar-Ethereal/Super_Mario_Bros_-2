@@ -121,4 +121,4 @@ DumpPPU_BufferInRamLoop:
 	LDA #Music1_Title
 	STA MusicQueue1
   JSR WaitForNMI_TitleScreen
-;  CLI ; Enable IRQ
+  CLI ; Enable IRQ

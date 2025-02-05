@@ -1,22 +1,15 @@
 TitleScreen_Exit:
   SEI ; Disable IRQ
-  PLA
-  PLA
 	LDA #Music2_StopMusic
 	STA MusicQueue2
 	JSR WaitForNMI_TitleScreen
 
   JSR PaletteFadeOut
 
+  LDA CursorLocation
+; If 2 player is the selection, jump to the option select menu
+  BNE GoToOptionSelect 
+; This is located at the end of option select
+  JMP CleanupBeforeCharacterSelect
+GoToOptionSelect:
   JMP OptionSelectInit
-
-;	LDA #$00
-;	TAY
-;
-;TitleScreenExitZeroOut:
-;	STA byte_RAM_0, Y
-;	INY
-;	CPY #$F0
-;	BCC TitleScreenExitZeroOut
-;	JSR HideAllSprites
-;  JMP OptionSelectInit

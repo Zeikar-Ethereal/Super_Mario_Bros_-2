@@ -15,18 +15,10 @@ SpriteTitleScreenDMAInitTable:
   .db $AF, $DE, $02, $90 ; E
   .db $AF, $EB, $02, $98 ; R
 
-  .db $C1, $E8, $02, $60 ; O
-  .db $C1, $E9, $02, $68 ; P
-  .db $C1, $ED, $02, $70 ; T
-  .db $C1, $E2, $02, $78 ; I
-  .db $C1, $E8, $02, $80 ; O
-  .db $C1, $E7, $02, $88 ; N
-  .db $C1, $EC, $02, $90 ; S
+SpriteDMAInitSize = $38
 
-;  .db $9C, $CC, $03, $40 No cursor yet
-
-SpriteDMAInitSize = $54
-
+; This can be optimize by a lot by only using 1 table,
+; But I am lazy for now TODO if space needed
 CopyDMADataTableTitleScreen:
   LDY #$00 ; Index
 CopyDMADataTitleScreenLoop:
@@ -39,10 +31,9 @@ CopyDMADataTitleScreenLoop:
 
 ; Faster than using a multiplication subroutine
 DMATextStartingAddress:
-  .db $02, $1E, $3A
+  .db $02, $1E
 
 UpdateTextPalette:
-  LDY PrevCursorLocation
   LDA DMATextStartingAddress, Y
   TAY
   LDA #$02
