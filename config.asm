@@ -144,7 +144,7 @@ ENDIF
 
 ; Expand PRG and/or CHR to max capacity
 ; EXPAND_PRG = 1
-; EXPAND_CHR = 1
+ EXPAND_CHR = 1
 
 ; Use MMC5 (mapper 5) instead of MMC3 (mapper 4)
 ; Based on RetroRain's MMC5 patch (https://www.romhacking.net/hacks/2568)

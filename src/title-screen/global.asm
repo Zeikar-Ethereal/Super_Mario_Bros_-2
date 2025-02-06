@@ -5,11 +5,17 @@ TitleScreenPPUDataPointers:
 	.dw TitleLayout
   .dw PPU_PaletteBuffer
 
-WaitForNMI_TitleScreen_TurnOnPPU:
-	LDA #PPUMask_ShowLeft8Pixels_BG | PPUMask_ShowLeft8Pixels_SPR | PPUMask_ShowBackground | PPUMask_ShowSprites
-	STA PPUMaskMirror
+WaitForNMI_Menu_TurnOffPPU:
+	LDA #$00
+	BEQ WaitForNMI_Menu_StuffPPUMask ; Branch always
 
-WaitForNMI_TitleScreen:
+WaitForNMI_Menu_TurnOnPPU:
+	LDA #PPUMask_ShowLeft8Pixels_BG | PPUMask_ShowLeft8Pixels_SPR | PPUMask_ShowBackground | PPUMask_ShowSprites
+
+WaitForNMI_Menu_StuffPPUMask:
+  STA PPUMaskMirror
+
+WaitForNMI_Menu:
 	LDA ScreenUpdateIndex
 	ASL A
 	TAX
@@ -20,11 +26,23 @@ WaitForNMI_TitleScreen:
 
 	LDA #$00
 	STA NMIWaitFlag
-WaitForNMI_TitleScreenLoop:
+WaitForNMI_Menu_Loop:
 	LDA NMIWaitFlag
-	BPL WaitForNMI_TitleScreenLoop
+	BPL WaitForNMI_Menu_Loop
 
 	RTS
+
+CleanupBeforeCharacterSelect:
+	LDA #$00
+	TAY
+; This would be usually done in the title screen
+; Since the option menu doesn't need it, we end up doing it here
+CleanupZeroOut:
+	STA byte_RAM_0, Y
+	INY
+	CPY #$F0
+	BCC CleanupZeroOut
+	JMP HideAllSprites
 
 ; ------------------------------------------------------------
 ; Color fade in routine
@@ -61,7 +79,7 @@ LoopFadeIn:
   JSR IncreaseBrightnessPalette
   BMI LoopFadeIn
 FadeInDone:
-  JSR WaitForNMI_TitleScreen
+  JSR WaitForNMI_Menu
   RTS
 
 ; ---------------------------------------------------------------------
@@ -199,7 +217,7 @@ LoopBlackOut:
 WaitFixedAmountNMI:
   LDY #FadeoutTimer
 WaitFixedAmountNMILoop:
-  JSR WaitForNMI_TitleScreen
+  JSR WaitForNMI_Menu
   DEY
   BNE WaitFixedAmountNMILoop
   RTS

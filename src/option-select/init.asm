@@ -6,5 +6,13 @@ OptionSelectInit:
 	STA PPUMASK
 	JSR DisableNMI ; Disable NMI since I won't need it for now
 
-  RTS
-  JMP OptionSelectQuit
+	JSR EnableNMI
+
+  JSR WaitForNMI_Menu_TurnOffPPU
+
+  JSR SetScrollXYTo0
+
+	JSR ClearNametablesAndSprites
+
+;  RTS
+;  JMP OptionSelectQuit

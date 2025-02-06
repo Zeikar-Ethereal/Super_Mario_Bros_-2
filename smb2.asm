@@ -165,5 +165,6 @@ ENDIF
 ; ----------------------------------------
 ; extra CHR-ROM pages
 IFDEF EXPAND_CHR
-.dsb (16 * $2000), $00
+.incbin "expand.chr"
+;.dsb (16 * $2000), $00
 ENDIF

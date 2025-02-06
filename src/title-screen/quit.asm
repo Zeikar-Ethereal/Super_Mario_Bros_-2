@@ -2,7 +2,7 @@ TitleScreen_Exit:
   SEI ; Disable IRQ
 	LDA #Music2_StopMusic
 	STA MusicQueue2
-	JSR WaitForNMI_TitleScreen
+	JSR WaitForNMI_Menu
 
   JSR PaletteFadeOut
 

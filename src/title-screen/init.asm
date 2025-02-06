@@ -91,15 +91,15 @@ InitTitleBackgroundPalettesLoop:
 	STA PPUCTRL
   STA PPUCTRLForIRQ
   STA PPUCtrlSecondIRQ
-	JSR WaitForNMI_TitleScreen
+	JSR WaitForNMI_Menu
 
 ; Draw the title screen (ScreenUpdateIndex is using TitleScreenPPUDataPointers)
 	LDA #$01 ; TitleLayout
 	STA ScreenUpdateIndex
-	JSR WaitForNMI_TitleScreen
+	JSR WaitForNMI_Menu
 
   JSR CopyDMADataTableTitleScreen
-	JSR WaitForNMI_TitleScreen_TurnOnPPU
+	JSR WaitForNMI_Menu_TurnOnPPU
 
 ; Fade in the colors
   LDA #<TitleBackgroundPalettes
@@ -120,5 +120,5 @@ DumpPPU_BufferInRamLoop:
 ; Cue the music!
 	LDA #Music1_Title
 	STA MusicQueue1
-  JSR WaitForNMI_TitleScreen
-  CLI ; Enable IRQ
+  JSR WaitForNMI_Menu
+;  CLI ; Enable IRQ

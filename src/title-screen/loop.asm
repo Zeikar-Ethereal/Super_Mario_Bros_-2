@@ -20,9 +20,8 @@ UpdateSpriteTitleScreen:
   JSR UpdateSpriteTitleScreenRoutine
   JSR TitleScreenCHRHandling
 LoopWait:
-  JSR WaitForNMI_TitleScreen
+  JSR WaitForNMI_Menu
   JMP TitleScreenLoop
-
 
 ; ------------------------------------------------------------
 ; Sprite update subroutine
