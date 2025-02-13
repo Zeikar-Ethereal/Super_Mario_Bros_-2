@@ -2125,7 +2125,7 @@ WaitForNMILoop_InputRead:
 	BPL WaitForNMILoop_InputRead ; If no, wait some more
 ;  RTS
 
-  JMP OnePlayerTwoControllers
+  JMP TagMode
 ;	JMP $xD ; If yes, go back to what we were doing
 
 ; =============== S U B R O U T I N E =======================================

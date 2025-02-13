@@ -1,4 +1,5 @@
 OptionSelectLoop:
+  JMP OptionSelectLoop
 ;  LDA Player1JoypadPress
 ;  CMP #ControllerInput_Start
 ;  BNE CheckCursorInputTitleScreen

@@ -4,6 +4,7 @@ TitleScreenPPUDataPointers:
 	.dw PPUBuffer_301
 	.dw TitleLayout
   .dw PPU_PaletteBuffer
+  .dw MenuBorder
 
 WaitForNMI_Menu_TurnOffPPU:
 	LDA #$00
@@ -31,6 +32,12 @@ WaitForNMI_Menu_Loop:
 	BPL WaitForNMI_Menu_Loop
 
 	RTS
+
+EnableNMI_Menu:
+  LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
+	STA PPUCtrlMirror
+	STA PPUCTRL
+  RTS
 
 CleanupBeforeCharacterSelect:
 	LDA #$00

@@ -86,9 +86,10 @@ InitTitleBackgroundPalettesLoop:
 	LDA #Stack100_Menu
 	STA StackArea
 	;LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background1000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
-  LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
-	STA PPUCtrlMirror
-	STA PPUCTRL
+;  LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x8 | PPUCtrl_NMIEnabled
+;	STA PPUCtrlMirror
+;	STA PPUCTRL
+  JSR EnableNMI_Menu
   STA PPUCTRLForIRQ
   STA PPUCtrlSecondIRQ
 	JSR WaitForNMI_Menu

@@ -24,3 +24,17 @@ Game mode single player:
     Tag team = Require both controllers
     Chaos = Require both controllers
     Chaos Char swap = Require both controllers
+
+
+12 characters
+
+Traditional
+2P1C
+Tag Team
+Chaos
+Chaos Swap
+
+20 characters x 5 row
+
+Traditional:
+Player take turn
