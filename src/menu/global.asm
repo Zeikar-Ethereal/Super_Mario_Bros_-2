@@ -5,6 +5,11 @@ TitleScreenPPUDataPointers:
 	.dw TitleLayout
   .dw PPU_PaletteBuffer
   .dw MenuBorder
+  .dw MenuFirstOption
+  .dw MenuSecondOption
+  .dw MenuThirdOption
+  .dw MenuFourthOption
+  .dw MenuFithOption
 
 WaitForNMI_Menu_TurnOffPPU:
 	LDA #$00

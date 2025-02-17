@@ -25,6 +25,11 @@ OptionSelectInit:
 
   JSR EnableNMI_Menu
 
+  JSR WaitForNMI_Menu
+
+  LDA #$04 ; TODO add enum
+  STA ScreenUpdateIndex
+
   JSR WaitForNMI_Menu_TurnOnPPU
 
   ; Fade in the colors
