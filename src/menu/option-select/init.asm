@@ -19,7 +19,7 @@ OptionSelectInit:
 
 	JSR ClearNametablesAndSprites
 
-  LDA #$03 ; TODO add enum
+  LDA #BorderPPUBuffer
   STA ScreenUpdateIndex
   LDA PPUSTATUS
 
@@ -27,8 +27,9 @@ OptionSelectInit:
 
   JSR WaitForNMI_Menu
 
-  LDA #$04 ; TODO add enum
+  LDA #TraditionalPPUBuffer
   STA ScreenUpdateIndex
+  STA CursorLocation ; Setup cursor right away
 
   JSR WaitForNMI_Menu_TurnOnPPU
 
