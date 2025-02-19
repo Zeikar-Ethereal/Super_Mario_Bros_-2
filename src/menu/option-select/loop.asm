@@ -39,8 +39,8 @@ ReadInputOptionMenuCheckDirection:
   STA CursorLocation
 NoOverflowReadInputLeft:
   STA ScreenUpdateIndex
-  JSR WaitForNMI_Menu_TurnOffPPU
-  JSR WaitForNMI_Menu_TurnOnPPU
+;  JSR WaitForNMI_Menu_TurnOffPPU
+;  JSR WaitForNMI_Menu_TurnOnPPU
   JMP LeaveInputReadingOption
 ReadInputOptionMenuCheckRight:
   AND #ControllerInput_Right | #ControllerInput_Select ; Increase -> with -> or select

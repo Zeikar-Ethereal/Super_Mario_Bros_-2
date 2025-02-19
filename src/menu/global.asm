@@ -1,5 +1,21 @@
 ; This file contains subroutines that are called by a lot of things
 
+GameplayInputFuncHiTable:
+  .db >SoloMode
+  .db >TraditionalMode
+  .db >TagMode
+  .db >OnePlayerTwoControllers
+  .db >ChaosMode
+  .db >ChaosModeExtra
+
+GameplayInputFuncLoTable:
+  .db <SoloMode
+  .db <TraditionalMode
+  .db <TagMode
+  .db <OnePlayerTwoControllers
+  .db <ChaosMode
+  .db <ChaosModeExtra
+
 TitleScreenPPUDataPointers:
 	.dw PPUBuffer_301
 	.dw TitleLayout
@@ -45,6 +61,13 @@ EnableNMI_Menu:
   RTS
 
 CleanupBeforeCharacterSelect:
+; Set the gameplay function before wiping out the memory
+  LDY GamePlayMode
+  LDA GameplayInputFuncLoTable, Y
+  STA FuncPointerLo
+  LDA GameplayInputFuncHiTable, Y
+  STA FuncPointerHi
+
 	LDA #$00
 	TAY
 ; This would be usually done in the title screen

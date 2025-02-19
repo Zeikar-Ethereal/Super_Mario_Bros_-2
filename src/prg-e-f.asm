@@ -2123,10 +2123,7 @@ WaitForNMI_InputRead:
 WaitForNMILoop_InputRead:
 	LDA NMIWaitFlag ; Has the NMI routine set the flag yet?
 	BPL WaitForNMILoop_InputRead ; If no, wait some more
-;  RTS
-
-  JMP TagMode
-;	JMP $xD ; If yes, go back to what we were doing
+  JMP (FuncPointerLo) ; Hijack function with the option the player picked
 
 ; =============== S U B R O U T I N E =======================================
 

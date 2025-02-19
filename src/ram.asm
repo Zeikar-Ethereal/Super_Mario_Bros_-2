@@ -1247,10 +1247,10 @@ PokeyTempScreenX:
 StopwatchTimer:
 	.dsb 1 ; $04ff
 ; FOR RENT
-HpFuncPointerLo:
+FuncPointerLo:
 	.dsb 1 ; $0500
 ; FOR RENT
-HpFuncPointerHi:
+FuncPointerHi:
 	.dsb 1 ; $0501
 ; Flag enabled while the area is rendering on initialization
 byte_RAM_502:
