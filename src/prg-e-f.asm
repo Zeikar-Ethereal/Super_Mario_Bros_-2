@@ -5808,6 +5808,34 @@ LeaveTraditionalMode:
 ; Enable the players to pick a different character or the same one
 ; -----------------------------------------------------------------
 TagMode:
+  LDA CurrentPlayer ; Check which player is currently playing
+  BNE PlayerTwoLogicTagMode
+
+PlayerOneLogicTagMode:
+  LDA Player1JoypadPress
+  CMP #ControllerInput_Select
+  BNE LeavePlayerOneLogic
+
+SwapTagModeFirstPlayer:
+  INC CurrentPlayer ; Set the player to 1 (1 = Second player)
+  LDA Player2JoypadPress
+  STA Player1JoypadPress
+  LDA Player2JoypadHeld
+  STA Player1JoypadHeld ; Duplicate code, speed is more important than space
+LeavePlayerOneLogic:
+  RTS
+
+PlayerTwoLogicTagMode:
+  LDA Player2JoypadPress
+  CMP #ControllerInput_Select
+  BEQ SwapTagModeSecondPlayer
+  STA Player1JoypadPress
+  LDA Player2JoypadHeld
+  STA Player1JoypadHeld
+  RTS
+
+SwapTagModeSecondPlayer:
+  DEC CurrentPlayer ; Set the player to 0 (0 = First player)
   RTS
 
 ; ------------------------------------------------------------
