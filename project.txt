@@ -38,3 +38,5 @@ Chaos Swap
 
 Traditional:
 Player take turn
+
+BUG BUG subcon doesn't call the function pointer

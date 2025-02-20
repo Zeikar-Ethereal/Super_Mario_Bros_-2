@@ -62,10 +62,10 @@ EnableNMI_Menu:
 
 CleanupBeforeCharacterSelect:
 ; Set the gameplay function before wiping out the memory
-  LDY GamePlayMode
-  LDA GameplayInputFuncLoTable, Y
+  LDX GamePlayMode
+  LDA GameplayInputFuncLoTable, X
   STA FuncPointerLo
-  LDA GameplayInputFuncHiTable, Y
+  LDA GameplayInputFuncHiTable, X
   STA FuncPointerHi
 
 	LDA #$00
@@ -77,6 +77,7 @@ CleanupZeroOut:
 	INY
 	CPY #$F0
 	BCC CleanupZeroOut
+  STX GamePlayMode
 	JMP HideAllSprites
 
 ; ------------------------------------------------------------

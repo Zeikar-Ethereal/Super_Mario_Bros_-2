@@ -1244,6 +1244,7 @@ loc_BANKF_E606:
 ; subspace
 loc_BANKF_E609:
 	JSR WaitForNMI
+;  JSR WaitForNMI_InputRead TODO, check if this really works, looks like it fix the jar/subspace
 
 	JSR HideAllSprites
 
