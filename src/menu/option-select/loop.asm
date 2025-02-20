@@ -45,5 +45,13 @@ NoOverflowReadInputLeft:
 ReadInputOptionMenuCheckRight:
   AND #ControllerInput_Right | #ControllerInput_Select ; Increase -> with -> or select
   BEQ LeaveInputReadingOption
+  INC CursorLocation
+  LDA CursorLocation
+  CMP #$09
+  BNE NoOverFlowReadInputRight
+  LDA #TraditionalPPUBuffer
+  STA CursorLocation
+NoOverFlowReadInputRight:
+  STA ScreenUpdateIndex
 LeaveInputReadingOption:
   RTS
