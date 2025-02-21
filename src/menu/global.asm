@@ -14,13 +14,12 @@ GameplayInputFuncLoTable:
   .db <OnePlayerTwoControllers
   .db <ChaosMode
 
-; Using a buffer would be better than having bunch of pointers, but I'm lazy and there plenty of space
-; At least this method is really fast...
 TitleScreenPPUDataPointers:
 	.dw PPUBuffer_301
 	.dw TitleLayout
   .dw PPU_PaletteBuffer
   .dw MenuBorder
+  .dw MenuFirstOption ; To speed up the transition
 
 WaitForNMI_Menu_TurnOffPPU:
 	LDA #$00

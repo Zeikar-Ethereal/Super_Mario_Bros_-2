@@ -2,8 +2,7 @@ OptionSelectQuit:
   PLA
   PLA ; Temp fix
   JSR PaletteFadeOut
-  LDA CursorLocation
-  SEC
-  SBC #$03
-  STA GamePlayMode
+  LDX CursorLocation
+  INX
+  STX GamePlayMode
   JMP CleanupBeforeCharacterSelect
