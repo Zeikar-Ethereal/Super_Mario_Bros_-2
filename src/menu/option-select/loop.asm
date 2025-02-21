@@ -32,7 +32,7 @@ ReadInputOptionMenuCheckDirection:
   CMP #ControllerInput_Left
   BNE ReadInputOptionMenuCheckRight ; If less isn't pressed, check right or start
   DEC CursorLocation
-  BMI NoOverflowReadInputLeft
+  BPL NoOverflowReadInputLeft
   LDA #ChaosPPUBuffer
   STA CursorLocation
 NoOverflowReadInputLeft:
@@ -55,9 +55,62 @@ LeaveInputReadingOption:
 ; ------------------------------------------------------------
 ; Fade in the text color and dump the graphics update
 ; Params: 
-;         Y the current index we are going to
+;         None
 ; ------------------------------------------------------------
+PaletteTableOtherOption:
+  .db $3F, $0E, $02, $25, $0F ; Color palette for the sprite
+  .db $00
+
 FadeOutToOtherOption:
+  JSR FadeOutDumpPaletteUpdate
+  LDA #$00
+  STA PPUBuffer_301 + 4
+  JSR WaitFixedAmountNMI
+  JSR FadeOutDumpPaletteUpdate
+  LDA #$35
+  STA PPUBuffer_301 + 3
+  LDA #$10
+  STA PPUBuffer_301 + 4
+  JSR WaitFixedAmountNMI
+  JSR FadeOutDumpPaletteUpdate
+  LDA #$35
+  STA PPUBuffer_301 + 3
+  LDA #$35
+  STA PPUBuffer_301 + 4
+  JSR WaitForNMI_Menu
+  RTS
+
+FadeInToOtherOption:
+  JSR FadeOutDumpPaletteUpdate
+  LDA #$10
+  STA PPUBuffer_301 + 4
+  JSR WaitFixedAmountNMI
+  JSR FadeOutDumpPaletteUpdate
+  LDA #$25
+  STA PPUBuffer_301 + 3
+  LDA #$00
+  STA PPUBuffer_301 + 4
+  JSR WaitFixedAmountNMI
+  JSR FadeOutDumpPaletteUpdate
+  LDA #$25
+  STA PPUBuffer_301 + 3
+  LDA #$0F
+  STA PPUBuffer_301 + 4
+  JSR WaitForNMI_Menu
+  RTS
+
+FadeOutDumpPaletteUpdate:
+  LDX #$00
+FadeOutDumpPaletteUpdateLoop:
+  LDA PaletteTableOtherOption, X
+  STA PPUBuffer_301, X
+  INX
+  CPX #$05
+  BNE FadeOutDumpPaletteUpdateLoop
+  LDA byte_RAM_300
+  CLC
+  ADC #$05
+  STA byte_RAM_300
   RTS
 
 ; ------------------------------------------------------------
@@ -80,6 +133,7 @@ MenuGFXPointerTableLo:
   .db <MenuFourthOption
 
 UpdateGFXMenuOption:
+  JSR FadeOutToOtherOption
   LDX CursorLocation
   LDA MenuGFXPointerTableLo, X
   STA MenuPointerLo
@@ -108,6 +162,7 @@ NoCarryUpdateGFXMenuOption:
   CPX #$0F
   BNE UpdateGFXMenuOptionLoop
 ExitUpdateGFXMenu:
+  JSR FadeInToOtherOption
   RTS
 
 ; ------------------------------------------------------------
