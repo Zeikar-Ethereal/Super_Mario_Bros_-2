@@ -864,6 +864,5 @@ TraditionalPPUBuffer = $04
 TagTeamPPUBuffer = $05
 TwoPOneCPPUBuffer = $06
 ChaosPPUBuffer = $07
-ChaosCharPPUBuffer = $08
 
 .endinl

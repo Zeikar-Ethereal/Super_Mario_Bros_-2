@@ -6,7 +6,6 @@ GameplayInputFuncHiTable:
   .db >TagMode
   .db >OnePlayerTwoControllers
   .db >ChaosMode
-  .db >ChaosModeExtra
 
 GameplayInputFuncLoTable:
   .db <SoloMode
@@ -14,7 +13,6 @@ GameplayInputFuncLoTable:
   .db <TagMode
   .db <OnePlayerTwoControllers
   .db <ChaosMode
-  .db <ChaosModeExtra
 
 TitleScreenPPUDataPointers:
 	.dw PPUBuffer_301
@@ -25,7 +23,6 @@ TitleScreenPPUDataPointers:
   .dw MenuSecondOption
   .dw MenuThirdOption
   .dw MenuFourthOption
-  .dw MenuFithOption
 
 WaitForNMI_Menu_TurnOffPPU:
 	LDA #$00

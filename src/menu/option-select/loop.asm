@@ -35,7 +35,7 @@ ReadInputOptionMenuCheckDirection:
   LDA CursorLocation
   CMP #$03 ; Check if we go under our index location
   BNE NoOverflowReadInputLeft
-  LDA #ChaosCharPPUBuffer
+  LDA #ChaosPPUBuffer
   STA CursorLocation
 NoOverflowReadInputLeft:
   STA ScreenUpdateIndex
@@ -47,7 +47,7 @@ ReadInputOptionMenuCheckRight:
   BEQ LeaveInputReadingOption
   INC CursorLocation
   LDA CursorLocation
-  CMP #$09
+  CMP #$08
   BNE NoOverFlowReadInputRight
   LDA #TraditionalPPUBuffer
   STA CursorLocation
