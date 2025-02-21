@@ -32,13 +32,13 @@ ReadInputOptionMenuCheckDirection:
   CMP #ControllerInput_Left
   BNE ReadInputOptionMenuCheckRight ; If less isn't pressed, check right or start
   DEC CursorLocation
-  LDA CursorLocation
-  CMP #$03 ; Check if we go under our index location
+  LDX CursorLocation
+  CPX #$03 ; Check if we go under our index location
   BNE NoOverflowReadInputLeft
-  LDA #ChaosPPUBuffer
-  STA CursorLocation
+  LDX #ChaosPPUBuffer
+  STX CursorLocation
 NoOverflowReadInputLeft:
-  STA ScreenUpdateIndex
+  JSR UpdateGFXMenuOption
 ;  JSR WaitForNMI_Menu_TurnOffPPU
 ;  JSR WaitForNMI_Menu_TurnOnPPU
   JMP LeaveInputReadingOption
@@ -46,12 +46,90 @@ ReadInputOptionMenuCheckRight:
   AND #ControllerInput_Right | #ControllerInput_Select ; Increase -> with -> or select
   BEQ LeaveInputReadingOption
   INC CursorLocation
-  LDA CursorLocation
-  CMP #$08
+  LDX CursorLocation
+  CPX #$08
   BNE NoOverFlowReadInputRight
-  LDA #TraditionalPPUBuffer
-  STA CursorLocation
+  LDX #TraditionalPPUBuffer
+  STX CursorLocation
 NoOverFlowReadInputRight:
-  STA ScreenUpdateIndex
+  JSR UpdateGFXMenuOption
 LeaveInputReadingOption:
+  RTS
+
+
+; ------------------------------------------------------------
+; Fade in the text color and dump the graphics update
+; Params: 
+;         Y the current index we are going to
+; ------------------------------------------------------------
+FadeOutToOtherOption:
+  RTS
+
+; ------------------------------------------------------------
+; Dump gfx while the palette are transparent
+; Params: 
+;         X the current index we are going to
+; ------------------------------------------------------------
+
+; Table holding the pointer to where the begining address is located
+MenuGFXPointerTableHi:
+  .db >MenuFirstOption
+  .db >MenuSecondOption
+  .db >MenuThirdOption
+  .db >MenuFourthOption
+
+MenuGFXPointerTableLo:
+  .db <MenuFirstOption
+  .db <MenuSecondOption
+  .db <MenuThirdOption
+  .db <MenuFourthOption
+
+UpdateGFXMenuOption:
+  LDA MenuGFXPointerTableLo, X
+  STA MenuPointerLo
+  LDA MenuGFXPointerTableHi, X
+  STA MenuPointerHi
+
+  LDX #$00
+UpdateGFXMenuOptionLoop:
+  JSR DumpGFXMenuOptionRoutine ; Dump gfx into ram
+
+; Add what we read to the adress
+  LDA MenuPointerLo
+  CLC
+  ADC #$19
+  STA MenuPointerLo
+  BCC NoCarryUpdateGFXMenuOption
+  INC MenuPointerHi ; TODO check for bug later BUG BUG
+NoCarryUpdateGFXMenuOption:
+  TXA
+  PHA
+  JSR WaitForNMI_Menu
+  PLA
+  TAX
+
+  INX ; Increment our index
+  CPX #$0F
+  BNE UpdateGFXMenuOptionLoop
+ExitUpdateGFXMenu:
+  RTS
+
+; ------------------------------------------------------------
+; Dump gfx in ram for the NMI
+; Params: 
+;         MenuPointerLo & Hi containt where we are pulling from
+; ------------------------------------------------------------
+
+DumpGFXMenuOptionRoutine:
+  LDY #$00 ; Index
+DumpGFXMenuOptionLoop:
+  LDA (MenuPointerLo), Y
+  STA PPUBuffer_301, Y
+  INY
+  CPY #$19
+  BNE DumpGFXMenuOptionLoop
+  TYA
+  CLC
+  ADC byte_RAM_300 ; Add to byte_RAM_300
+  STA byte_RAM_300
   RTS

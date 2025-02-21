@@ -27,8 +27,10 @@ OptionSelectInit:
 
   JSR WaitForNMI_Menu
 
-  LDA #TraditionalPPUBuffer
-  STA ScreenUpdateIndex
+;  LDA #TraditionalPPUBuffer
+;  STA ScreenUpdateIndex
+  LDX #$00
+  JSR UpdateGFXMenuOption
   STA CursorLocation ; Setup cursor right away
 
   JSR WaitForNMI_Menu_TurnOnPPU

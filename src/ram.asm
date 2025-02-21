@@ -168,8 +168,10 @@ CastRollSpriteActive3:
 CastRollSpriteActive4:
 	.dsb 1 ; 5                ; $0038
 CastRollSpriteCounter1:
+MenuPointerLo:
 	.dsb 1 ; 6                ; $0039
 CastRollSpriteCounter2:
+MenuPointerHi:
 	.dsb 1 ; 7                ; $003a
 CastRollSpriteCounter3:
 	.dsb 1 ; 8                ; $003b
