@@ -32,30 +32,25 @@ ReadInputOptionMenuCheckDirection:
   CMP #ControllerInput_Left
   BNE ReadInputOptionMenuCheckRight ; If less isn't pressed, check right or start
   DEC CursorLocation
-  LDX CursorLocation
-  CPX #$03 ; Check if we go under our index location
-  BNE NoOverflowReadInputLeft
-  LDX #ChaosPPUBuffer
-  STX CursorLocation
+  BMI NoOverflowReadInputLeft
+  LDA #ChaosPPUBuffer
+  STA CursorLocation
 NoOverflowReadInputLeft:
   JSR UpdateGFXMenuOption
-;  JSR WaitForNMI_Menu_TurnOffPPU
-;  JSR WaitForNMI_Menu_TurnOnPPU
   JMP LeaveInputReadingOption
 ReadInputOptionMenuCheckRight:
   AND #ControllerInput_Right | #ControllerInput_Select ; Increase -> with -> or select
   BEQ LeaveInputReadingOption
   INC CursorLocation
-  LDX CursorLocation
-  CPX #$08
+  LDA CursorLocation
+  CMP #$04
   BNE NoOverFlowReadInputRight
-  LDX #TraditionalPPUBuffer
-  STX CursorLocation
+  LDA #TraditionalPPUBuffer
+  STA CursorLocation
 NoOverFlowReadInputRight:
   JSR UpdateGFXMenuOption
 LeaveInputReadingOption:
   RTS
-
 
 ; ------------------------------------------------------------
 ; Fade in the text color and dump the graphics update
@@ -85,6 +80,7 @@ MenuGFXPointerTableLo:
   .db <MenuFourthOption
 
 UpdateGFXMenuOption:
+  LDX CursorLocation
   LDA MenuGFXPointerTableLo, X
   STA MenuPointerLo
   LDA MenuGFXPointerTableHi, X

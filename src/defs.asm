@@ -860,9 +860,9 @@ FadeoutTimer = $04
 
 ; Option Enum
 BorderPPUBuffer = $03
-TraditionalPPUBuffer = $04
-TagTeamPPUBuffer = $05
-TwoPOneCPPUBuffer = $06
-ChaosPPUBuffer = $07
+TraditionalPPUBuffer = $00
+TagTeamPPUBuffer = $01
+TwoPOneCPPUBuffer = $02
+ChaosPPUBuffer = $03
 
 .endinl
