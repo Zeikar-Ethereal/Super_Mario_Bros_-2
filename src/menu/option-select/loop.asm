@@ -133,7 +133,7 @@ MenuGFXPointerTableLo:
   .db <MenuFourthOption
 
 UpdateGFXMenuOption:
-  JSR FadeOutToOtherOption
+;  JSR FadeOutToOtherOption
   LDX CursorLocation
   LDA MenuGFXPointerTableLo, X
   STA MenuPointerLo
@@ -162,7 +162,7 @@ NoCarryUpdateGFXMenuOption:
   CPX #$0F
   BNE UpdateGFXMenuOptionLoop
 ExitUpdateGFXMenu:
-  JSR FadeInToOtherOption
+;  JSR FadeInToOtherOption
   RTS
 
 ; ------------------------------------------------------------

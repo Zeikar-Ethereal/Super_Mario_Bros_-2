@@ -40,3 +40,40 @@ Traditional:
 Player take turn
 
 BUG BUG subcon doesn't call the function pointer
+
+Each player turns
+change when the current
+player
+die, complete a level or use a warp
+
+Traditional description
+::::::::::::::::::::::
+Players take turns;
+death, warping, or
+level completion swaps
+the current player.
+::::::::::::::::::::::
+
+
+Tag Team
+::::::::::::::::::::::
+Press select to swap
+players mid-game. Only
+the current player can 
+trigger a swap.
+::::::::::::::::::::::
+
+Shared control
+::::::::::::::::::::::
+Both players control
+the same character.
+Player 1: Directions.
+Player 2: A/B.
+::::::::::::::::::::::
+
+Chaos Swap
+::::::::::::::::::::::
+Swaps players at
+random intervals.
+No warnings. Good luck
+::::::::::::::::::::::
