@@ -105,11 +105,11 @@ FadeOutDumpPaletteUpdateLoop:
   LDA PaletteTableOtherOption, X
   STA PPUBuffer_301, X
   INX
-  CPX #$05
+  CPX #$06
   BNE FadeOutDumpPaletteUpdateLoop
   LDA byte_RAM_300
   CLC
-  ADC #$05
+  ADC #$06
   STA byte_RAM_300
   RTS
 
@@ -133,7 +133,7 @@ MenuGFXPointerTableLo:
   .db <MenuFourthOption
 
 UpdateGFXMenuOption:
-;  JSR FadeOutToOtherOption
+  JSR FadeOutToOtherOption
   LDX CursorLocation
   LDA MenuGFXPointerTableLo, X
   STA MenuPointerLo
@@ -162,7 +162,7 @@ NoCarryUpdateGFXMenuOption:
   CPX #$0F
   BNE UpdateGFXMenuOptionLoop
 ExitUpdateGFXMenu:
-;  JSR FadeInToOtherOption
+  JSR FadeInToOtherOption
   RTS
 
 ; ------------------------------------------------------------
