@@ -31,6 +31,8 @@ ReadInputOptionMenuCheckDirection:
   LDA Player1JoypadPress
   CMP #ControllerInput_Left
   BNE ReadInputOptionMenuCheckRight ; If less isn't pressed, check right or start
+  LDA CursorLocation ; optmize later
+  STA PrevCursorLocation
   DEC CursorLocation
   BPL NoOverflowReadInputLeft
   LDA #ChaosPPUBuffer
@@ -41,6 +43,8 @@ NoOverflowReadInputLeft:
 ReadInputOptionMenuCheckRight:
   AND #ControllerInput_Right | #ControllerInput_Select ; Increase -> with -> or select
   BEQ LeaveInputReadingOption
+  LDA CursorLocation ; optmize later
+  STA PrevCursorLocation
   INC CursorLocation
   LDA CursorLocation
   CMP #$04
@@ -61,56 +65,94 @@ PaletteTableOtherOption:
   .db $3F, $0E, $02, $25, $0F ; Color palette for the sprite
   .db $00
 
+FadeOutTableHi:
+  .db >TraditionalPalette
+  .db >TagTeamPalette
+  .db >SharedControlPalette
+  .db >ChaosSwapPalette
+
+FadeOutTableLo:
+  .db <TraditionalPalette
+  .db <TagTeamPalette
+  .db <SharedControlPalette
+  .db <ChaosSwapPalette
+
+; This subroutine works, but is beyond stupid and smart
+; Use a temp buffer that is normaly overwritten
 FadeOutToOtherOption:
+  LDY PrevCursorLocation
+  JSR DumpPalettePTR
   JSR FadeOutDumpPaletteUpdate
-  LDA #$00
-  STA PPUBuffer_301 + 4
+; First fadeout
+  LDA #$00 ; Greyyyyy
+  STA PPUBuffer_301 + 9
   JSR WaitFixedAmountNMI
-  JSR FadeOutDumpPaletteUpdate
-  LDA #$35
-  STA PPUBuffer_301 + 3
-  LDA #$10
-  STA PPUBuffer_301 + 4
+; Second fadeout
+  LDA #$3F
+  STA PPUBuffer_301 ; Dumb trick to save time
+  LDA #$10 ; More 50 shades of greyy
+  STA PPUBuffer_301 + 9
+  LDA PPUBuffer_301 + 3
+  STA PPUBuffer_301 + 8
   JSR WaitFixedAmountNMI
-  JSR FadeOutDumpPaletteUpdate
-  LDA #$35
-  STA PPUBuffer_301 + 3
-  LDA #$35
-  STA PPUBuffer_301 + 4
+; Last fadeout
+  LDA #$3F
+  STA PPUBuffer_301 ; This is literally stupid
+  LDA PPUBuffer_301 + 3 ; Get true background color
+  STA PPUBuffer_301 + 9
   JSR WaitForNMI_Menu
   RTS
 
 FadeInToOtherOption:
+  LDY CursorLocation
+  JSR DumpPalettePTR
   JSR FadeOutDumpPaletteUpdate
-  LDA #$10
-  STA PPUBuffer_301 + 4
+; First recolor
+  LDA PPUBuffer_301 + 3 ; Load background
+  STA PPUBuffer_301 + 7
+  STA PPUBuffer_301 + 8
+  STA PPUBuffer_301 + 9
   JSR WaitFixedAmountNMI
-  JSR FadeOutDumpPaletteUpdate
-  LDA #$25
-  STA PPUBuffer_301 + 3
-  LDA #$00
-  STA PPUBuffer_301 + 4
+; Second fadeout
+  LDA #$3F
+  STA PPUBuffer_301 ; Dumb trick to save time
+  LDA #$10 ; More 50 shades of greyy
+  STA PPUBuffer_301 + 9
   JSR WaitFixedAmountNMI
-  JSR FadeOutDumpPaletteUpdate
-  LDA #$25
-  STA PPUBuffer_301 + 3
-  LDA #$0F
-  STA PPUBuffer_301 + 4
+; Third Fadeout
+  LDA #$3F
+  STA PPUBuffer_301 ; Dumb trick to save time
+  LDA #$0F ; More 50 shades of greyy
+  STA PPUBuffer_301 + 9
+  LDA PPUBuffer_301 + 4
+  STA PPUBuffer_301 + 8
   JSR WaitForNMI_Menu
   RTS
 
 FadeOutDumpPaletteUpdate:
-  LDX #$00
+  LDY #$00
 FadeOutDumpPaletteUpdateLoop:
-  LDA PaletteTableOtherOption, X
-  STA PPUBuffer_301, X
-  INX
-  CPX #$06
+  LDA (PaletteOptionLo), Y
+  STA PPUBuffer_301, Y
+  INY
+  CPY #$0B
   BNE FadeOutDumpPaletteUpdateLoop
   LDA byte_RAM_300
   CLC
-  ADC #$06
+  ADC #$0B
   STA byte_RAM_300
+  RTS
+
+; ------------------------------------------------------------
+; Dump palette ptr in ram
+; Params: 
+;         Y index to drag it from
+; ------------------------------------------------------------
+DumpPalettePTR:
+  LDA FadeOutTableLo, Y
+  STA PaletteOptionLo
+  LDA FadeOutTableHi, Y
+  STA PaletteOptionHi
   RTS
 
 ; ------------------------------------------------------------

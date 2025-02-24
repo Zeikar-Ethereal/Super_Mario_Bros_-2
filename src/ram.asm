@@ -177,8 +177,10 @@ CastRollSpriteCounter3:
 	.dsb 1 ; 8                ; $003b
 
 CastRoll_Temp9:
+PaletteOptionLo:
 PlayerXVelocity:
 	.dsb 1 ; $003c
+PaletteOptionHi:
 CastRoll_TempA:
 ObjectXVelocity:
 	.dsb 1 ; $003d
