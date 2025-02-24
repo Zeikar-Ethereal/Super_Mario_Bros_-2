@@ -189,7 +189,7 @@ UpdateGFXMenuOptionLoop:
 ; Add what we read to the adress
   LDA MenuPointerLo
   CLC
-  ADC #$19
+  ADC #$1B
   STA MenuPointerLo
   BCC NoCarryUpdateGFXMenuOption
   INC MenuPointerHi ; TODO check for bug later BUG BUG
@@ -219,7 +219,7 @@ DumpGFXMenuOptionLoop:
   LDA (MenuPointerLo), Y
   STA PPUBuffer_301, Y
   INY
-  CPY #$19
+  CPY #$1B
   BNE DumpGFXMenuOptionLoop
   TYA
   CLC
