@@ -201,7 +201,7 @@ NoCarryUpdateGFXMenuOption:
   TAX
 
   INX ; Increment our index
-  CPX #$0F
+  CPX #$10
   BNE UpdateGFXMenuOptionLoop
 ExitUpdateGFXMenu:
   JSR FadeInToOtherOption
