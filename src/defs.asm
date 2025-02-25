@@ -864,5 +864,9 @@ TraditionalPPUBuffer = $00
 TagTeamPPUBuffer = $01
 TwoPOneCPPUBuffer = $02
 ChaosPPUBuffer = $03
+CHRAnimationSpeedOption = $08
+CHRStartExpand = $80
+CHRStartOption = $82
+CHRStartOptionAnimation = $88
 
 .endinl

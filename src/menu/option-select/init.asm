@@ -6,14 +6,17 @@ OptionSelectInit:
 ;	STA PPUMASK
 	JSR DisableNMI ; Disable NMI since I won't need it for now
 
-  LDA #$80
+  LDA #CHRStartExpand
   STA SpriteCHR1
-  LDA #$81
+  LDA #CHRStartExpand + 1
   STA SpriteCHR2
-  LDA #$82
+  LDA #CHRStartOption
   STA SpriteCHR3
-  LDA #$83
+  LDA #CHRStartOptionAnimation
   STA SpriteCHR4
+
+  LDA #CHRAnimationSpeedOption
+  STA CHRTableTimer
 
   JSR SetScrollXYTo0
 

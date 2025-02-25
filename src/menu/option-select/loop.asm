@@ -7,6 +7,7 @@ OptionSelectLoop:
 ;UpdateSpriteOptionMenu:
 ;  NOP
   JSR ReadInputOptionMenu
+  JSR OptionMenuAnimationCHRHandling
 WaitMenuSelect:
   JSR WaitForNMI_Menu
   JMP OptionSelectLoop ; Jump back to the loop
@@ -204,6 +205,13 @@ NoCarryUpdateGFXMenuOption:
   CPX #$10
   BNE UpdateGFXMenuOptionLoop
 ExitUpdateGFXMenu:
+;  JSR UpdateChrBankOption
+; Update before we fade the graphics in
+  LDA CursorLocation
+  CLC
+  ADC #CHRStartOption
+  STA SpriteCHR3
+
   JSR FadeInToOtherOption
   RTS
 
@@ -225,4 +233,23 @@ DumpGFXMenuOptionLoop:
   CLC
   ADC byte_RAM_300 ; Add to byte_RAM_300
   STA byte_RAM_300
+  RTS
+
+; ------------------------------------------------------------
+; Stuff
+; ------------------------------------------------------------
+OptionMenuAnimationCHRHandling:
+  DEC CHRTableTimer
+  BPL OptionMenuAnimationCHRHandlingQuit
+  LDA #CHRAnimationSpeedOption
+  STA CHRTableTimer
+OptionMenuCHRAnimation:
+  LDY SpriteCHR4
+  INY
+  CPY #CHRStartOptionAnimation + 8
+  BNE OptionMenuUpdateCHRTable
+  LDY #CHRStartOptionAnimation
+OptionMenuUpdateCHRTable:
+  STY SpriteCHR4
+OptionMenuAnimationCHRHandlingQuit:
   RTS
