@@ -45,7 +45,7 @@ OptionSelectInit:
   LDA #>OptionMenuBackgroundPalettes
   STA HiPaletteAddress
   JSR PaletteFadeIn
-  LDA #Music1_CharacterSelect
+  LDA #Music1_Subspace
 	STA MusicQueue1
 ;  RTS
 ;  JMP OptionSelectQuit
