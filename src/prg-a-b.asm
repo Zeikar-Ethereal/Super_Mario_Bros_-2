@@ -731,3 +731,5 @@ ENDIF
 IFDEF DEBUG
 	.include "src/extras/debug-a.asm"
 ENDIF
+
+.include "src/character-select/main.asm"
