@@ -106,6 +106,7 @@ CursorLocation:
 PlayerYHi:
 CastRollSpriteSetupTemp:
 FirstIRQ:
+PickAgainCharSelect:
 	.dsb 1 ; $001e
 ObjectYHi:
 CastRollSprite1A:
@@ -329,6 +330,8 @@ FreeSubconsCorkCounter:
 ; $01 Princess
 ; $02 Toad
 ; $03 Luigi
+; 0000 0000
+; P2   P1
 CurrentCharacter:
 	.dsb 1 ; $008f
 ObjectType:

@@ -45,6 +45,13 @@ loc_BANKF_E3EC:
 	DEC byte_RAM_10
 	BPL loc_BANKF_E3EC
 
+; Check for double pick baby, maybe add a different delay later
+  LDA DoublePick
+  BEQ LeaveCharacterSelect
+  DEC DoublePick
+  JMP PrintCursorCharacterSelect
+
+LeaveCharacterSelect:
 	LDA #Music2_StopMusic
 	STA MusicQueue2
 	RTS

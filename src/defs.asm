@@ -869,4 +869,8 @@ CHRStartExpand = $80
 CHRStartOption = $82
 CHRStartOptionAnimation = $88
 
+; Character Select Enum
+SinglePick = $00
+DoublePick = $01
+
 .endinl

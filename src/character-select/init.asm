@@ -1,3 +1,17 @@
+; ------------------------------------------------------------
+; Gameplay Mode information:
+; 0 = Solo mode, SinglePick
+; 1 = Traditional, DoublePick
+; 2 = Tag Mode, DoublePick
+; 3 = Shared Control, SinglePick
+; 4 = Chaos mode, DoublePick
+; ------------------------------------------------------------
+
+; Changing data around would make it so I can use bitshift operation
+; But this will do for now
+CharSelectDoublePickTable:
+  .db SinglePick, DoublePick, DoublePick, SinglePick, DoublePick
+
 CharacterSelectMenuAB:
 	JSR WaitForNMI
 
@@ -54,5 +68,10 @@ loc_BANKF_E2CA:
 	JSR DisplayLevelTitleCardText
 
 	JSR WaitForNMI
+
+; Maybe update this in the future TODO
+  LDY GamePlayMode
+  LDA CharSelectDoublePickTable, Y
+  STA DoublePick
 
 	JMP PrintCursorCharacterSelect
