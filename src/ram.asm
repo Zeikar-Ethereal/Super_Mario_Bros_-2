@@ -845,6 +845,7 @@ SpriteFlickerSlot:
 
 ; FOR RENT
 PPUCTRLForIRQ:
+CurrentCharacterPTwo:
 	.dsb 1 ; $0401
 ; FOR RENT
 BossTileset:
@@ -858,6 +859,7 @@ PreviousCharacter:
 PreviousWorld:
 	.dsb 1 ; $0405
 ; FOR RENT
+CurrentPlayerCharSelect: ; 0 = P1, 1 = P2
 	.dsb 1 ; $0406
 
 PlayerXSubpixel:

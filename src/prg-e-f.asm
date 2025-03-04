@@ -394,19 +394,6 @@ InitializeSomeLevelStuff:
 	STA PlayerCurrentSize
 	RTS
 
-
-PlayerSelectArrowTop:
-	.db $C9
-	.db $D5
-	.db $D1
-	.db $CD
-PlayerSelectArrowBottom:
-	.db $E9
-	.db $F5
-	.db $F1
-	.db $ED
-
-
 ;
 ; Displays the level title card and prepares the level to start by loading
 ; the world tiles, PRG banks A/B, and copying character data

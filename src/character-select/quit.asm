@@ -45,14 +45,13 @@ loc_BANKF_E3EC:
 	DEC byte_RAM_10
 	BPL loc_BANKF_E3EC
 
+  JSR SetCurrentCharacter
 ; Check for double pick baby, maybe add a different delay later
   LDA DoublePick
   BEQ LeaveCharacterSelect
   DEC DoublePick
-  LDA CurrentCharacter
-;  ORA #$10
-;  STA CurrentCharacter ; Set a flag to tell another function to set P2 instead
-  JMP PrintCursorCharacterSelect
+  INC CurrentPlayerCharSelect
+  JMP SetCursorLocationGFXCharSelect
 
 LeaveCharacterSelect:
 	LDA #Music2_StopMusic

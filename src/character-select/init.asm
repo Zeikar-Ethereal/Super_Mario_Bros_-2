@@ -69,9 +69,14 @@ loc_BANKF_E2CA:
 
 	JSR WaitForNMI
 
+  LDA #$00
+  STA CurrentPlayerCharSelect ; Make player 1 pick first
+  LDA CurrentCharacter
+  STA CursorLocation
+
 ; Maybe update this in the future TODO
   LDY GamePlayMode
   LDA CharSelectDoublePickTable, Y
   STA DoublePick
 
-	JMP PrintCursorCharacterSelect
+	JMP SetCursorLocationGFXCharSelect

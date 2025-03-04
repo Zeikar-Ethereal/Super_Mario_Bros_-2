@@ -13,68 +13,43 @@ CharacterSelect_ChangeCharacter:
 	LDA Player1JoypadPress
 	AND #ControllerInput_Right
 	BEQ CheckInputLeftCharacterSelect
-
-	DEC CurrentCharacter
 	LDA #SoundEffect1_CherryGet
 	STA SoundEffectQueue1
+
+MoveCursorRightCharSelect:
+  INC CursorLocation
+  LDA CursorLocation
+  CMP #$04 ; MAX INDEX TODO ADD ENUM LATER!!!
+  BNE CheckInputLeftCharacterSelect
+  AND #$00 ; Set cursor back to 0
+  STA CursorLocation
 
 CheckInputLeftCharacterSelect:
 	LDA Player1JoypadPress
 	AND #ControllerInput_Left
-	BEQ loc_BANKF_E30B
+	BEQ SetCursorLocationGFXCharSelect
 
-	INC CurrentCharacter
 	LDA #SoundEffect1_CherryGet
 	STA SoundEffectQueue1
 
-; Take the 3 right bytes, handle overflows that way...
-loc_BANKF_E30B:
-	LDA CurrentCharacter
-	AND #$03
-	STA CurrentCharacter
+MoveCursorLeftCharSelect:
+  DEC CursorLocation
+  BPL SetCursorLocationGFXCharSelect
+  LDA #$03
+  STA CursorLocation
 
-; Draw the cursor every update...
-PrintCursorCharacterSelect:
-	LDY #$00
-	LDA #$21
-	STA PPUBuffer_301
-	LDA #$C9
-	STA PPUBuffer_301 + 1
-	LDA #$4F
-	STA PPUBuffer_301 + 2
-	LDA #$FB
-	STA PPUBuffer_301 + 3
-	LDA #$21
-	STA PPUBuffer_301 + 4
-	LDA #$E9
-	STA PPUBuffer_301 + 5
-	LDA #$4F
-	STA PPUBuffer_301 + 6
-	LDA #$FB
-	STA PPUBuffer_301 + 7
-	LDY CurrentCharacter
-	LDA #$21
-	STA PPUBuffer_301 + 8
-	LDA PlayerSelectArrowTop, Y
-	STA PPUBuffer_301 + 9
-	LDA #$02
-	STA PPUBuffer_301 + 10
-	LDA #$BE
-	STA PPUBuffer_301 + 11
-	LDA #$C0
-	STA PPUBuffer_301 + 12
-	LDA #$21
-	STA PPUBuffer_301 + 13
-	LDA PlayerSelectArrowBottom, Y
-	STA PPUBuffer_301 + 14
-	LDA #$02
-	STA PPUBuffer_301 + 15
-	LDA #$BF
-	STA PPUBuffer_301 + 16
-	LDA #$C1
-	STA PPUBuffer_301 + 17
-	LDA #$00
-	STA PPUBuffer_301 + 18
+; Update the cursor
+SetCursorLocationGFXCharSelect:
+  LDY CursorLocation
+  LDA PlayerSelectPLetter, Y
+  STA SpriteDMAArea + 3
+  LDA PlayerSelectPNumber, Y
+  STA SpriteDMAArea + 7
+  LDA PlayerSelectArrowLeftSide, Y
+  STA SpriteDMAArea + 11
+  LDA PlayerSelectArrowRightSide, Y
+  STA SpriteDMAArea + 15
+
 	JSR WaitForNMI_TurnOnPPU
 
 	LDX #$12

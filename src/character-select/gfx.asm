@@ -143,3 +143,28 @@ PlayerSelectSpritePalettes_Toad:
 PlayerSelectSpritePalettes_Princess:
 	.db $3F, $1C, $04
 	.db $0F, $36, $25, $07
+
+
+PlayerSelectArrowLeftSide:
+	.db $48
+	.db $68
+	.db $88
+	.db $A8
+
+PlayerSelectArrowRightSide:
+	.db $50
+	.db $70
+	.db $90
+	.db $B0
+
+PlayerSelectPLetter:
+	.db $48
+	.db $68
+	.db $88
+	.db $A8
+
+PlayerSelectPNumber:
+	.db $50
+	.db $70
+	.db $90
+	.db $B0
