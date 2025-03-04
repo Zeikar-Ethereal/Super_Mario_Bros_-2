@@ -52,10 +52,10 @@ loc_BANKF_E2B2:
 	LDA CurrentWorld
 	STA PreviousWorld
 
-	LDY #$3F
+	LDY #$4F
 loc_BANKF_E2CA:
-	LDA PlayerSelectMarioSprites1, Y
-	STA SpriteDMAArea + $10, Y
+	LDA PlayerSelectCursorSprites1, Y
+	STA SpriteDMAArea, Y
 	DEY
 	BPL loc_BANKF_E2CA
 

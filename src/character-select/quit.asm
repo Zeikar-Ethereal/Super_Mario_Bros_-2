@@ -49,6 +49,9 @@ loc_BANKF_E3EC:
   LDA DoublePick
   BEQ LeaveCharacterSelect
   DEC DoublePick
+  LDA CurrentCharacter
+;  ORA #$10
+;  STA CurrentCharacter ; Set a flag to tell another function to set P2 instead
   JMP PrintCursorCharacterSelect
 
 LeaveCharacterSelect:

@@ -60,6 +60,12 @@ PPUBuffer_CharacterSelect:
 	.db $82, $8A, $8B ; $F
 	.db $00
 
+PlayerSelectCursorSprites1:
+	.db $6F, $3A, $03, $48
+	.db $6F, $3C, $03, $50
+	.db $7F, $38, $03, $48
+	.db $7F, $38, $43, $50
+
 PlayerSelectMarioSprites1:
 	.db $8F, $00, $00, $48
 	.db $8F, $00, $40, $50
