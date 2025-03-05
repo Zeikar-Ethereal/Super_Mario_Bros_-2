@@ -45,7 +45,20 @@ CharacterSelectMenuAB:
 	STA CharacterSelectBankSwitch
 
 loc_BANKF_E2B2:
-	JSR EnableNMI_PauseTitleCard
+	JSR EnableNMI
+
+	JSR WaitForNMI_TurnOffPPU
+
+	LDA #Stack100_Menu
+	STA StackArea
+	LDA #ScreenUpdateBuffer_CharacterSelect
+	STA ScreenUpdateIndex
+	JSR WaitForNMI
+
+	LDA #ScreenUpdateBuffer_TitleCard
+	STA ScreenUpdateIndex
+
+	JSR WaitForNMI
 
 	JSR DisableNMI
 

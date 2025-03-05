@@ -278,8 +278,8 @@ EnableNMI_PauseTitleCard:
 
 	LDA #Stack100_Menu
 	STA StackArea
-	LDA #ScreenUpdateBuffer_CharacterSelect
-	STA ScreenUpdateIndex
+;	LDA #ScreenUpdateBuffer_CharacterSelect
+;	STA ScreenUpdateIndex
 	JSR WaitForNMI
 
 	LDA #ScreenUpdateBuffer_TitleCard
