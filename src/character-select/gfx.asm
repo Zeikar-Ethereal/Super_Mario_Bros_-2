@@ -91,10 +91,10 @@ PlayerSelectPrincessSprites1:
 	.db $9F, $0E, $40, $B0
 
 PlayerSelectMarioSprites2:
-	.db $8F, $10, $00, $48
-	.db $8F, $12, $00, $50
-	.db $9F, $14, $00, $48
-	.db $9F, $16, $00, $50
+	.db $8F, $10, $01, $48
+	.db $8F, $12, $01, $50
+	.db $9F, $14, $01, $48
+	.db $9F, $16, $01, $50
 
 PlayerSelectLuigiSprites2:
 	.db $8F, $18, $01, $68
@@ -103,19 +103,19 @@ PlayerSelectLuigiSprites2:
 	.db $9F, $1E, $01, $70
 
 PlayerSelectToadSprites2:
-	.db $8F, $20, $02, $88
-	.db $8F, $22, $02, $90
-	.db $9F, $24, $02, $88
-	.db $9F, $26, $02, $90
+	.db $8F, $20, $01, $88
+	.db $8F, $22, $01, $90
+	.db $9F, $24, $01, $88
+	.db $9F, $26, $01, $90
 
 PlayerSelectPrincessSprites2:
-	.db $8F, $28, $03, $A8
-	.db $8F, $2A, $03, $B0
-	.db $9F, $2C, $03, $A8
-	.db $9F, $2E, $03, $B0
+	.db $8F, $28, $01, $A8
+	.db $8F, $2A, $01, $B0
+	.db $9F, $2C, $01, $A8
+	.db $9F, $2E, $01, $B0
 
 PlayerSelectSpriteIndexes:
-	.db $00, $30, $20, $10
+	.db $00, $10, $20, $30
 
 PlayerSelectSpritePalettesDark:
 	.db $3F, $10, $10 ; PPU Data

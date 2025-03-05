@@ -10,8 +10,11 @@ loc_BANKF_E3AE:
 	JSR WaitForNMI
 
 	LDX #$F
-	LDA CurrentCharacter
-	TAY
+;	LDA CurrentCharacter
+;  LDA CursorLocation
+;  LDA 
+;	TAY
+  LDY CursorLocation ; OPTIMIZE LATER
 	LDA PlayerSelectSpriteIndexes, Y
 	TAY
 
@@ -45,7 +48,20 @@ loc_BANKF_E3EC:
 	DEC byte_RAM_10
 	BPL loc_BANKF_E3EC
 
-  JSR SetCurrentCharacter
+SetCurrentCharacter:
+  LDY CursorLocation
+  LDA RealCharacterIndexTable, Y
+  LDX CurrentPlayerCharSelect
+  BNE SetCharacterPlayerTwo
+
+SetCharacterPlayerOne:
+  STA CurrentCharacter
+  JMP CheckForDoublePick
+
+SetCharacterPlayerTwo:
+  STA CurrentCharacterPTwo
+
+CheckForDoublePick:
 ; Check for double pick baby, maybe add a different delay later
   LDA DoublePick
   BEQ LeaveCharacterSelect
@@ -54,6 +70,8 @@ loc_BANKF_E3EC:
   LDY CurrentCharacterPTwo
   LDA RealCursorIndexTable, Y
   STA CursorLocation
+  LDA #$3E
+  STA SpriteDMAArea + 5 ; Set cursor to gfx to player 2
   JMP SetCursorLocationGFXCharSelect
 
 LeaveCharacterSelect:

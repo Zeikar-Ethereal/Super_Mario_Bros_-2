@@ -53,10 +53,44 @@ SetCursorLocationGFXCharSelect:
   LDA PlayerSelectArrowRightSide, Y
   STA SpriteDMAArea + 15
 
-  JSR UpdatePaletteCharacter
-  JSR DumpNewPaletteCharacter
+UpdatePaletteCharacter:
+  LDY PrevCursorLocation
+  LDA DMATableCharacterPalette, Y
+  TAY
+  LDA #$00
+  STA SpriteDMAArea, Y
+  STA SpriteDMAArea + 8, Y
+  LDA #$40
+  STA SpriteDMAArea + 4, Y
+  STA SpriteDMAArea + 12, Y
 
-	JSR WaitForNMI_TurnOnPPU
+  LDY CursorLocation
+  LDA DMATableCharacterPalette, Y
+  TAY
+  LDA #$01
+  STA SpriteDMAArea, Y
+  STA SpriteDMAArea + 8, Y
+  LDA #$41
+  STA SpriteDMAArea + 4, Y
+  STA SpriteDMAArea + 12, Y
+
+DumpNewPaletteCharacter:
+  LDY CursorLocation
+  LDA PlayerSelectPaletteOffsets, Y
+  TAY
+  LDX #$06
+DumpNewPaletteCharacterLoop:
+  LDA PlayerSelectSpritePalettes, Y
+	STA PPUBuffer_301, X
+  DEY
+  DEX
+  BPL DumpNewPaletteCharacterLoop
+  LDA #$00
+	STA PPUBuffer_301 + 7
+  LDA #$07
+  STA byte_RAM_300
+
+;	JSR WaitForNMI_TurnOnPPU
 
 CharacterSelectMenuLoop:
 	JSR WaitForNMI_TurnOnPPU
