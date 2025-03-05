@@ -21,6 +21,10 @@ CharacterSelectMenuAB:
 
 	LDA #CHRBank_CharacterSelectSprites
 	STA SpriteCHR1
+  LDA #CHRBank_CharacterSelectSprites + 1
+  STA SpriteCHR2
+  LDA #CHRBank_CharacterSelectSprites + 2
+  STA SpriteCHR3
 	LDA #CHRBank_CharacterSelectBG1
 	STA BackgroundCHR1
 	LDA #CHRBank_CharacterSelectBG2
