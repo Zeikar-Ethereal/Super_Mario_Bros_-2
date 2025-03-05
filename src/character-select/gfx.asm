@@ -73,22 +73,22 @@ PlayerSelectMarioSprites1:
 	.db $9F, $02, $40, $50
 
 PlayerSelectLuigiSprites1:
-	.db $8F, $04, $01, $68
-	.db $8F, $04, $41, $70
-	.db $9F, $06, $01, $68
-	.db $9F, $06, $41, $70
+	.db $8F, $04, $00, $68
+	.db $8F, $04, $40, $70
+	.db $9F, $06, $00, $68
+	.db $9F, $06, $40, $70
 
 PlayerSelectToadSprites1:
-	.db $8F, $08, $02, $88
-	.db $8F, $08, $42, $90
-	.db $9F, $0A, $02, $88
-	.db $9F, $0A, $42, $90
+	.db $8F, $08, $00, $88
+	.db $8F, $08, $40, $90
+	.db $9F, $0A, $00, $88
+	.db $9F, $0A, $40, $90
 
 PlayerSelectPrincessSprites1:
-	.db $8F, $0C, $03, $A8
-	.db $8F, $0C, $43, $B0
-	.db $9F, $0E, $03, $A8
-	.db $9F, $0E, $43, $B0
+	.db $8F, $0C, $00, $A8
+	.db $8F, $0C, $40, $B0
+	.db $9F, $0E, $00, $A8
+	.db $9F, $0E, $40, $B0
 
 PlayerSelectMarioSprites2:
 	.db $8F, $10, $00, $48
@@ -125,23 +125,23 @@ PlayerSelectSpritePalettesDark:
 	.db $0F, $22, $12, $01
 
 PlayerSelectPaletteOffsets:
-	.db (PlayerSelectSpritePalettes_Mario - PlayerSelectSpritePalettes)
-	.db (PlayerSelectSpritePalettes_Princess - PlayerSelectSpritePalettes)
-	.db (PlayerSelectSpritePalettes_Toad - PlayerSelectSpritePalettes)
-	.db (PlayerSelectSpritePalettes_Luigi - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Mario - PlayerSelectSpritePalettes) + 6
+	.db (PlayerSelectSpritePalettes_Luigi - PlayerSelectSpritePalettes) + 6
+	.db (PlayerSelectSpritePalettes_Toad - PlayerSelectSpritePalettes) + 6
+	.db (PlayerSelectSpritePalettes_Princess - PlayerSelectSpritePalettes) + 6
 
 PlayerSelectSpritePalettes:
 PlayerSelectSpritePalettes_Mario:
-	.db $3F, $10, $04
+	.db $3F, $14, $04
 	.db $0F, $27, $16, $01
 PlayerSelectSpritePalettes_Luigi:
 	.db $3F, $14, $04
 	.db $0F, $36, $2A, $01
 PlayerSelectSpritePalettes_Toad:
-	.db $3F, $18, $04
+	.db $3F, $14, $04
 	.db $0F, $27, $30, $01
 PlayerSelectSpritePalettes_Princess:
-	.db $3F, $1C, $04
+	.db $3F, $14, $04
 	.db $0F, $36, $25, $07
 
 

@@ -51,6 +51,9 @@ loc_BANKF_E3EC:
   BEQ LeaveCharacterSelect
   DEC DoublePick
   INC CurrentPlayerCharSelect
+  LDY CurrentCharacterPTwo
+  LDA RealCursorIndexTable, Y
+  STA CursorLocation
   JMP SetCursorLocationGFXCharSelect
 
 LeaveCharacterSelect:

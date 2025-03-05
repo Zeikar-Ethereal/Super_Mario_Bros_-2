@@ -10,6 +10,9 @@ CheckSideInputCharacterSelect:
 ; ---------------------------------------------------------------------------
 
 CharacterSelect_ChangeCharacter:
+  LDA CursorLocation
+  STA PrevCursorLocation
+
 	LDA Player1JoypadPress
 	AND #ControllerInput_Right
 	BEQ CheckInputLeftCharacterSelect
@@ -50,34 +53,10 @@ SetCursorLocationGFXCharSelect:
   LDA PlayerSelectArrowRightSide, Y
   STA SpriteDMAArea + 15
 
+  JSR UpdatePaletteCharacter
+  JSR DumpNewPaletteCharacter
+
 	JSR WaitForNMI_TurnOnPPU
-
-	LDX #$12
-	LDY #$00
-
-loc_BANKF_E37D:
-	LDA PlayerSelectSpritePalettesDark, Y
-	STA PPUBuffer_301, Y
-	INY
-	DEX
-	BPL loc_BANKF_E37D
-
-	LDA #$06
-	STA byte_RAM_A
-	LDX CurrentCharacter
-	LDA PlayerSelectPaletteOffsets, X
-	TAX
-
-loc_BANKF_E391:
-	LDA PlayerSelectSpritePalettes, X
-	STA PPUBuffer_301, Y
-	INY
-	INX
-	DEC byte_RAM_A
-	BPL loc_BANKF_E391
-
-	LDA #$00
-	STA PPUBuffer_301, Y
 
 CharacterSelectMenuLoop:
 	JSR WaitForNMI_TurnOnPPU

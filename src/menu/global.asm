@@ -72,6 +72,9 @@ CleanupZeroOut:
 	CPY #$F0
 	BCC CleanupZeroOut
   STX GamePlayMode
+  LDA #$00
+  STA CurrentCharacter
+  STA CurrentCharacterPTwo ; Zero out ram for characters incase there left overs
 	JMP HideAllSprites
 
 ; ------------------------------------------------------------

@@ -71,7 +71,9 @@ loc_BANKF_E2CA:
 
   LDA #$00
   STA CurrentPlayerCharSelect ; Make player 1 pick first
-  LDA CurrentCharacter
+  STA PrevCursorLocation
+  LDY CurrentCharacter
+  LDA RealCursorIndexTable, Y
   STA CursorLocation
 
 ; Maybe update this in the future TODO
