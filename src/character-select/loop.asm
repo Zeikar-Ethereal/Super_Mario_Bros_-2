@@ -97,6 +97,6 @@ CharacterSelectMenuLoop:
 
 	LDA Player1JoypadPress
 	AND #ControllerInput_A
-	BNE loc_BANKF_E3AE
+	BNE QuitCharacterSelect
 
 	JMP CheckSideInputCharacterSelect
