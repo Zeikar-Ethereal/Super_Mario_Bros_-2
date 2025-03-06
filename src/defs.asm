@@ -872,5 +872,7 @@ CHRStartOptionAnimation = $88
 ; Character Select Enum
 SinglePick = $00
 DoublePick = $01
+CursorOverflow = $0C
+MaxCursorIndex = $0B
 
 .endinl

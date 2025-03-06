@@ -60,8 +60,8 @@ PPUBuffer_CharacterSelect:
 PlayerSelectCursorSprites1:
 	.db $2A, $3A, $03, $48
 	.db $2A, $3C, $03, $50
-	.db $FF, $38, $03, $FF
-	.db $FF, $38, $03, $FF
+	.db $F8, $38, $03, $00
+	.db $F8, $38, $03, $00
 
 PlayerSelectMarioSprites1:
 	.db $3A, $00, $00, $48
@@ -171,46 +171,59 @@ PlayerSelectSpritePalettesDark:
 	.db $0F, $22, $12, $01
 
 PlayerSelectPaletteOffsets:
-	.db (PlayerSelectSpritePalettes_Mario - PlayerSelectSpritePalettes) + 6
-	.db (PlayerSelectSpritePalettes_Luigi - PlayerSelectSpritePalettes) + 6
-	.db (PlayerSelectSpritePalettes_Toad - PlayerSelectSpritePalettes) + 6
-	.db (PlayerSelectSpritePalettes_Princess - PlayerSelectSpritePalettes) + 6
+	.db (PlayerSelectSpritePalettes_Mario - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Luigi - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Toad - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Princess - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Imajin - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Mama - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Papa - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Lina - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Merio - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Lol - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Toadette - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Rosalina - PlayerSelectSpritePalettes)
 
 PlayerSelectSpritePalettes:
 PlayerSelectSpritePalettes_Mario:
-	.db $3F, $14, $04
 	.db $0F, $27, $16, $01
 PlayerSelectSpritePalettes_Luigi:
-	.db $3F, $14, $04
 	.db $0F, $36, $2A, $01
 PlayerSelectSpritePalettes_Toad:
-	.db $3F, $14, $04
 	.db $0F, $27, $30, $01
 PlayerSelectSpritePalettes_Princess:
-	.db $3F, $14, $04
 	.db $0F, $36, $25, $07
+PlayerSelectSpritePalettes_Imajin:
+	.db $0F, $30, $27, $01
+PlayerSelectSpritePalettes_Mama:
+	.db $0F, $12, $36, $01
+PlayerSelectSpritePalettes_Papa:
+	.db $0F, $37, $27, $06
+PlayerSelectSpritePalettes_Lina:
+	.db $0F, $25, $36, $06
+PlayerSelectSpritePalettes_Merio:
+	.db $0F, $27, $18, $16
+PlayerSelectSpritePalettes_Lol:
+	.db $0F, $36, $02, $01
+PlayerSelectSpritePalettes_Toadette:
+	.db $0F, $37, $24, $07
+PlayerSelectSpritePalettes_Rosalina:
+	.db $0F, $36, $2C, $08
 
-
-PlayerSelectArrowLeftSide:
+PlayerSelectPLetterX:
 	.db $48
 	.db $68
 	.db $88
 	.db $A8
 
-PlayerSelectArrowRightSide:
+PlayerSelectPNumberX:
 	.db $50
 	.db $70
 	.db $90
 	.db $B0
 
-PlayerSelectPLetter:
-	.db $48
-	.db $68
-	.db $88
-	.db $A8
-
-PlayerSelectPNumber:
-	.db $50
-	.db $70
-	.db $90
-	.db $B0
+; This table can be used for both
+PlayerSelectCursorY:
+	.db $2A
+	.db $5A
+  .db $8A
