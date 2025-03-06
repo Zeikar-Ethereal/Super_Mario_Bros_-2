@@ -160,8 +160,57 @@ PlayerSelectPrincessSprites2:
 	.db $4A, $2C, $01, $A8
 	.db $4A, $2E, $01, $B0
 
+PlayerSelectImajinSprites2:
+	.db $6A, $50, $01, $48
+	.db $6A, $52, $01, $50
+	.db $7A, $54, $01, $48
+	.db $7A, $56, $01, $50
+
+PlayerSelectMamaSprites2:
+	.db $6A, $58, $01, $68
+	.db $6A, $5A, $01, $70
+	.db $7A, $5C, $01, $68
+	.db $7A, $5E, $01, $70
+
+PlayerSelectPapaSprites2:
+	.db $6A, $60, $01, $88
+	.db $6A, $62, $01, $90
+	.db $7A, $64, $01, $88
+	.db $7A, $66, $01, $90
+
+PlayerSelectLinaSprites2:
+	.db $6A, $68, $01, $A8
+	.db $6A, $6A, $01, $B0
+	.db $7A, $6C, $01, $A8
+	.db $7A, $6E, $01, $B0
+
+PlayerSelectMerioSprites2:
+	.db $9A, $90, $01, $48
+	.db $9A, $92, $01, $50
+	.db $AA, $94, $01, $48
+	.db $AA, $96, $01, $50
+
+PlayerSelectLolSprites2:
+	.db $9A, $98, $01, $68
+	.db $9A, $9A, $01, $70
+	.db $AA, $9C, $01, $68
+	.db $AA, $9E, $01, $70
+
+PlayerSelectToadetteSprites2:
+	.db $9A, $A0, $01, $88
+	.db $9A, $A2, $01, $90
+	.db $AA, $A4, $01, $88
+	.db $AA, $A6, $01, $90
+
+PlayerSelectRosalinaSprites2:
+	.db $9A, $A8, $01, $A8
+	.db $9A, $AA, $01, $B0
+	.db $AA, $AC, $01, $A8
+	.db $AA, $AE, $01, $B0
+
+
 PlayerSelectSpriteIndexes:
-	.db $00, $10, $20, $30
+	.db $00, $10, $20, $30, $40, $50, $60, $70, $80, $90, $A0, $B0
 
 PlayerSelectSpritePalettesDark:
 	.db $3F, $10, $10 ; PPU Data
