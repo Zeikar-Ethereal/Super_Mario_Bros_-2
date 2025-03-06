@@ -1,7 +1,4 @@
 PPUBuffer_CharacterSelect:
-	.db $21, $49, $06, $E9, $E5, $DE, $DA, $EC, $DE ; PLEASE
-	.db $21, $50, $06, $EC, $DE, $E5, $DE, $DC, $ED ; SELECT
-	.db $21, $8C, $06, $E9, $E5, $DA, $F2, $DE, $EB ; PLAYER
 	.db $20, $00, $20, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8 ; Probably the checkerboard diamonds or w/e
 	.db $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7, $B8, $B7 ; $F
 	.db $B8, $B7, $B8, $B7, $B8 ; $1E
@@ -61,58 +58,107 @@ PPUBuffer_CharacterSelect:
 	.db $00
 
 PlayerSelectCursorSprites1:
-	.db $6F, $3A, $03, $48
-	.db $6F, $3C, $03, $50
-	.db $7F, $38, $03, $48
-	.db $7F, $38, $43, $50
+	.db $2A, $3A, $03, $48
+	.db $2A, $3C, $03, $50
+	.db $FF, $38, $03, $FF
+	.db $FF, $38, $03, $FF
 
 PlayerSelectMarioSprites1:
-	.db $8F, $00, $00, $48
-	.db $8F, $00, $40, $50
-	.db $9F, $02, $00, $48
-	.db $9F, $02, $40, $50
+	.db $3A, $00, $00, $48
+	.db $3A, $00, $40, $50
+	.db $4A, $02, $00, $48
+	.db $4A, $02, $40, $50
 
 PlayerSelectLuigiSprites1:
-	.db $8F, $04, $00, $68
-	.db $8F, $04, $40, $70
-	.db $9F, $06, $00, $68
-	.db $9F, $06, $40, $70
+	.db $3A, $04, $00, $68
+	.db $3A, $04, $40, $70
+	.db $4A, $06, $00, $68
+	.db $4A, $06, $40, $70
 
 PlayerSelectToadSprites1:
-	.db $8F, $08, $00, $88
-	.db $8F, $08, $40, $90
-	.db $9F, $0A, $00, $88
-	.db $9F, $0A, $40, $90
+	.db $3A, $08, $00, $88
+	.db $3A, $08, $40, $90
+	.db $4A, $0A, $00, $88
+	.db $4A, $0A, $40, $90
 
 PlayerSelectPrincessSprites1:
-	.db $8F, $0C, $00, $A8
-	.db $8F, $0C, $40, $B0
-	.db $9F, $0E, $00, $A8
-	.db $9F, $0E, $40, $B0
+	.db $3A, $0C, $00, $A8
+	.db $3A, $0C, $40, $B0
+	.db $4A, $0E, $00, $A8
+	.db $4A, $0E, $40, $B0
 
+PlayerSelectImajinSprites1:
+	.db $6A, $40, $00, $48
+	.db $6A, $40, $40, $50
+	.db $7A, $42, $00, $48
+	.db $7A, $42, $40, $50
+
+PlayerSelectMamaSprites1:
+	.db $6A, $44, $00, $68
+	.db $6A, $44, $40, $70
+	.db $7A, $46, $00, $68
+	.db $7A, $46, $40, $70
+
+PlayerSelectPapaSprites1:
+	.db $6A, $48, $00, $88
+	.db $6A, $48, $40, $90
+	.db $7A, $4A, $00, $88
+	.db $7A, $4A, $40, $90
+
+PlayerSelectLinaSprites1:
+	.db $6A, $4C, $00, $A8
+	.db $6A, $4C, $40, $B0
+	.db $7A, $4E, $00, $A8
+	.db $7A, $4E, $40, $B0
+
+PlayerSelectMerioSprites1:
+	.db $9A, $80, $00, $48
+	.db $9A, $80, $40, $50
+	.db $AA, $82, $00, $48
+	.db $AA, $82, $40, $50
+
+PlayerSelectLolSprites1:
+	.db $9A, $84, $00, $68
+	.db $9A, $84, $40, $70
+	.db $AA, $86, $00, $68
+	.db $AA, $86, $40, $70
+
+PlayerSelectToadetteSprites1:
+	.db $9A, $88, $00, $88
+	.db $9A, $88, $40, $90
+	.db $AA, $8A, $00, $88
+	.db $AA, $8A, $40, $90
+
+PlayerSelectRosalinaSprites1:
+	.db $9A, $8C, $00, $A8
+	.db $9A, $8C, $40, $B0
+	.db $AA, $8E, $00, $A8
+	.db $AA, $8E, $40, $B0
+
+;;;;;;;;;;;;;;;;;
 PlayerSelectMarioSprites2:
-	.db $8F, $10, $01, $48
-	.db $8F, $12, $01, $50
-	.db $9F, $14, $01, $48
-	.db $9F, $16, $01, $50
+	.db $3A, $10, $01, $48
+	.db $3A, $12, $01, $50
+	.db $4A, $14, $01, $48
+	.db $4A, $16, $01, $50
 
 PlayerSelectLuigiSprites2:
-	.db $8F, $18, $01, $68
-	.db $8F, $1A, $01, $70
-	.db $9F, $1C, $01, $68
-	.db $9F, $1E, $01, $70
+	.db $3A, $18, $01, $68
+	.db $3A, $1A, $01, $70
+	.db $4A, $1C, $01, $68
+	.db $4A, $1E, $01, $70
 
 PlayerSelectToadSprites2:
-	.db $8F, $20, $01, $88
-	.db $8F, $22, $01, $90
-	.db $9F, $24, $01, $88
-	.db $9F, $26, $01, $90
+	.db $3A, $20, $01, $88
+	.db $3A, $22, $01, $90
+	.db $4A, $24, $01, $88
+	.db $4A, $26, $01, $90
 
 PlayerSelectPrincessSprites2:
-	.db $8F, $28, $01, $A8
-	.db $8F, $2A, $01, $B0
-	.db $9F, $2C, $01, $A8
-	.db $9F, $2E, $01, $B0
+	.db $3A, $28, $01, $A8
+	.db $3A, $2A, $01, $B0
+	.db $4A, $2C, $01, $A8
+	.db $4A, $2E, $01, $B0
 
 PlayerSelectSpriteIndexes:
 	.db $00, $10, $20, $30

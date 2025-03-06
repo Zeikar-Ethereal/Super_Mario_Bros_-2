@@ -69,12 +69,13 @@ loc_BANKF_E2B2:
 	LDA CurrentWorld
 	STA PreviousWorld
 
-	LDY #$4F
+	LDY #$CF
 loc_BANKF_E2CA:
 	LDA PlayerSelectCursorSprites1, Y
 	STA SpriteDMAArea, Y
 	DEY
-	BPL loc_BANKF_E2CA
+  CPY #$FF
+	BNE loc_BANKF_E2CA
 
 	JSR EnableNMI
 
