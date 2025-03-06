@@ -2,7 +2,7 @@
 
 CheckSideInputCharacterSelect:
 	LDA Player1JoypadPress
-	AND #ControllerInput_Right | ControllerInput_Left
+	AND #ControllerInput_Right | ControllerInput_Left | ControllerInput_Down | ControllerInput_Up
 	BNE CharacterSelect_ChangeCharacter
 
 	JMP CharacterSelectMenuLoop
@@ -13,9 +13,11 @@ CharacterSelect_ChangeCharacter:
   LDA CursorLocation
   STA PrevCursorLocation
 
+
+CheckRightCharSelect:
 	LDA Player1JoypadPress
 	AND #ControllerInput_Right
-	BEQ CheckInputLeftCharacterSelect
+	BEQ CheckLeftCharSelect
 	LDA #SoundEffect1_CherryGet
 	STA SoundEffectQueue1
 
@@ -23,24 +25,59 @@ MoveCursorRightCharSelect:
   INC CursorLocation
   LDA CursorLocation
   CMP #CursorOverflow
-  BNE CheckInputLeftCharacterSelect
+  BNE CheckLeftCharSelect
   AND #$00 ; Set cursor back to 0
   STA CursorLocation
 
-CheckInputLeftCharacterSelect:
+
+CheckLeftCharSelect:
 	LDA Player1JoypadPress
 	AND #ControllerInput_Left
-	BEQ SetCursorLocationGFXCharSelect
+	BEQ CheckUpCharSelect
 
 	LDA #SoundEffect1_CherryGet
 	STA SoundEffectQueue1
 
 MoveCursorLeftCharSelect:
   DEC CursorLocation
-  BPL SetCursorLocationGFXCharSelect
+  BPL CheckUpCharSelect
   LDA #MaxCursorIndex
   STA CursorLocation
 
+
+CheckUpCharSelect:
+  LDA Player1JoypadPress
+  AND #ControllerInput_Up
+  BEQ CheckDownCharSelect
+  LDA #SoundEffect1_CherryGet
+	STA SoundEffectQueue1
+
+MoveCursorUpCharSelect:
+  LDA CursorLocation
+  SEC
+  SBC #$04
+  BPL SetCursorUpCharSelect
+  AND #$0B
+SetCursorUpCharSelect:
+  STA CursorLocation
+
+
+CheckDownCharSelect:
+  LDA Player1JoypadPress
+  AND #ControllerInput_Down
+  BEQ SetCursorLocationGFXCharSelect
+  LDA #SoundEffect1_CherryGet
+	STA SoundEffectQueue1
+
+MoveCursorDownCharSelect:
+  LDA CursorLocation
+  CLC
+  ADC #$04
+  CMP #CursorOverflow
+  BMI SetCursorDownCharSelect
+  AND #$03
+SetCursorDownCharSelect:
+  STA CursorLocation
 
 ; Update the cursor
 SetCursorLocationGFXCharSelect:

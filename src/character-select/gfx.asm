@@ -253,7 +253,7 @@ PlayerSelectSpritePalettes_Lina:
 PlayerSelectSpritePalettes_Merio:
 	.db $0F, $27, $18, $16
 PlayerSelectSpritePalettes_Lol:
-	.db $0F, $36, $02, $01
+	.db $0F, $30, $26, $06
 PlayerSelectSpritePalettes_Toadette:
 	.db $0F, $37, $24, $07
 PlayerSelectSpritePalettes_Rosalina:
