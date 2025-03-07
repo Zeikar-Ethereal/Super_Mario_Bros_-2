@@ -2249,6 +2249,8 @@ PPU_PaletteBufferEnd = $7E23
 
 CharSelectInputARGV = $7E24
 CharSelectCursorARGV = $7E25
+CheckConfirmationLo = $7E26
+CheckConfirmationHi = $7E27
 
 MMC3_BankSelect = $8000
 MMC3_BankData = $8001

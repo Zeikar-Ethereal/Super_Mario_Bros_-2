@@ -34,6 +34,14 @@ CharacterSelectMenuAB:
 
 	JSR ResetScreenForTitleCard
 
+CopyCursorPalette:
+  LDY #$08
+CopyCursorPaletteLoop:
+  LDA CursorPalette, Y
+  STA PPUBuffer_301, Y
+  DEY
+  BPL CopyCursorPaletteLoop
+
 	LDA CharacterSelectBankSwitch
 	CMP #$A5
 	BEQ loc_BANKF_E2B2
@@ -87,6 +95,7 @@ loc_BANKF_E2CA:
 
 	JSR WaitForNMI
 
+
 ; Init cursor location, determine by what last character was picked
   LDY CurrentCharacter
   LDA RealCursorIndexTable, Y
@@ -94,6 +103,8 @@ loc_BANKF_E2CA:
   LDY CurrentCharacterPTwo
   LDA RealCursorIndexTable, Y
   STA CursorLocationPTwo
+  LDA #$FF
+  STA CurrentCharacter
 
 ; Maybe update this in the future TODO
   LDY GamePlayMode

@@ -16,7 +16,6 @@ RealCursorIndexTable:
 DMATableCharacterPalette:
   .db $12, $22, $32, $42, $52, $62, $72, $82, $92, $A2, $B2, $C2
 
-
 WaitFixedAmountNMICharSelect:
 	LDA #$40
 	STA byte_RAM_10

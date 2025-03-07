@@ -96,3 +96,51 @@ SetPrevCursorCharSelect:
 
 LeaveInputCharSelect:
   RTS ; End of subroutine!
+
+
+CheckForConfirmationCharSelect:
+  LDA Player1JoypadPress
+  AND #ControllerInput_A
+  BEQ LeaveCheckConfirmationCharSelect ; Leave if no A press
+
+  LDA CurrentCharacter
+  CMP #$FF ; Check if we already pressed A
+  BNE LeaveCheckConfirmationCharSelect
+
+	LDA #SoundEffect1_CherryGet
+	STA SoundEffectQueue1
+
+  LDA #$03
+  STA byte_RAM_10 ; Loop counter
+  LDA CursorLocation
+  AND #$0F
+  TAY
+  TAX
+  LDA DMATableCharacterPalette, Y ; Load DMA offset in ram
+  TAY
+  DEY ; Offset by 1 to save having to do another table
+  LDA PlayerConfirmSpriteArray, X ; Load sprite index
+  TAX
+SetConfirmSpriteLoop:
+  TXA
+  STA SpriteDMAArea, Y
+  INX
+  INX
+  LDA #$01
+  STA SpriteDMAArea + 1, Y
+  INY
+  INY
+  INY
+  INY
+  DEC byte_RAM_10
+  BPL SetConfirmSpriteLoop
+
+; Set the character
+  LDA CursorLocation
+  AND #$0F
+  TAY
+  LDA RealCharacterIndexTable, Y
+  STA CurrentCharacter
+
+LeaveCheckConfirmationCharSelect:
+  RTS

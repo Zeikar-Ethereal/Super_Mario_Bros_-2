@@ -136,88 +136,47 @@ PlayerSelectRosalinaSprites1:
 	.db $AF, $8E, $40, $B0
 
 ;;;;;;;;;;;;;;;;;
+PlayerConfirmSpriteArray:
 PlayerSelectMarioSprites2:
-	.db $3F, $10, $01, $48
-	.db $3F, $12, $01, $50
-	.db $4F, $14, $01, $48
-	.db $4F, $16, $01, $50
+	.db $10
 
 PlayerSelectLuigiSprites2:
-	.db $3F, $18, $01, $68
-	.db $3F, $1A, $01, $70
-	.db $4F, $1C, $01, $68
-	.db $4F, $1E, $01, $70
+	.db $18
 
 PlayerSelectToadSprites2:
-	.db $3F, $20, $01, $88
-	.db $3F, $22, $01, $90
-	.db $4F, $24, $01, $88
-	.db $4F, $26, $01, $90
+	.db $20
 
 PlayerSelectPrincessSprites2:
-	.db $3F, $28, $01, $A8
-	.db $3F, $2A, $01, $B0
-	.db $4F, $2C, $01, $A8
-	.db $4F, $2E, $01, $B0
+	.db $28
 
 PlayerSelectImajinSprites2:
-	.db $6F, $50, $01, $48
-	.db $6F, $52, $01, $50
-	.db $7F, $54, $01, $48
-	.db $7F, $56, $01, $50
+	.db $50
 
 PlayerSelectMamaSprites2:
-	.db $6F, $58, $01, $68
-	.db $6F, $5A, $01, $70
-	.db $7F, $5C, $01, $68
-	.db $7F, $5E, $01, $70
+	.db $58
 
 PlayerSelectPapaSprites2:
-	.db $6F, $60, $01, $88
-	.db $6F, $62, $01, $90
-	.db $7F, $64, $01, $88
-	.db $7F, $66, $01, $90
+	.db $60
 
 PlayerSelectLinaSprites2:
-	.db $6F, $68, $01, $A8
-	.db $6F, $6A, $01, $B0
-	.db $7F, $6C, $01, $A8
-	.db $7F, $6E, $01, $B0
+	.db $68
 
 PlayerSelectMerioSprites2:
-	.db $9F, $90, $01, $48
-	.db $9F, $92, $01, $50
-	.db $AF, $94, $01, $48
-	.db $AF, $96, $01, $50
+	.db $90
 
 PlayerSelectLolSprites2:
-	.db $9F, $98, $01, $68
-	.db $9F, $9A, $01, $70
-	.db $AF, $9C, $01, $68
-	.db $AF, $9E, $01, $70
+	.db $98
 
 PlayerSelectToadetteSprites2:
-	.db $9F, $A0, $01, $88
-	.db $9F, $A2, $01, $90
-	.db $AF, $A4, $01, $88
-	.db $AF, $A6, $01, $90
+	.db $A0
 
 PlayerSelectRosalinaSprites2:
-	.db $9F, $A8, $01, $A8
-	.db $9F, $AA, $01, $B0
-	.db $AF, $AC, $01, $A8
-	.db $AF, $AE, $01, $B0
+	.db $A8
 
-
-PlayerSelectSpriteIndexes:
-	.db $00, $10, $20, $30, $40, $50, $60, $70, $80, $90, $A0, $B0
-
-PlayerSelectSpritePalettesDark:
-	.db $3F, $10, $10 ; PPU Data
-	.db $0F, $22, $12, $01
-	.db $0F, $22, $12, $01
-	.db $0F, $22, $12, $01
-	.db $0F, $22, $12, $01
+CursorPalette:
+  .db $3F, $1C, $04
+  .db $0F, $16, $2A, $02
+  .db $00
 
 PlayerSelectPaletteOffsets:
 	.db (PlayerSelectSpritePalettes_Mario - PlayerSelectSpritePalettes)

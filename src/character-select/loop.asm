@@ -153,6 +153,10 @@ CharacterSelectMenuLoop:
 
 ; Handle most of player 1 right away
 HandlePlayerOneCharSelect:
+  LDA CurrentCharacter
+  CMP #$FF
+  BNE CheckForPlayerTwoCharSelect ; Check if player 1 picked a character
+
   LDA Player1JoypadPress
   STA CharSelectInputARGV
   LDA CursorLocation
@@ -163,7 +167,9 @@ HandlePlayerOneCharSelect:
   JSR SetCursorLocationGFXCharSelect ; Update cursor
   LDA CursorLocation
   JSR BlackOutPrevChar ; Black out
+  JSR CheckForConfirmationCharSelect
 
+CheckForPlayerTwoCharSelect:
 ; Check for player 2
   LDA TwoPlayerCharacterSelect
   BEQ FinalUpdatePlayerOne ; Check if we need to do the second player part
@@ -184,9 +190,24 @@ HandlePlayerTwoCharSelect:
   JSR UpdatePaletteCharacter ; Handle character palette for player 2
 
 FinalUpdatePlayerOne:
-  LDA CursorLocation
-  LDX #$01
-  JSR UpdatePaletteCharacter ; Swap palette for the character
-  JSR DumpNewPaletteCharacter ; Update sprite palette slot 1
+;  LDA CursorLocation
+;  LDX #$01
+;  JSR UpdatePaletteCharacter ; Swap palette for the character
+;
+;DumpPalettePlayerOne:
+;  JSR DumpNewPaletteCharacter ; Update sprite palette slot 1
 
-	JMP CharacterSelectMenuLoop
+CheckConfirmation:
+  LDA CurrentCharacter
+  CMP #$FF
+  BEQ CharacterSelectMenuLoop ; If player 1 didn't pick, start back the loop
+
+  LDA TwoPlayerCharacterSelect
+  BEQ CharSelectDone ; If there no player 2, leave!
+
+  LDA CurrentCharacterPTwo
+  CMP #$FF
+  BEQ CharacterSelectMenuLoop ; If player 2 didn't pick, go back
+
+CharSelectDone:
+	JMP QuitCharacterSelect ; We're done! Time to leave
