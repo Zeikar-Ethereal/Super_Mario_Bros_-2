@@ -1,87 +1,7 @@
-; ---------------------------------------------------------------------------
-
-CheckSideInputCharacterSelect:
-	LDA Player1JoypadPress
-	AND #ControllerInput_Right | ControllerInput_Left | ControllerInput_Down | ControllerInput_Up
-	BNE CharacterSelect_ChangeCharacter
-
-	JMP CharacterSelectMenuLoop
-
-; ---------------------------------------------------------------------------
-
-CharacterSelect_ChangeCharacter:
-  LDA CursorLocation
-  STA PrevCursorLocation
-
-
-CheckRightCharSelect:
-	LDA Player1JoypadPress
-	AND #ControllerInput_Right
-	BEQ CheckLeftCharSelect
-	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
-
-MoveCursorRightCharSelect:
-  INC CursorLocation
-  LDA CursorLocation
-  CMP #CursorOverflow
-  BNE CheckLeftCharSelect
-  AND #$00 ; Set cursor back to 0
-  STA CursorLocation
-
-
-CheckLeftCharSelect:
-	LDA Player1JoypadPress
-	AND #ControllerInput_Left
-	BEQ CheckUpCharSelect
-
-	LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
-
-MoveCursorLeftCharSelect:
-  DEC CursorLocation
-  BPL CheckUpCharSelect
-  LDA #MaxCursorIndex
-  STA CursorLocation
-
-
-CheckUpCharSelect:
-  LDA Player1JoypadPress
-  AND #ControllerInput_Up
-  BEQ CheckDownCharSelect
-  LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
-
-MoveCursorUpCharSelect:
-  LDA CursorLocation
-  SEC
-  SBC #$04
-  BPL SetCursorUpCharSelect
-  AND #$0B
-SetCursorUpCharSelect:
-  STA CursorLocation
-
-
-CheckDownCharSelect:
-  LDA Player1JoypadPress
-  AND #ControllerInput_Down
-  BEQ SetCursorLocationGFXCharSelect
-  LDA #SoundEffect1_CherryGet
-	STA SoundEffectQueue1
-
-MoveCursorDownCharSelect:
-  LDA CursorLocation
-  CLC
-  ADC #$04
-  CMP #CursorOverflow
-  BMI SetCursorDownCharSelect
-  AND #$03
-SetCursorDownCharSelect:
-  STA CursorLocation
-
-; Update the cursor
+; For player 1
 SetCursorLocationGFXCharSelect:
   LDA CursorLocation
+  AND #$0F
   LSR A
   LSR A
   TAX
@@ -95,10 +15,33 @@ SetCursorLocationGFXCharSelect:
   LDA PlayerSelectCursorY, X
   STA SpriteDMAArea
   STA SpriteDMAArea + 4
+  RTS
 
+; For player 2
+SetCursorLocationGFXCharSelectPTwo:
+  LDA CursorLocationPTwo
+  AND #$0F
+  LSR A
+  LSR A
+  TAX
+  LDA CursorLocationPTwo
+  AND #$03
+  TAY
+  LDA PlayerSelectPLetterX, Y
+  STA SpriteDMAArea + 11
+  LDA PlayerSelectPNumberX, Y
+  STA SpriteDMAArea + 15
+  LDA PlayerSelectCursorY, X
+  STA SpriteDMAArea + 8
+  STA SpriteDMAArea + 12
+  RTS
 
-UpdatePaletteCharacter:
-  LDY PrevCursorLocation
+BlackOutPrevChar:
+  LSR A
+  LSR A
+  LSR A
+  LSR A
+  TAY
   LDA DMATableCharacterPalette, Y
   TAY
   LDA #$00
@@ -107,8 +50,11 @@ UpdatePaletteCharacter:
   LDA #$40
   STA SpriteDMAArea + 4, Y
   STA SpriteDMAArea + 12, Y
+  RTS
 
-  LDY CursorLocation
+UpdatePaletteCharacter:
+  AND #$0F
+  TAY
   LDA DMATableCharacterPalette, Y
   TAY
   LDA #$01
@@ -117,11 +63,13 @@ UpdatePaletteCharacter:
   LDA #$41
   STA SpriteDMAArea + 4, Y
   STA SpriteDMAArea + 12, Y
-
+  RTS
 
 ; Loop unrolling! Also make it so I can save 3 bytes per palette
 DumpNewPaletteCharacter:
-  LDY CursorLocation
+  LDA CursorLocation
+  AND #$0F
+  TAY
   LDA PlayerSelectPaletteOffsets, Y
   TAY
   LDA #$3F
@@ -142,13 +90,47 @@ DumpNewPaletteCharacter:
 	STA PPUBuffer_301 + 7
   LDA #$07
   STA byte_RAM_300
+  RTS
 
 
 CharacterSelectMenuLoop:
 	JSR WaitForNMI_TurnOnPPU
 
-	LDA Player1JoypadPress
-	AND #ControllerInput_A
-	BNE QuitCharacterSelect
+; Handle most of player 1 right away
+HandlePlayerOneCharSelect:
+  LDA Player1JoypadPress
+  STA CharSelectInputARGV
+  LDA CursorLocation
+  STA CharSelectCursorARGV
+  JSR ReadInputCharSelect ; Handle cursor for Player 1
+  LDA CharSelectCursorARGV
+  STA CursorLocation
+  JSR SetCursorLocationGFXCharSelect ; Update cursor
+  LDA CursorLocation
+  JSR BlackOutPrevChar ; Black out
 
-	JMP CheckSideInputCharacterSelect
+; Check for player 2
+  LDA TwoPlayerCharacterSelect
+  BEQ FinalUpdatePlayerOne ; Check if we need to do the second player part
+
+HandlePlayerTwoCharSelect:
+  LDA Player2JoypadPress
+  STA CharSelectInputARGV
+  LDA CursorLocationPTwo
+  STA CharSelectCursorARGV
+  JSR ReadInputCharSelect ; Overwrite P1 with P2 to use in the function
+  LDA CharSelectCursorARGV
+  STA CursorLocationPTwo
+  JSR SetCursorLocationGFXCharSelectPTwo ; Update cursor
+  LDA CursorLocationPTwo
+  JSR BlackOutPrevChar ; Black out
+  LDA CursorLocationPTwo
+  JSR UpdatePaletteCharacter ; Handle character palette for player 2
+  JSR DumpNewPaletteCharacter ; Update sprite palette slot 2
+
+FinalUpdatePlayerOne:
+  LDA CursorLocation
+  JSR UpdatePaletteCharacter ; Swap palette for the character
+  JSR DumpNewPaletteCharacter ; Update sprite palette slot 1
+
+	JMP CharacterSelectMenuLoop

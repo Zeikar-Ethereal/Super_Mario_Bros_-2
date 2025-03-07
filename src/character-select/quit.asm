@@ -50,7 +50,7 @@ SetCharacterRestoreAnimationLoop:
 SetCurrentCharacter:
   LDY CursorLocation
   LDA RealCharacterIndexTable, Y
-  LDX CurrentPlayerCharSelect
+;  LDX CurrentPlayerCharSelect
   BNE SetCharacterPlayerTwo
 
 SetCharacterPlayerOne:
@@ -66,7 +66,7 @@ CheckForDoublePick:
   BEQ LeaveCharacterSelect
 
   DEC DoublePick
-  INC CurrentPlayerCharSelect
+;  INC CurrentPlayerCharSelect
   LDA CursorLocation ; Add current cursor so the palette get overwritten if needed
   STA PrevCursorLocation
   LDY CurrentCharacterPTwo

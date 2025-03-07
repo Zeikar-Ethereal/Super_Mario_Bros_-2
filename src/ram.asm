@@ -99,6 +99,7 @@ TitleScreenPaletteSpriteIndex:
 	.dsb 1 ; 6                ; $001b
 MarioSnoringTheEndFrameCounter: ; controls writing speed
 PrevCursorLocation:
+CursorLocationPTwo:
 	.dsb 1 ; 7                ; $001c
 MarioSnoringCounter9:
 CursorLocation:
@@ -859,7 +860,6 @@ PreviousCharacter:
 PreviousWorld:
 	.dsb 1 ; $0405
 ; FOR RENT
-CurrentPlayerCharSelect: ; 0 = P1, 1 = P2
 	.dsb 1 ; $0406
 
 PlayerXSubpixel:
@@ -1122,6 +1122,7 @@ BossBeaten:
 	.dsb 1 ; $04b8
 SwarmType:
 	.dsb 1 ; $04b9
+TwoPlayerCharacterSelect:
 ; FOR RENT
 	.dsb 1 ; $04ba
 ; FOR RENT
@@ -2245,6 +2246,9 @@ ItemCarryYOffsetsRAM = $7f00
 PPU_PaletteBuffer = $7E00
 PPU_PaletteBufferBegin = $7E03
 PPU_PaletteBufferEnd = $7E23
+
+CharSelectInputARGV = $7E24
+CharSelectCursorARGV = $7E25
 
 MMC3_BankSelect = $8000
 MMC3_BankData = $8001
