@@ -66,6 +66,7 @@ BlackOutPrevChar:
 ; Params:
 ;         A = The cursor value
 ;         X = Either #$01 P1 or #$02 P2
+;         CharSelectCharacterARGV (RAM) = Current character
 ; ------------------------------------------------------------
 UpdatePaletteCharacter:
   AND #$0F
@@ -75,9 +76,14 @@ UpdatePaletteCharacter:
   TXA
   STA SpriteDMAArea, Y
   STA SpriteDMAArea + 8, Y
+  LDA CharSelectCharacterARGV ; Really questionable way
+  BPL SetSecondHalfSpritePalette
   TXA
   CLC
   ADC #$40
+  TAX
+SetSecondHalfSpritePalette:
+  TXA
   STA SpriteDMAArea + 4, Y
   STA SpriteDMAArea + 12, Y
   RTS
@@ -151,11 +157,9 @@ FinishPlayerOneDumpPalette:
 CharacterSelectMenuLoop:
 	JSR WaitForNMI_TurnOnPPU
 
-; Handle most of player 1 right away
 HandlePlayerOneCharSelect:
   LDA CurrentCharacter
-  CMP #$FF
-  BNE CheckForPlayerTwoCharSelect ; Check if player 1 picked a character
+  BPL CheckForPlayerTwoCharSelect ; Branch if player 1 selected a character
 
   LDA Player1JoypadPress
   STA CharSelectInputARGV
@@ -165,14 +169,12 @@ HandlePlayerOneCharSelect:
   LDA CharSelectCursorARGV
   STA CursorLocation
   JSR SetCursorLocationGFXCharSelect ; Update cursor
-  LDA CursorLocation
-  JSR BlackOutPrevChar ; Black out
   JSR CheckForConfirmationCharSelect
 
 CheckForPlayerTwoCharSelect:
 ; Check for player 2
   LDA TwoPlayerCharacterSelect
-  BEQ FinalUpdatePlayerOne ; Check if we need to do the second player part
+  BEQ SpritePaletteHandler ; Check if we need to do the second player part
 
 HandlePlayerTwoCharSelect:
   LDA Player2JoypadPress
@@ -183,31 +185,39 @@ HandlePlayerTwoCharSelect:
   LDA CharSelectCursorARGV
   STA CursorLocationPTwo
   JSR SetCursorLocationGFXCharSelectPTwo ; Update cursor
+
+SpritePaletteHandler:
+  LDA CursorLocation
+  JSR BlackOutPrevChar
+
+  LDA TwoPlayerCharacterSelect
+  BEQ ApplyPlayerOnePalette ; Check if there 2 player, if not, then skip
+
   LDA CursorLocationPTwo
-  JSR BlackOutPrevChar ; Black out
+  JSR BlackOutPrevChar
+  LDA CurrentCharacterPTwo
+  STA CharSelectCharacterARGV
   LDA CursorLocationPTwo
   LDX #$02
   JSR UpdatePaletteCharacter ; Handle character palette for player 2
 
-FinalUpdatePlayerOne:
-;  LDA CursorLocation
-;  LDX #$01
-;  JSR UpdatePaletteCharacter ; Swap palette for the character
-;
-;DumpPalettePlayerOne:
-;  JSR DumpNewPaletteCharacter ; Update sprite palette slot 1
+ApplyPlayerOnePalette:
+  LDA CurrentCharacter
+  STA CharSelectCharacterARGV
+  LDA CursorLocation
+  LDX #$01
+  JSR UpdatePaletteCharacter ; Update palette slot 1
+  JSR DumpNewPaletteCharacter ; Update sprite palette slot 1
 
 CheckConfirmation:
   LDA CurrentCharacter
-  CMP #$FF
-  BEQ CharacterSelectMenuLoop ; If player 1 didn't pick, start back the loop
+  BMI CharacterSelectMenuLoop ; If player 1 didn't pick, start back the loop
 
   LDA TwoPlayerCharacterSelect
   BEQ CharSelectDone ; If there no player 2, leave!
 
   LDA CurrentCharacterPTwo
-  CMP #$FF
-  BEQ CharacterSelectMenuLoop ; If player 2 didn't pick, go back
+  BMI CharacterSelectMenuLoop ; If player 2 didn't pick, go back
 
 CharSelectDone:
 	JMP QuitCharacterSelect ; We're done! Time to leave

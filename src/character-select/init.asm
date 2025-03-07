@@ -105,6 +105,7 @@ loc_BANKF_E2CA:
   STA CursorLocationPTwo
   LDA #$FF
   STA CurrentCharacter
+  STA CurrentCharacterPTwo
 
 ; Maybe update this in the future TODO
   LDY GamePlayMode
