@@ -5557,8 +5557,23 @@ CHRBank_CharacterSize:
 	.db CHRBank_ToadSmall
 	.db CHRBank_Luigi
 	.db CHRBank_LuigiSmall
-  .db $90 ; temp
-  .db $91 ; temp
+  .db CHRBANK_Imajin
+  .db CHRBANK_Imajin ; small
+  .db CHRBANK_Mama
+  .db CHRBANK_Mama ; small
+  .db CHRBANK_Papa
+  .db CHRBANK_Papa ; small
+  .db CHRBANK_Lina
+  .db CHRBANK_Lina ; small
+
+  .db CHRBANK_Merio
+  .db CHRBANK_MerioSmall
+  .db CHRBANK_Lol
+  .db CHRBANK_LolSmall
+  .db CHRBANK_Toadette
+  .db CHRBANK_ToadetteSmall
+  .db CHRBANK_Rosalina
+  .db CHRBANK_RosalinaSmall
 
 LoadWorldCHRBanks:
 	LDY #CHRBank_CommonEnemies1
