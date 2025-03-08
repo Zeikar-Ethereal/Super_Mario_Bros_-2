@@ -1,7 +1,6 @@
 ; For player 1
 SetCursorLocationGFXCharSelect:
   LDA CursorLocation
-  AND #$0F
   LSR A
   LSR A
   TAX
@@ -20,7 +19,6 @@ SetCursorLocationGFXCharSelect:
 ; For player 2
 SetCursorLocationGFXCharSelectPTwo:
   LDA CursorLocationPTwo
-  AND #$0F
   LSR A
   LSR A
   TAX ; Get these bits XXXX 00XXX
@@ -37,26 +35,23 @@ SetCursorLocationGFXCharSelectPTwo:
   RTS
 
 ; ------------------------------------------------------------
-; Extract the MSN from the cursor, which contain the previous
-; cursor location, and use that to put the sprite at that
-; index to palette 0.
-; Params:
-;         A = Cursor location
+; Black out every sprite, except the P1 and P2 cursor
 ; ------------------------------------------------------------
-BlackOutPrevChar:
-  LSR A
-  LSR A
-  LSR A
-  LSR A
-  TAY
-  LDA DMATableCharacterPalette, Y
+BlackOutAllSpritePalette:
+  LDX #$0B
+  LDY #$02
+BlackOutAllSpritePaletteLoop:
+  TYA
+  CLC
+  ADC #$10
   TAY
   LDA #$00
   STA SpriteDMAArea, Y
-  STA SpriteDMAArea + 8, Y
-  LDA #$40
   STA SpriteDMAArea + 4, Y
+  STA SpriteDMAArea + 8, Y
   STA SpriteDMAArea + 12, Y
+  DEX
+  BPL BlackOutAllSpritePaletteLoop
   RTS
 
 ; ------------------------------------------------------------
@@ -64,26 +59,15 @@ BlackOutPrevChar:
 ; at and give it the correct palette according to X.
 ; Using X here help us reuse this function for both P1 and P2.
 ; Params:
-;         A = The cursor value
+;         Y = The cursor value
 ;         X = Either #$01 P1 or #$02 P2
-;         CharSelectCharacterARGV (RAM) = Current character
 ; ------------------------------------------------------------
 UpdatePaletteCharacter:
-  AND #$0F
-  TAY
   LDA DMATableCharacterPalette, Y
   TAY
   TXA
   STA SpriteDMAArea, Y
   STA SpriteDMAArea + 8, Y
-  LDA CharSelectCharacterARGV ; Really questionable way
-  BPL SetSecondHalfSpritePalette
-  TXA
-  CLC
-  ADC #$40
-  TAX
-SetSecondHalfSpritePalette:
-  TXA
   STA SpriteDMAArea + 4, Y
   STA SpriteDMAArea + 12, Y
   RTS
@@ -101,7 +85,6 @@ DumpNewPaletteCharacter:
 
 ; Handle slot 1 for player 1 cursor
   LDA CursorLocation
-  AND #$0F
   TAY
   LDA PlayerSelectPaletteOffsets, Y
   TAY
@@ -124,7 +107,6 @@ DumpNewPaletteCharacter:
 
 ; Do player 2 stuff here
   LDA CursorLocationPTwo
-  AND #$0F
   TAY
   LDA PlayerSelectPaletteOffsets, Y
   TAY
@@ -157,7 +139,9 @@ FinishPlayerOneDumpPalette:
 CharacterSelectMenuLoop:
 	JSR WaitForNMI_TurnOnPPU
 
-HandlePlayerOneCharSelect:
+  JSR BlackOutAllSpritePalette
+
+HandlePlayerOneCursorCharSelect:
   LDA CurrentCharacter
   BPL CheckForPlayerTwoCharSelect ; Branch if player 1 selected a character
 
@@ -176,38 +160,30 @@ CheckForPlayerTwoCharSelect:
   LDA TwoPlayerCharacterSelect
   BEQ SpritePaletteHandler ; Check if we need to do the second player part
 
-HandlePlayerTwoCharSelect:
+HandlePlayerTwoCursorCharSelect:
   LDA Player2JoypadPress
   STA CharSelectInputARGV
   LDA CursorLocationPTwo
   STA CharSelectCursorARGV
-  JSR ReadInputCharSelect ; Overwrite P1 with P2 to use in the function
+  JSR ReadInputCharSelect
   LDA CharSelectCursorARGV
   STA CursorLocationPTwo
   JSR SetCursorLocationGFXCharSelectPTwo ; Update cursor
+  JSR CheckForConfirmationCharSelectTwo
 
 SpritePaletteHandler:
-  LDA CursorLocation
-  JSR BlackOutPrevChar
-
   LDA TwoPlayerCharacterSelect
   BEQ ApplyPlayerOnePalette ; Check if there 2 player, if not, then skip
-
-  LDA CursorLocationPTwo
-  JSR BlackOutPrevChar
-  LDA CurrentCharacterPTwo
-  STA CharSelectCharacterARGV
-  LDA CursorLocationPTwo
   LDX #$02
-  JSR UpdatePaletteCharacter ; Handle character palette for player 2
+  LDY CursorLocationPTwo
+  JSR UpdatePaletteCharacter
 
 ApplyPlayerOnePalette:
-  LDA CurrentCharacter
-  STA CharSelectCharacterARGV
-  LDA CursorLocation
+  LDY CursorLocation
   LDX #$01
-  JSR UpdatePaletteCharacter ; Update palette slot 1
-  JSR DumpNewPaletteCharacter ; Update sprite palette slot 1
+  JSR UpdatePaletteCharacter
+
+  JSR DumpNewPaletteCharacter ; Dump palette for slot 1 and slot 2
 
 CheckConfirmation:
   LDA CurrentCharacter

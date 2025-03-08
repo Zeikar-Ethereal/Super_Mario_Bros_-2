@@ -112,4 +112,4 @@ loc_BANKF_E2CA:
   LDA CharSelectDoublePickTable, Y
   STA TwoPlayerCharacterSelect
 
-	JMP HandlePlayerOneCharSelect
+	JMP HandlePlayerOneCursorCharSelect

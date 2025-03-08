@@ -13,15 +13,6 @@ ReadInputCharSelect:
   RTS ; We leave if none of these inputs were pressed
 
 CharacterSelect_ChangeCharacter:
-  LDA CharSelectCursorARGV
-  AND #$0F
-  STA CharSelectCursorARGV
-  ASL A
-  ASL A
-  ASL A
-  ASL A
-  PHA ; Store prev in the stack for now
-
 CheckRightCharSelect:
 	LDA CharSelectInputARGV
 	AND #ControllerInput_Right
@@ -73,7 +64,7 @@ SetCursorUpCharSelect:
 CheckDownCharSelect:
   LDA CharSelectInputARGV
   AND #ControllerInput_Down
-  BEQ SetPrevCursorCharSelect
+  BEQ LeaveInputCharSelect
   LDA #SoundEffect1_CherryGet
 	STA SoundEffectQueue1
 
@@ -85,13 +76,6 @@ MoveCursorDownCharSelect:
   BMI SetCursorDownCharSelect
   AND #$03
 SetCursorDownCharSelect:
-  STA CharSelectCursorARGV
-
-SetPrevCursorCharSelect:
-  PLA
-  LDY #$00
-  CLC
-  ADC (CharSelectCursorARGV), Y
   STA CharSelectCursorARGV
 
 LeaveInputCharSelect:
@@ -113,7 +97,6 @@ CheckForConfirmationCharSelect:
   LDA #$03
   STA byte_RAM_10 ; Loop counter
   LDA CursorLocation
-  AND #$0F
   TAY
   TAX
   LDA DMATableCharacterPalette, Y ; Load DMA offset in ram
@@ -137,10 +120,55 @@ SetConfirmSpriteLoop:
 
 ; Set the character
   LDA CursorLocation
-  AND #$0F
   TAY
   LDA RealCharacterIndexTable, Y
   STA CurrentCharacter
 
 LeaveCheckConfirmationCharSelect:
+  RTS
+
+
+CheckForConfirmationCharSelectTwo:
+  LDA Player2JoypadPress
+  AND #ControllerInput_A
+  BEQ LeaveCheckConfirmationCharSelectTwo ; Leave if no A press
+
+  LDA CurrentCharacterPTwo
+  CMP #$FF ; Check if we already pressed A
+  BNE LeaveCheckConfirmationCharSelectTwo
+
+	LDA #SoundEffect1_CherryGet
+	STA SoundEffectQueue1
+
+  LDA #$03
+  STA byte_RAM_10 ; Loop counter
+  LDA CursorLocationPTwo
+  TAY
+  TAX
+  LDA DMATableCharacterPalette, Y ; Load DMA offset in ram
+  TAY
+  DEY ; Offset by 1 to save having to do another table
+  LDA PlayerConfirmSpriteArray, X ; Load sprite index
+  TAX
+SetConfirmSpriteLoopTwo:
+  TXA
+  STA SpriteDMAArea, Y
+  INX
+  INX
+  LDA #$02
+  STA SpriteDMAArea + 1, Y
+  INY
+  INY
+  INY
+  INY
+  DEC byte_RAM_10
+  BPL SetConfirmSpriteLoopTwo
+
+; Set the character
+  LDA CursorLocationPTwo
+  TAY
+  LDA RealCharacterIndexTable, Y
+  STA CurrentCharacterPTwo
+
+LeaveCheckConfirmationCharSelectTwo:
   RTS
