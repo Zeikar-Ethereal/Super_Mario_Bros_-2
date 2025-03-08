@@ -48,6 +48,14 @@ Character_Mario = $00
 Character_Princess = $01
 Character_Toad = $02
 Character_Luigi = $03
+Character_Imajin = $04
+Character_Mama = $05
+Character_Papa = $06
+Character_Lina = $07
+Character_Merio = $08
+Character_Lol = $09
+Character_Toadette = $0A
+Character_Rosalina = $0B
 
 ; ---------------------------------------------------------------------------
 

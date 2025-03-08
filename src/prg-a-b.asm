@@ -266,6 +266,7 @@ StatOffsets:
 	.db (PrincessStats - CharacterStats)
 	.db (ToadStats - CharacterStats)
 	.db (LuigiStats - CharacterStats)
+	.db (ImajinStats - CharacterStats)
 
 CharacterStats:
 MarioStats:
@@ -368,6 +369,31 @@ PrincessStats:
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
 
+ImajinStats:
+	.db $00 ; Pick-up Speed, frame 1/6 - pulling
+	.db $04 ; Pick-up Speed, frame 2/6 - pulling
+	.db $02 ; Pick-up Speed, frame 3/6 - ducking
+	.db $01 ; Pick-up Speed, frame 4/6 - ducking
+	.db $04 ; Pick-up Speed, frame 5/6 - ducking
+	.db $07 ; Pick-up Speed, frame 6/6 - ducking
+	.db $B0 ; Jump Speed, still - no object
+	.db $B0 ; Jump Speed, still - with object
+	.db $98 ; Jump Speed, charged - no object
+	.db $98 ; Jump Speed, charged - with object
+	.db $A6 ; Jump Speed, running - no object
+	.db $AA ; Jump Speed, running - with object
+	.db $E0 ; Jump Speed - in quicksand
+	.db $00 ; Floating Time
+	.db $07 ; Gravity without Jump button pressed
+	.db $04 ; Gravity with Jump button pressed
+	.db $08 ; Gravity in quicksand
+	.db $18 ; Running Speed, right - no object
+	.db $18 ; Running Speed, right - with object
+	.db $04 ; Running Speed, right - in quicksand
+	.db $E8 ; Running Speed, left - no object
+	.db $E8 ; Running Speed, left - with object
+	.db $FC ; Running Speed, left - in quicksand
+
 CharacterPalette:
 MarioPalette:
 	.db $0F, $01, $16, $27
@@ -377,6 +403,8 @@ ToadPalette:
 	.db $0F, $01, $30, $27
 LuigiPalette:
 	.db $0F, $01, $2A, $36
+ImajinPalette:
+	.db $0F, $01, $30, $27
 
 ;
 ; What is this for? It gets copied to RAM and then...that's all.

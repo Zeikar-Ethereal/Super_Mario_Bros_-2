@@ -5557,7 +5557,8 @@ CHRBank_CharacterSize:
 	.db CHRBank_ToadSmall
 	.db CHRBank_Luigi
 	.db CHRBank_LuigiSmall
-
+  .db $90 ; temp
+  .db $91 ; temp
 
 LoadWorldCHRBanks:
 	LDY #CHRBank_CommonEnemies1

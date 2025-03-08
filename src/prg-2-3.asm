@@ -4635,7 +4635,7 @@ loc_BANK2_9636:
 	CLC
 	BNE loc_BANK2_964D
 
-	LDY PlayerCurrentSize
+	LDY PlayerCurrentSize ; HERE TO FIX LATER FOR EXTRA CHARACTERS
 	CPY #$01
 	LDY CurrentCharacter
 	BCC loc_BANK2_964A
