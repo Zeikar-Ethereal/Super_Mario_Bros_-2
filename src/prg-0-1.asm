@@ -2847,9 +2847,9 @@ loc_BANK0_8DDF:
 	DEY
 
 ; 1.5x max speed when the run button is held!
+; BUG BUG fix for doki doki panic later
 loc_BANK0_8DE0:
 	LDA RunSpeedRight, Y
-  JMP loc_BANK0_8DEC
 	BIT Player1JoypadHeld
 	BVC loc_BANK0_8DEC
 
