@@ -161,6 +161,9 @@ CheckForPlayerTwoCharSelect:
   BEQ SpritePaletteHandler ; Check if we need to do the second player part
 
 HandlePlayerTwoCursorCharSelect:
+  LDA CurrentCharacterPTwo
+  BPL SpritePaletteHandler ; Branch if player 2 selected a character
+
   LDA Player2JoypadPress
   STA CharSelectInputARGV
   LDA CursorLocationPTwo

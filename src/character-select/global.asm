@@ -15,14 +15,3 @@ RealCursorIndexTable:
 ; Curse method to index directly into the DMA memory for the palette
 DMATableCharacterPalette:
   .db $12, $22, $32, $42, $52, $62, $72, $82, $92, $A2, $B2, $C2
-
-WaitFixedAmountNMICharSelect:
-	LDA #$40
-	STA byte_RAM_10
-
-WaitFixedAmountNMICharacterSelect:
-	JSR WaitForNMI
-
-	DEC byte_RAM_10
-	BPL WaitFixedAmountNMICharacterSelect
-  RTS
