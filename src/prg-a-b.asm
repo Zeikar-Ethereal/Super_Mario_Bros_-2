@@ -405,6 +405,8 @@ PrincessStats:
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
 
+;00 04 02 01 04 07 B0 B0 98 98 A6 AA E0 00 07 04
+;08 18 18 04 E8 E8 FC
 ImajinStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
 	.db $04 ; Pick-up Speed, frame 2/6 - pulling
@@ -430,6 +432,8 @@ ImajinStats:
 	.db $E8 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
 
+;00 04 02 01 04 07 D8 D8 CB CB D2 D6 E0 00 02 01
+;08 18 16 04 E8 EA FC
 MamaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
 	.db $04 ; Pick-up Speed, frame 2/6 - pulling
@@ -437,12 +441,12 @@ MamaStats:
 	.db $01 ; Pick-up Speed, frame 4/6 - ducking
 	.db $04 ; Pick-up Speed, frame 5/6 - ducking
 	.db $07 ; Pick-up Speed, frame 6/6 - ducking
-	.db $D6 ; Jump Speed, still - no object
-	.db $D6 ; Jump Speed, still - with object
-	.db $C9 ; Jump Speed, charged - no object
-	.db $C9 ; Jump Speed, charged - with object
-	.db $D0 ; Jump Speed, running - no object
-	.db $D4 ; Jump Speed, running - with object
+	.db $D8 ; Jump Speed, still - no object
+	.db $D8 ; Jump Speed, still - with object
+	.db $CB ; Jump Speed, charged - no object
+	.db $CB ; Jump Speed, charged - with object
+	.db $D2 ; Jump Speed, running - no object
+	.db $D6 ; Jump Speed, running - with object
 	.db $E0 ; Jump Speed - in quicksand
 	.db $00 ; Floating Time
 	.db $02 ; Gravity without Jump button pressed
@@ -455,6 +459,8 @@ MamaStats:
 	.db $EA ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
 
+;00 01 01 01 01 02 B2 B2 98 98 AD AD E0 00 07 04
+;08 18 1D 04 E8 E3 FC
 PapaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
 	.db $01 ; Pick-up Speed, frame 2/6 - pulling
@@ -480,6 +486,8 @@ PapaStats:
 	.db $E3 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
 
+;00 06 04 02 06 0C B3 B3 98 98 AC B3 E0 3C 07 04
+;08 18 15 04 E8 EB FC
 LinaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
 	.db $06 ; Pick-up Speed, frame 2/6 - pulling
