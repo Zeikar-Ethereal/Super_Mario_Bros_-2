@@ -3460,8 +3460,9 @@ loc_BANKF_F3F8:
 	LDA CharacterFrameEyeTiles, X
 	BNE loc_BANKF_F408
 
-	LDX CurrentCharacter
-	LDA CharacterEyeTiles, X
+;	LDX CurrentCharacter
+;	LDA CharacterEyeTiles, X
+  LDA #$3E
 
 loc_BANKF_F408:
 	STA SpriteDMAArea + 1, Y

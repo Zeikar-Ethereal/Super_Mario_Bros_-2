@@ -261,20 +261,48 @@ locret_BANKA_83C8:
 
 ; End of function DrawTitleCardWorldImage
 
-StatOffsets:
-	.db (MarioStats - CharacterStats)
-	.db (PrincessStats - CharacterStats)
-	.db (ToadStats - CharacterStats)
-	.db (LuigiStats - CharacterStats)
-	.db (ImajinStats - CharacterStats)
-	.db (MamaStats - CharacterStats)
-	.db (PapaStats - CharacterStats)
-	.db (LinaStats - CharacterStats)
-	.db (MerioStats - CharacterStats)
-	.db (LolStats - CharacterStats)
-	.db (ToadetteStats - CharacterStats)
-	.db (ToadetteStats - CharacterStats)
+;StatOffsets:
+;	.db (MarioStats - CharacterStats)
+;	.db (PrincessStats - CharacterStats)
+;	.db (ToadStats - CharacterStats)
+;	.db (LuigiStats - CharacterStats)
+;	.db (ImajinStats - CharacterStats)
+;	.db (MamaStats - CharacterStats)
+;	.db (PapaStats - CharacterStats)
+;	.db (LinaStats - CharacterStats)
+;	.db (MerioStats - CharacterStats)
+;	.db (LolStats - CharacterStats)
+;	.db (ToadetteStats - CharacterStats)
+;	.db (ToadetteStats - CharacterStats)
 ;	.db (RosalinaStats - CharacterStats)
+
+CharacterStatsLo:
+  .db <MarioStats
+  .db <LuigiStats
+  .db <ToadStats
+  .db <PrincessStats
+  .db <ImajinStats
+  .db <MamaStats
+  .db <PapaStats
+  .db <LinaStats
+  .db <MerioStats
+  .db <LolStats
+  .db <ToadetteStats
+  .db <RosalinaStats
+
+CharacterStatsHi:
+  .db >MarioStats
+  .db >LuigiStats
+  .db >ToadStats
+  .db >PrincessStats
+  .db >ImajinStats
+  .db >MamaStats
+  .db >PapaStats
+  .db >LinaStats
+  .db >MerioStats
+  .db >LolStats
+  .db >ToadetteStats
+  .db >RosalinaStats
 
 CharacterStats:
 MarioStats:
@@ -595,13 +623,13 @@ PapaPalette:
 LinaPalette:
   .db $0F, $06, $25, $36
 MerioPalette:
-	.db $0F, $01, $30, $27
+	.db $0F, $16, $18, $27
 LolPalette:
   .db $0F, $01, $12, $36
 ToadettePalette:
-  .db $0F, $06, $37, $27
+  .db $0F, $0D, $24, $36
 RosalinaPalette:
-  .db $0F, $06, $25, $36
+  .db $0F, $08, $2C, $36
 
 ;
 ; What is this for? It gets copied to RAM and then...that's all.
@@ -653,15 +681,20 @@ IFDEF CONTROLLER_2_DEBUG
 	JSR CopyCharacterStats
 ENDIF
 
-	LDX CurrentCharacter
-	LDY StatOffsets, X
-	LDX #$00
+  LDY CurrentCharacter
+  LDA CharacterStatsLo, Y
+  STA FuncLoTemp
+  LDA CharacterStatsHi, Y
+  STA FuncHiTemp
+
+;	LDX CurrentCharacter
+;	LDY StatOffsets, X
+	LDY #$00
 loc_BANKA_8458:
-	LDA CharacterStats, Y
-	STA CharacterStatsRAM, X
+	LDA (FuncLoTemp), Y
+	STA CharacterStatsRAM, Y
 	INY
-	INX
-	CPX #$17
+	CPY #$17
 	BCC loc_BANKA_8458
 
 	LDA CurrentCharacter

@@ -547,8 +547,11 @@ Player1JoypadHeld:
 	.dsb 1 ; $00f7
 Player2JoypadHeld:
 	.dsb 1 ; $00f8
+; Should be FOR RENT too
 	.dsb 1 ; $00f9
+FuncLoTemp:
 	.dsb 1 ; $00fa
+FuncHiTemp:
 	.dsb 1 ; $00fb
 PPUScrollYMirror:
 	.dsb 1 ; $00fc
@@ -2248,6 +2251,8 @@ PPU_PaletteBufferBegin = $7E03
 PPU_PaletteBufferEnd = $7E23
 
 CharSelectInputARGV = $7E24
+CopyCharStatsFuncLo = $7E24
+CopyCharStatsFuncHi = $7E25
 CharSelectCursorARGV = $7E25
 CharSelectCharacterARGV = $7E26
 
