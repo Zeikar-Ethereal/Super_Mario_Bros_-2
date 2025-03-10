@@ -72,6 +72,10 @@ fi
 
 echo 'Build succeeded.'
 
+cmd.exe /c start C:/Users/davet/Desktop/Mesen.exe //wsl.localhost/Ubuntu/home/dave/Smb2-Multiplayer-Mod/bin/smb2.nes > /dev/null 2>&1
+
+echo 'Launching the rom...'
+
 # if compareHash $PRG0 'bin/smb2.nes' -eq 0 ; then
 # 	echo 'Matched PRG0 ROM'
 # 	exit 0
