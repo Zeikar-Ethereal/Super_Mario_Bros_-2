@@ -75,6 +75,13 @@ CleanupZeroOut:
   LDA #$00
   STA CurrentCharacter
   STA CurrentCharacterPTwo ; Zero out ram for characters incase there left overs
+; Flip if are playing traditional mode so it start has player 1
+  LDA GamePlayMode
+  CMP #kTraditionalMode
+  BNE QuitCleanup
+  LDA #$01
+  STA CurrentPlayer
+QuitCleanup:
 	JMP HideAllSprites
 
 ; ------------------------------------------------------------

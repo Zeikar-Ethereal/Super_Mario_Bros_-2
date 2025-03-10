@@ -895,4 +895,11 @@ DoublePick = $01
 CursorOverflow = $0C
 MaxCursorIndex = $0B
 
+;GamePlayMode
+kSoloMode = $00
+kTraditionalMode = $01
+kTagMode = $02
+kSharedMode = $03
+kChaosMode = $04
+
 .endinl

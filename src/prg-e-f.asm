@@ -414,6 +414,16 @@ DisplayLevelTitleCardAndMore:
 	LDA #PRGBank_A_B
 	JSR ChangeMappedPRGBank
 
+; Flip who is playing here! If we are playing with the traditional mode
+TraditionalPlayerSwap:
+  LDA GamePlayMode
+  CMP #kTraditionalMode
+  BNE SetCurrentCharacterCard
+  LDA CurrentPlayer
+  EOR #$01
+  STA CurrentPlayer
+
+SetCurrentCharacterCard:
   LDY CurrentPlayer
   LDA CurrentcharacterPOne, Y ; Added setter here, BUG BUG check in the future if this cover all cases
   STA CurrentCharacter
