@@ -87,7 +87,7 @@ CheckForConfirmationCharSelect:
   AND #ControllerInput_A
   BEQ LeaveCheckConfirmationCharSelect ; Leave if no A press
 
-  LDA CurrentCharacter
+  LDA CurrentcharacterPOne
   CMP #$FF ; Check if we already pressed A
   BNE LeaveCheckConfirmationCharSelect
 
@@ -122,7 +122,7 @@ SetConfirmSpriteLoop:
   LDA CursorLocation
   TAY
   LDA RealCharacterIndexTable, Y
-  STA CurrentCharacter
+  STA CurrentcharacterPOne
 
 LeaveCheckConfirmationCharSelect:
   RTS

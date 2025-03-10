@@ -72,8 +72,6 @@ loc_BANKF_E2B2:
 
 	LDA #Music1_CharacterSelect
 	STA MusicQueue1
-	LDA CurrentCharacter
-	STA PreviousCharacter
 	LDA CurrentWorld
 	STA PreviousWorld
 
@@ -97,14 +95,14 @@ loc_BANKF_E2CA:
 
 
 ; Init cursor location, determine by what last character was picked
-  LDY CurrentCharacter
+  LDY CurrentcharacterPOne
   LDA RealCursorIndexTable, Y
   STA CursorLocation
   LDY CurrentCharacterPTwo
   LDA RealCursorIndexTable, Y
   STA CursorLocationPTwo
   LDA #$FF
-  STA CurrentCharacter
+  STA CurrentcharacterPOne
   STA CurrentCharacterPTwo
 
 ; Maybe update this in the future TODO

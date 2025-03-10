@@ -414,6 +414,10 @@ DisplayLevelTitleCardAndMore:
 	LDA #PRGBank_A_B
 	JSR ChangeMappedPRGBank
 
+  LDY CurrentPlayer
+  LDA CurrentcharacterPOne, Y ; Added setter here, BUG BUG check in the future if this cover all cases
+  STA CurrentCharacter
+
 	JSR CopyCharacterStatsAndStuff
 
 	JSR EnableNMI

@@ -142,7 +142,7 @@ CharacterSelectMenuLoop:
   JSR BlackOutAllSpritePalette
 
 HandlePlayerOneCursorCharSelect:
-  LDA CurrentCharacter
+  LDA CurrentcharacterPOne
   BPL CheckForPlayerTwoCharSelect ; Branch if player 1 selected a character
 
   LDA Player1JoypadPress
@@ -189,7 +189,7 @@ ApplyPlayerOnePalette:
   JSR DumpNewPaletteCharacter ; Dump palette for slot 1 and slot 2
 
 CheckConfirmation:
-  LDA CurrentCharacter
+  LDA CurrentcharacterPOne
   BMI CharacterSelectMenuLoop ; If player 1 didn't pick, start back the loop
 
   LDA TwoPlayerCharacterSelect

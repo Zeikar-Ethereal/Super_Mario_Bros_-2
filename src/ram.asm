@@ -849,14 +849,16 @@ SpriteFlickerSlot:
 
 ; FOR RENT
 PPUCTRLForIRQ:
-CurrentCharacterPTwo:
 	.dsb 1 ; $0401
 ; FOR RENT
 BossTileset:
 	.dsb 1 ; $0402
 ; FOR RENT
+CurrentcharacterPOne:
 	.dsb 1 ; $0403
 ; unused? written but never read
+; FOR RENT
+CurrentCharacterPTwo:
 PreviousCharacter:
 	.dsb 1 ; $0404
 ; unused? written but never read
