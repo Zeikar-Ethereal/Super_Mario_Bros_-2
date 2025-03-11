@@ -2258,6 +2258,13 @@ CopyCharStatsFuncHi = $7E25
 CharSelectCursorARGV = $7E25
 CharSelectCharacterARGV = $7E26
 
+PlayerOneStatsRam = $7E10
+PlayerOnePaletteRam = $7E27
+
+
+PlayerTwoStatsRam = $7E40
+PlayerTwoPaletteRam = $7E57
+
 MMC3_BankSelect = $8000
 MMC3_BankData = $8001
 MMC3_Mirroring = $a000

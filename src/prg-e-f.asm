@@ -5467,6 +5467,7 @@ SwapTagModeFirstPlayer:
   STA Player1JoypadPress
   LDA Player2JoypadHeld
   STA Player1JoypadHeld ; Duplicate code, speed is more important than space
+  JMP SwapCharPlayerTwo
 LeavePlayerOneLogic:
   RTS
 
@@ -5481,6 +5482,7 @@ PlayerTwoLogicTagMode:
 
 SwapTagModeSecondPlayer:
   DEC CurrentPlayer ; Set the player to 0 (0 = First player)
+  JMP SwapCharPlayerOne
   RTS
 
 ; ------------------------------------------------------------
@@ -5515,23 +5517,69 @@ OnePlayerTwoControllers:
 ChaosMode:
   RTS
 
-; ------------------------------------------------------------
-; Chaos mode , GameplayMode = 5
-; Players control the same character, but who controls it
-; swap at random time
-; ------------------------------------------------------------
-ChaosModeExtra:
-  RTS
+SwapCharPlayerOne:
+  LDY #$00
+SwapCharPlayerOneLoop:
+  LDA PlayerOneStatsRam, Y
+  STA CharacterStatsRAM, Y
+  INY
+  CPY #$17
+  BNE SwapCharPlayerOneLoop
 
-TestFunc:
-  LDA CurrentPlayer
-  BEQ LeaveTestFunc
-  LDA Player2JoypadPress
-  STA Player1JoypadPress
-  LDA Player2JoypadHeld
-  STA Player1JoypadHeld
-LeaveTestFunc:
-  RTS
+  LDA PlayerOnePaletteRam + 1
+  STA RestorePlayerPalette1
+  LDA PlayerOnePaletteRam + 2
+  STA RestorePlayerPalette2
+  LDA PlayerOnePaletteRam + 3
+  STA RestorePlayerPalette3
+
+  LDA CurrentcharacterPOne
+  STA CurrentCharacter
+  JSR UpdateCharacterPalette
+  JMP LoadCharacterCHRBanks
+
+SwapCharPlayerTwo:
+  LDY #$00
+SwapCharPlayerTwoLoop:
+  LDA PlayerTwoStatsRam, Y
+  STA CharacterStatsRAM, Y
+  INY
+  CPY #$17
+  BNE SwapCharPlayerTwoLoop
+
+  LDA PlayerTwoPaletteRam + 1
+  STA RestorePlayerPalette1
+  LDA PlayerTwoPaletteRam + 2
+  STA RestorePlayerPalette2
+  LDA PlayerTwoPaletteRam + 3
+  STA RestorePlayerPalette3
+
+  LDA CurrentCharacterPTwo
+  STA CurrentCharacter
+  JSR UpdateCharacterPalette
+  JMP LoadCharacterCHRBanks
+
+UpdateCharacterPalette:
+	LDX byte_RAM_300
+	LDA #$3F
+	STA PPUBuffer_301, X
+	LDA #$11
+	STA PPUBuffer_301 + 1, X
+	LDA #$03
+	STA PPUBuffer_301 + 2, X
+	LDA RestorePlayerPalette1
+	STA PPUBuffer_301 + 3, X
+	LDA RestorePlayerPalette2
+	STA PPUBuffer_301 + 4, X
+	LDA RestorePlayerPalette3
+	STA PPUBuffer_301 + 5, X
+	LDA #$00
+	STA PPUBuffer_301 + 6, X
+	TXA
+	CLC
+	ADC #$06
+	STA byte_RAM_300
+	RTS
 
 ; Unused space in the original ($FB36 - $FDFF)
 unusedSpace $FE00, $FF

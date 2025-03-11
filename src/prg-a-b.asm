@@ -689,11 +689,70 @@ IFDEF CONTROLLER_2_DEBUG
 	JSR CopyCharacterStats
 ENDIF
 
+CopyPlayerOneStats:
+  LDY CurrentcharacterPOne
+  LDA CharacterStatsLo, Y
+  STA FuncLoTemp
+  LDA CharacterStatsHi, Y
+  STA FuncHiTemp
+
+  LDY #$00
+CopyPlayerOneStatsLoop:
+  LDA (FuncLoTemp), Y
+  STA PlayerOneStatsRam, Y 
+  INY
+  CPY #$17
+  BCC CopyPlayerOneStatsLoop
+
+CopyPlayerOnePalette:
+	LDA CurrentcharacterPOne
+	ASL A
+	ASL A
+	TAY
+	LDX #$00
+CopyPlayerOnePaletteLoop:
+  LDA CharacterPalette, Y
+  STA PlayerOnePaletteRam, X
+  INY
+  INX
+  CPX #$04
+  BNE CopyPlayerOnePaletteLoop
+
+
+CopyPlayerTwoStats:
+  LDY CurrentCharacterPTwo
+  LDA CharacterStatsLo, Y
+  STA FuncLoTemp
+  LDA CharacterStatsHi, Y
+  STA FuncHiTemp
+
+  LDY #$00
+CopyPlayerTwoStatsLoop:
+  LDA (FuncLoTemp), Y
+  STA PlayerTwoStatsRam, Y 
+  INY
+  CPY #$17
+  BCC CopyPlayerTwoStatsLoop
+
   LDY CurrentCharacter
   LDA CharacterStatsLo, Y
   STA FuncLoTemp
   LDA CharacterStatsHi, Y
   STA FuncHiTemp
+
+CopyPlayerTwoPalette:
+	LDA CurrentCharacterPTwo
+	ASL A
+	ASL A
+	TAY
+	LDX #$00
+CopyPlayerTwoPaletteLoop:
+  LDA CharacterPalette, Y
+  STA PlayerTwoPaletteRam, X
+  INY
+  INX
+  CPX #$04
+  BNE CopyPlayerTwoPaletteLoop
 
 ;	LDX CurrentCharacter
 ;	LDY StatOffsets, X
