@@ -7,32 +7,6 @@
 ;   - Enemy initialization and logic
 ;
 
-CarryYOffsets:
-CarryYOffsetBigLo:
-	.db $FA ; Mario
-	.db $F6 ; Princess
-	.db $FC ; Toad
-	.db $F7 ; Luigi
-
-CarryYOffsetBigHi:
-	.db $FF ; Mario
-	.db $FF ; Princess
-	.db $FF ; Toad
-	.db $FF ; Luigi
-
-CarryYOffsetSmallLo:
-	.db $02 ; Mario
-	.db $FE ; Princess
-	.db $04 ; Toad
-	.db $FF ; Luigi
-
-CarryYOffsetSmallHi:
-	.db $00 ; Mario
-	.db $FF ; Princess
-	.db $00 ; Toad
-	.db $FF ; Luigi
-
-
 AreaMainRoutine:
 	LDA DoAreaTransition
 	BEQ AreaMainRoutine_NoTransition
@@ -4594,11 +4568,30 @@ CharacterYOffsetCrouch:
 	.db $0E ; Princess
 	.db $0A ; Toad
 	.db $0D ; Luigi
+	.db $0A ; Imajin
+	.db $0D ; Mama
+	.db $0A ; Papa
+	.db $0E ; Lina
+	.db $0A ; Merio
+	.db $0D ; Lol
+	.db $0A ; Toadette
+	.db $0E ; Rosalina
+
+CharacterYOffsetCrouchSmall:
 	.db $04 ; Small Mario
 	.db $07 ; Small Princess
 	.db $04 ; Small Toad
 	.db $06 ; Small Luigi
 
+	.db $04 ; Small Imajin
+	.db $06 ; Small Mama
+	.db $04 ; Small Papa
+	.db $07 ; Small Lina
+
+	.db $04 ; Small Merio
+	.db $06 ; Small Lol
+	.db $04 ; Small Toadette
+	.db $07 ; Small Rosalina
 
 ; This is run when the player is carrying
 ; something, to update its position to
@@ -4640,10 +4633,12 @@ loc_BANK2_9636:
 	LDY CurrentCharacter
 	BCC loc_BANK2_964A
 
-	INY
-	INY
-	INY
-	INY
+  ADC CharacterYOffsetCrouchSmall, Y ; Fix? Check later BUG BUG
+  JMP loc_BANK2_964D
+;	INY
+;	INY
+;	INY
+;	INY
 
 loc_BANK2_964A:
 	ADC CharacterYOffsetCrouch, Y

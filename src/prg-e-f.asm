@@ -188,6 +188,62 @@ BonusChanceSpritePalettes:
 	.db $0F, $37, $16, $0F
 	.db $0F, $37, $16, $0F
 
+CarryYOffsets:
+CarryYOffsetBigLo:
+	.db $FA ; Mario
+	.db $F6 ; Princess
+	.db $FC ; Toad
+	.db $F7 ; Luigi
+  .db $FA ; Imajin
+  .db $F7 ; Mama
+	.db $FC ; Papa
+	.db $F6 ; Lina
+	.db $FA ; Merio
+	.db $F7 ; Lol
+	.db $FC ; Toadette
+	.db $F6 ; Rosalina
+
+CarryYOffsetBigHi:
+	.db $FF ; Mario
+	.db $FF ; Princess
+	.db $FF ; Toad
+	.db $FF ; Luigi
+  .db $FF ; Imajin
+  .db $FF ; Mama
+	.db $FF ; Papa
+	.db $FF ; Lina
+	.db $FF ; Merio
+	.db $FF ; Lol
+	.db $FF ; Toadette
+	.db $FF ; Rosalina
+
+CarryYOffsetSmallLo:
+	.db $02 ; Mario
+	.db $FE ; Princess
+	.db $04 ; Toad
+	.db $FF ; Luigi
+  .db $02 ; Imajin
+  .db $FF ; Mama
+	.db $04 ; Papa
+	.db $FE ; Lina
+	.db $02 ; Merio
+	.db $FF ; Lol
+	.db $04 ; Toadette
+	.db $FE ; Rosalina
+
+CarryYOffsetSmallHi:
+	.db $00 ; Mario
+	.db $FF ; Princess
+	.db $00 ; Toad
+	.db $FF ; Luigi
+  .db $00 ; Imajin
+	.db $FF ; Mama
+	.db $00 ; Papa
+	.db $FF ; Lina
+	.db $00 ; Merio
+	.db $FF ; Lol
+	.db $00 ; Toadette
+	.db $FF ; Rosalina
 
 ;
 ; Load A with an index and call this to
