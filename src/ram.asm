@@ -2267,10 +2267,12 @@ CharSelectCharacterARGV = $7E26
 
 PlayerOneStatsRam = $7E10
 PlayerOnePaletteRam = $7E27
+PlayerOneCarryStats = $7E2B
 
 
 PlayerTwoStatsRam = $7E40
 PlayerTwoPaletteRam = $7E57
+PlayerTwoCarryStats = $7E5B
 
 MMC3_BankSelect = $8000
 MMC3_BankData = $8001

@@ -718,6 +718,16 @@ CopyPlayerOnePaletteLoop:
   CPX #$04
   BNE CopyPlayerOnePaletteLoop
 
+CopyPlayerOneCarryStats:
+  LDY CurrentcharacterPOne
+  LDA CarryYOffsetBigLo, Y
+  STA PlayerOneCarryStats
+  LDA CarryYOffsetBigHi, Y 
+  STA PlayerOneCarryStats + 1
+  LDA CarryYOffsetSmallLo, Y
+  STA PlayerOneCarryStats + 2
+  LDA CarryYOffsetSmallHi, Y
+  STA PlayerOneCarryStats + 3
 
 CopyPlayerTwoStats:
   LDY CurrentCharacterPTwo
@@ -753,6 +763,17 @@ CopyPlayerTwoPaletteLoop:
   INX
   CPX #$04
   BNE CopyPlayerTwoPaletteLoop
+
+CopyPlayerTwoCarryStats:
+  LDY CurrentCharacterPTwo
+  LDA CarryYOffsetBigLo, Y
+  STA PlayerTwoCarryStats
+  LDA CarryYOffsetBigHi, Y 
+  STA PlayerTwoCarryStats + 1
+  LDA CarryYOffsetSmallLo, Y
+  STA PlayerTwoCarryStats + 2
+  LDA CarryYOffsetSmallHi, Y
+  STA PlayerTwoCarryStats + 3
 
 ;	LDX CurrentCharacter
 ;	LDY StatOffsets, X

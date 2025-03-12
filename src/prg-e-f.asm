@@ -3328,46 +3328,46 @@ ChangePlayerPoofTiles:
 ; Renders the player sprite
 ;
 RenderPlayer:
-	LDA ChangeCharacterPoofTimer
-	BEQ RenderPlayer_AfterChangeCharacterPoof
-
-	DEC ChangeCharacterPoofTimer
-
-	; tile
-	LDY ChangeCharacterPoofTimer
-	LDA ChangePlayerPoofTiles, Y
-	STA SpriteDMAArea + $01
-	STA SpriteDMAArea + $05
-	STA SpriteDMAArea + $09
-	STA SpriteDMAArea + $0D
-
-	; attributes
-	LDA #ObjAttrib_Palette1
-	STA SpriteDMAArea + $02
-	STA SpriteDMAArea + $0A
-	LDA #ObjAttrib_Palette1 | ObjAttrib_16x32
-	STA SpriteDMAArea + $06
-	STA SpriteDMAArea + $0E
-
-	; y-position
-	LDA PlayerScreenYLo
-	STA SpriteDMAArea + $00
-	STA SpriteDMAArea + $04
-	CLC
-	ADC #$10
-	STA SpriteDMAArea + $08
-	STA SpriteDMAArea + $0C
-
-	; x-position
-	LDA PlayerScreenX
-	STA SpriteDMAArea + $03
-	STA SpriteDMAArea + $0B
-	CLC
-	ADC #$08
-	STA SpriteDMAArea + $07
-	STA SpriteDMAArea + $0F
-
-RenderPlayer_AfterChangeCharacterPoof:
+;	LDA ChangeCharacterPoofTimer
+;	BEQ RenderPlayer_AfterChangeCharacterPoof
+;
+;	DEC ChangeCharacterPoofTimer
+;
+;	; tile
+;	LDY ChangeCharacterPoofTimer
+;	LDA ChangePlayerPoofTiles, Y
+;	STA SpriteDMAArea + $01
+;	STA SpriteDMAArea + $05
+;	STA SpriteDMAArea + $09
+;	STA SpriteDMAArea + $0D
+;
+;	; attributes
+;	LDA #ObjAttrib_Palette1
+;	STA SpriteDMAArea + $02
+;	STA SpriteDMAArea + $0A
+;	LDA #ObjAttrib_Palette1 | ObjAttrib_16x32
+;	STA SpriteDMAArea + $06
+;	STA SpriteDMAArea + $0E
+;
+;	; y-position
+;	LDA PlayerScreenYLo
+;	STA SpriteDMAArea + $00
+;	STA SpriteDMAArea + $04
+;	CLC
+;	ADC #$10
+;	STA SpriteDMAArea + $08
+;	STA SpriteDMAArea + $0C
+;
+;	; x-position
+;	LDA PlayerScreenX
+;	STA SpriteDMAArea + $03
+;	STA SpriteDMAArea + $0B
+;	CLC
+;	ADC #$08
+;	STA SpriteDMAArea + $07
+;	STA SpriteDMAArea + $0F
+;
+;RenderPlayer_AfterChangeCharacterPoof:
 
 	LDY_abs PlayerState
 	CPY #PlayerState_ChangingSize
@@ -5678,6 +5678,7 @@ SwapCharPlayerOne:
 	LDX #$08
   STX ChangeCharacterPoofTimer
 
+; Stats
   LDY #$00
 SwapCharPlayerOneLoop:
   LDA PlayerOneStatsRam, Y
@@ -5686,12 +5687,23 @@ SwapCharPlayerOneLoop:
   CPY #$17
   BNE SwapCharPlayerOneLoop
 
+; Palette
   LDA PlayerOnePaletteRam + 1
   STA RestorePlayerPalette1
   LDA PlayerOnePaletteRam + 2
   STA RestorePlayerPalette2
   LDA PlayerOnePaletteRam + 3
   STA RestorePlayerPalette3
+
+; Carry stats
+  LDA PlayerOneCarryStats
+  STA ItemCarryYOffsetsRAM
+  LDA PlayerOneCarryStats + 1
+  STA ItemCarryYOffsetsRAM + $0E
+  LDA PlayerOneCarryStats + 2
+  STA ItemCarryYOffsetsRAM + $07
+  LDA PlayerOneCarryStats + 3
+  STA ItemCarryYOffsetsRAM + $15
 
   LDA CurrentcharacterPOne
   STA CurrentCharacter
@@ -5707,6 +5719,7 @@ SwapCharPlayerTwo:
 	LDX #$08
   STX ChangeCharacterPoofTimer
 
+; Stats
   LDY #$00
 SwapCharPlayerTwoLoop:
   LDA PlayerTwoStatsRam, Y
@@ -5715,12 +5728,23 @@ SwapCharPlayerTwoLoop:
   CPY #$17
   BNE SwapCharPlayerTwoLoop
 
+; Colors
   LDA PlayerTwoPaletteRam + 1
   STA RestorePlayerPalette1
   LDA PlayerTwoPaletteRam + 2
   STA RestorePlayerPalette2
   LDA PlayerTwoPaletteRam + 3
   STA RestorePlayerPalette3
+
+; Carry stats
+  LDA PlayerTwoCarryStats
+  STA ItemCarryYOffsetsRAM
+  LDA PlayerTwoCarryStats + 1
+  STA ItemCarryYOffsetsRAM + $0E
+  LDA PlayerTwoCarryStats + 2
+  STA ItemCarryYOffsetsRAM + $07
+  LDA PlayerTwoCarryStats + 3
+  STA ItemCarryYOffsetsRAM + $15
 
   LDA CurrentCharacterPTwo
   STA CurrentCharacter
