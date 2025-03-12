@@ -1216,8 +1216,8 @@ EndOfLevel:
 	STA MusicQueue2
 
 	; Increase current characters "contribution" counter
-	LDX CurrentCharacter
-	INC CharacterLevelsCompleted, X
+;	LDX CurrentCharacter
+;	INC CharacterLevelsCompleted, X REMOVED contribution
 
 	; Check if we've completed the final level
 	LDA CurrentLevel
@@ -5539,7 +5539,6 @@ PlayerTwoLogicTagMode:
 SwapTagModeSecondPlayer:
   DEC CurrentPlayer ; Set the player to 0 (0 = First player)
   JMP SwapCharPlayerOne
-  RTS
 
 ; ------------------------------------------------------------
 ; 1P2C, GameplayMode = 3
@@ -5570,9 +5569,111 @@ OnePlayerTwoControllers:
 ; Players control the same character, but who controls it
 ; swap at random time
 ; ------------------------------------------------------------
-ChaosMode:
+
+; ------------------------------------------------------------
+; Cursed way to do things with self-modifying code...
+; ------------------------------------------------------------
+RunTimerChaos:
+  LDA CurrentPlayer
+  BEQ DecreaseTimerChaos ; Check if we need to swap inputs
+  LDA Player2JoypadPress
+  STA Player1JoypadPress
+  LDA Player2JoypadHeld
+  STA Player1JoypadHeld
+
+DecreaseTimerChaos:
+  DEC SecondsTimer ; Go until 60 call to this function happened
+  BNE LeaveRunTimer
+  LDA #$3C ; Set back to 60/0x3C
+  STA SecondsTimer ; Counter that is randomly generated
+  DEC SecondsToWait
+  BNE LeaveRunTimer
+  LDA #<GenerateNumberChaos ; We need a new number, next function call we will call that func instead
+  STA FuncPointerLo
+  LDA #>GenerateNumberChaos
+  STA FuncPointerHi
+LeaveRunTimer:
   RTS
 
+; ------------------------------------------------------------
+; Generate a random number, and modify the func pointer
+; to point to swap player after.
+; ------------------------------------------------------------
+GenerateNumberChaos:
+  LDA CurrentPlayer
+  BEQ GenerateNow ; Check for input swap
+  LDA Player2JoypadPress
+  STA Player1JoypadPress
+  LDA Player2JoypadHeld
+  STA Player1JoypadHeld
+
+GenerateNow:
+	LDA Seed + 1
+	TAY ; store copy of high byte
+	; compute seed+1 ($39>>1 = %11100)
+	LSR ; shift to consume zeroes on left...
+	LSR
+	LSR
+	STA Seed + 1 ; now recreate the remaining bits in reverse order... %111
+	LSR
+	EOR Seed + 1
+	LSR
+	EOR Seed + 1
+	EOR Seed + 0 ; recombine with original low byte
+	STA Seed + 1
+	; compute seed+0 ($39 = %111001)
+	TYA ; original high byte
+	STA Seed + 0
+	ASL
+	EOR Seed + 0
+	ASL
+	EOR Seed + 0
+	ASL
+	ASL
+	ASL
+	EOR Seed + 0
+	STA Seed + 0
+
+  LDA Seed
+  AND #$0F
+  CLC
+  ADC #$01
+  STA SecondsToWait
+
+SetSwapFuncChaos:
+  LDA #<SwapCharactersChaos
+  STA FuncPointerLo
+  LDA #>SwapCharactersChaos
+  STA FuncPointerHi
+  RTS
+
+
+; ------------------------------------------------------------
+; It's swapping time! Also restore the func pointer to the 
+; timer func instead.      
+; ------------------------------------------------------------
+SwapCharactersChaos:
+  LDA #<RunTimerChaos
+  STA FuncPointerLo
+  LDA #>RunTimerChaos
+  STA FuncPointerHi
+
+  LDA CurrentPlayer
+  EOR #$01
+  STA CurrentPlayer
+  BNE ChaosSwapPlayerTwo
+ChaosSwapPlayerOne:
+  JMP SwapCharPlayerOne
+ChaosSwapPlayerTwo:
+  LDA Player2JoypadPress
+  STA Player1JoypadPress
+  LDA Player2JoypadHeld
+  STA Player1JoypadHeld ; Duplicate code, speed is more important than space
+  JMP SwapCharPlayerTwo
+
+; ------------------------------------------------------------
+; Swap to the player 1 character, swaps stats, palette, gfx...
+; ------------------------------------------------------------
 SwapCharPlayerOne:
   LDY #$00
 SwapCharPlayerOneLoop:
@@ -5594,6 +5695,9 @@ SwapCharPlayerOneLoop:
   JSR UpdateCharacterPalette
   JMP LoadCharacterCHRBanks
 
+; ------------------------------------------------------------
+; Swap to the player 2 character, swaps stats, palette, gfx...
+; ------------------------------------------------------------
 SwapCharPlayerTwo:
   LDY #$00
 SwapCharPlayerTwoLoop:
@@ -5615,6 +5719,9 @@ SwapCharPlayerTwoLoop:
   JSR UpdateCharacterPalette
   JMP LoadCharacterCHRBanks
 
+; ------------------------------------------------------------
+; Update PPUBuffer to update the current character palette
+; ------------------------------------------------------------
 UpdateCharacterPalette:
 	LDX byte_RAM_300
 	LDA #$3F

@@ -5,14 +5,14 @@ GameplayInputFuncHiTable:
   .db >TraditionalMode
   .db >TagMode
   .db >OnePlayerTwoControllers
-  .db >ChaosMode
+  .db >RunTimerChaos
 
 GameplayInputFuncLoTable:
   .db <SoloMode
   .db <TraditionalMode
   .db <TagMode
   .db <OnePlayerTwoControllers
-  .db <ChaosMode
+  .db <RunTimerChaos
 
 TitleScreenPPUDataPointers:
 	.dw PPUBuffer_301
@@ -75,6 +75,20 @@ CleanupZeroOut:
   LDA #$00
   STA CurrentCharacter
   STA CurrentCharacterPTwo ; Zero out ram for characters incase there left overs
+
+; Set random number
+  LDA TitleScreenSeedCounter
+  BNE SetSeedCounter
+  LDA #$69 ; if it's 0, just start at nice
+SetSeedCounter:
+  STA Seed
+  AND #$0F
+  STA SecondsToWait
+  LDA OptionSelectSeedCounter
+  STA SeedHi
+  LDA #$3C
+  STA SecondsTimer
+
 ; Flip if are playing traditional mode so it start has player 1
   LDA GamePlayMode
   CMP #kTraditionalMode

@@ -429,10 +429,10 @@ ENDIF
 SoundEffectTimer2:
 	.dsb 1 ; $00c4
 ; FOR RENT
-CurrentPlayer:
+Seed:
 	.dsb 1 ; $00c5
 ; FOR RENT
-GamePlayMode:
+SeedHi:
 	.dsb 1 ; $00c6
 PlayerAnimationFrame:
 	.dsb 1 ; $00c7
@@ -548,6 +548,7 @@ Player1JoypadHeld:
 Player2JoypadHeld:
 	.dsb 1 ; $00f8
 ; Should be FOR RENT too
+CurrentPlayer:
 	.dsb 1 ; $00f9
 FuncLoTemp:
 	.dsb 1 ; $00fa
@@ -865,7 +866,7 @@ PreviousCharacter:
 PreviousWorld:
 	.dsb 1 ; $0405
 ; FOR RENT
-RandomNumber:
+GamePlayMode:
 	.dsb 1 ; $0406
 
 PlayerXSubpixel:
@@ -1778,6 +1779,8 @@ GroundSlipperiness:
 ; FOR RENT
 	.dsb 1 ; $0625
 ; FOR RENT
+OptionSelectSeedCounter:
+SecondsTimer:
 	.dsb 1 ; $0626
 DoAreaTransition:
 	.dsb 1 ; $0627
@@ -1799,6 +1802,7 @@ CharacterLevelsCompleted:
 MaxLevelsCompleted:
 	.dsb 1 ; $0631
 ; FOR RENT
+;Seed
 	.dsb 1 ; $0632
 ; FOR RENT
 LevelObjectMode:
@@ -2064,6 +2068,8 @@ BackgroundCHR2Timer:
 ResetCHRLatch:
 	.dsb 1 ; $06fe
 ; FOR RENT
+TitleScreenSeedCounter:
+SecondsToWait:
 	.dsb 1 ; $06ff
 
 ; When moving into subspace,  this area is turned into a tile represenation

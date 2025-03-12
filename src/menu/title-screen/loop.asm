@@ -20,6 +20,7 @@ UpdateSpriteTitleScreen:
   JSR UpdateSpriteTitleScreenRoutine
   JSR TitleScreenCHRHandling
 LoopWait:
+  INC TitleScreenSeedCounter
   JSR WaitForNMI_Menu
   JMP TitleScreenLoop
 

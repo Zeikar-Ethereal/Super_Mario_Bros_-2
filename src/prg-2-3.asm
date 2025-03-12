@@ -4568,10 +4568,12 @@ CharacterYOffsetCrouch:
 	.db $0E ; Princess
 	.db $0A ; Toad
 	.db $0D ; Luigi
+
 	.db $0A ; Imajin
 	.db $0D ; Mama
 	.db $0A ; Papa
 	.db $0E ; Lina
+
 	.db $0A ; Merio
 	.db $0D ; Lol
 	.db $0A ; Toadette
