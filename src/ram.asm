@@ -1439,6 +1439,7 @@ RunSpeedLeftCarrying:
 RunSpeedLeftQuicksand:
 	.dsb 1 ; $055c
 ; FOR RENT
+CharacterSpecial
 	.dsb 1 ; $055d
 GroundType:
 	.dsb 1 ; $055e

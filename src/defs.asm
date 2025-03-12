@@ -902,4 +902,15 @@ kTagMode = $02
 kSharedMode = $03
 kChaosMode = $04
 
+; Special Attributes
+CanRun = $00
+CannotRun = $80
+
+Shrink = $00
+DoesNotShrink = $40
+
+RegularFloat = $00
+UpwardFloat = $20
+
+
 .endinl
