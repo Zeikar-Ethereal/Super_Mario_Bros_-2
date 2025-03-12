@@ -5684,7 +5684,7 @@ SwapCharPlayerOneLoop:
   LDA PlayerOneStatsRam, Y
   STA CharacterStatsRAM, Y
   INY
-  CPY #$17
+  CPY #kCharacterStatsTotal
   BNE SwapCharPlayerOneLoop
 
 ; Palette
@@ -5725,7 +5725,7 @@ SwapCharPlayerTwoLoop:
   LDA PlayerTwoStatsRam, Y
   STA CharacterStatsRAM, Y
   INY
-  CPY #$17
+  CPY #kCharacterStatsTotal
   BNE SwapCharPlayerTwoLoop
 
 ; Colors

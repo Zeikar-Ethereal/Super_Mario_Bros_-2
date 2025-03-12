@@ -1439,7 +1439,7 @@ RunSpeedLeftCarrying:
 RunSpeedLeftQuicksand:
 	.dsb 1 ; $055c
 ; FOR RENT
-CharacterSpecial
+CharacterSpecialAttribute:
 	.dsb 1 ; $055d
 GroundType:
 	.dsb 1 ; $055e
@@ -2267,13 +2267,13 @@ CharSelectCursorARGV = $7E25
 CharSelectCharacterARGV = $7E26
 
 PlayerOneStatsRam = $7E10
-PlayerOnePaletteRam = $7E27
-PlayerOneCarryStats = $7E2B
+PlayerOnePaletteRam = $7E28
+PlayerOneCarryStats = $7E2C
 
 
-PlayerTwoStatsRam = $7E40
-PlayerTwoPaletteRam = $7E57
-PlayerTwoCarryStats = $7E5B
+PlayerTwoStatsRam = $7E30
+PlayerTwoPaletteRam = $7E48
+PlayerTwoCarryStats = $7E4C
 
 MMC3_BankSelect = $8000
 MMC3_BankData = $8001

@@ -913,4 +913,6 @@ RegularFloat = $00
 UpwardFloat = $20
 
 
+kCharacterStatsTotal = $18
+
 .endinl

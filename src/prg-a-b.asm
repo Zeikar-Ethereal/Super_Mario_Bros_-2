@@ -329,7 +329,7 @@ MarioStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E8 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat
+  .db CanRun | Shrink | RegularFloat ; Special attributes
 
 ToadStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -355,6 +355,7 @@ ToadStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E3 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CanRun | Shrink | RegularFloat ; Special attributes
 
 LuigiStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -380,6 +381,7 @@ LuigiStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EA ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CanRun | Shrink | RegularFloat ; Special attributes
 
 PrincessStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -405,9 +407,8 @@ PrincessStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CanRun | Shrink | RegularFloat ; Special attributes
 
-;00 04 02 01 04 07 B0 B0 98 98 A6 AA E0 00 07 04
-;08 18 18 04 E8 E8 FC
 ImajinStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
 	.db $04 ; Pick-up Speed, frame 2/6 - pulling
@@ -432,9 +433,8 @@ ImajinStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E8 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CannotRun | DoesNotShrink | RegularFloat ; Special attributes
 
-;00 04 02 01 04 07 D8 D8 CB CB D2 D6 E0 00 02 01
-;08 18 16 04 E8 EA FC
 MamaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
 	.db $04 ; Pick-up Speed, frame 2/6 - pulling
@@ -459,9 +459,8 @@ MamaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EA ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CannotRun | DoesNotShrink | RegularFloat ; Special attributes
 
-;00 01 01 01 01 02 B2 B2 98 98 AD AD E0 00 07 04
-;08 18 1D 04 E8 E3 FC
 PapaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
 	.db $01 ; Pick-up Speed, frame 2/6 - pulling
@@ -486,9 +485,8 @@ PapaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E3 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CannotRun | DoesNotShrink | RegularFloat ; Special attributes
 
-;00 06 04 02 06 0C B3 B3 98 98 AC B3 E0 3C 07 04
-;08 18 15 04 E8 EB FC
 LinaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
 	.db $06 ; Pick-up Speed, frame 2/6 - pulling
@@ -513,6 +511,7 @@ LinaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CannotRun | DoesNotShrink | RegularFloat ; Special attributes
 
 MerioStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -538,6 +537,7 @@ MerioStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CanRun | Shrink | RegularFloat ; Special attributes
 
 LolStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -563,6 +563,7 @@ LolStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CanRun | Shrink | RegularFloat ; Special attributes
 
 ToadetteStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -588,6 +589,7 @@ ToadetteStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CanRun | Shrink | RegularFloat ; Special attributes
 
 RosalinaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -613,6 +615,7 @@ RosalinaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
+  .db CanRun | Shrink | UpwardFloat ; Special attributes
 
 CharacterPalette:
 MarioPalette:
@@ -702,7 +705,7 @@ CopyPlayerOneStatsLoop:
   LDA (FuncLoTemp), Y
   STA PlayerOneStatsRam, Y 
   INY
-  CPY #$17
+  CPY #kCharacterStatsTotal
   BCC CopyPlayerOneStatsLoop
 
 CopyPlayerOnePalette:
@@ -742,7 +745,7 @@ CopyPlayerTwoStatsLoop:
   LDA (FuncLoTemp), Y
   STA PlayerTwoStatsRam, Y 
   INY
-  CPY #$17
+  CPY #kCharacterStatsTotal
   BCC CopyPlayerTwoStatsLoop
 
   LDY CurrentCharacter
@@ -783,7 +786,7 @@ loc_BANKA_8458:
 	LDA (FuncLoTemp), Y
 	STA CharacterStatsRAM, Y
 	INY
-	CPY #$17
+	CPY #kCharacterStatsTotal
 	BCC loc_BANKA_8458
 
 	LDA CurrentCharacter
