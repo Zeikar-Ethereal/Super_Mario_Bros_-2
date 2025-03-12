@@ -2247,12 +2247,12 @@ IFDEF CONTROLLER_2_DEBUG
 	CarryYOffsetsRAM = $7e00
 	StatOffsetsRAM = $7e10
 	ChangeCharacterTimer = $7e80
-	ChangeCharacterPoofTimer = $7e81
 	CreateObjectType = $7e82
 	CreateObjectAttributes = $7e83
 ENDIF
 
 ItemCarryYOffsetsRAM = $7f00
+ChangeCharacterPoofTimer = $7e81
 
 ; Allocate 36 bytes total. 3 bytes for the parameters, 32 bytes for colors and 1 bytes for the terminating 0
 PPU_PaletteBuffer = $7E00

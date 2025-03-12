@@ -3313,7 +3313,6 @@ CharacterTiles_PrincessJumpBody:
 DamageInvulnBlinkFrames:
 	.db $01, $01, $01, $02, $02, $04, $04, $04
 
-IFDEF CONTROLLER_2_DEBUG
 ChangePlayerPoofTiles:
 	.db $5E
 	.db $3A
@@ -3324,13 +3323,11 @@ ChangePlayerPoofTiles:
 	.db $38
 	.db $36
 	.db $34
-ENDIF
 
 ;
 ; Renders the player sprite
 ;
 RenderPlayer:
-IFDEF CONTROLLER_2_DEBUG
 	LDA ChangeCharacterPoofTimer
 	BEQ RenderPlayer_AfterChangeCharacterPoof
 
@@ -3371,7 +3368,6 @@ IFDEF CONTROLLER_2_DEBUG
 	STA SpriteDMAArea + $0F
 
 RenderPlayer_AfterChangeCharacterPoof:
-ENDIF
 
 	LDY_abs PlayerState
 	CPY #PlayerState_ChangingSize
@@ -5607,6 +5603,8 @@ GenerateNumberChaos:
   LDA Player2JoypadHeld
   STA Player1JoypadHeld
 
+
+; Credit to https://github.com/bbbradsmith/prng_6502/blob/master/galois16.s
 GenerateNow:
 	LDA Seed + 1
 	TAY ; store copy of high byte
@@ -5635,7 +5633,7 @@ GenerateNow:
 	STA Seed + 0
 
   LDA Seed
-  AND #$0F
+  AND #$07
   CLC
   ADC #$01
   STA SecondsToWait
@@ -5675,6 +5673,11 @@ ChaosSwapPlayerTwo:
 ; Swap to the player 1 character, swaps stats, palette, gfx...
 ; ------------------------------------------------------------
 SwapCharPlayerOne:
+  LDA #DPCM_DrumSample_A
+  STA DPCMQueue
+	LDX #$08
+  STX ChangeCharacterPoofTimer
+
   LDY #$00
 SwapCharPlayerOneLoop:
   LDA PlayerOneStatsRam, Y
@@ -5699,6 +5702,11 @@ SwapCharPlayerOneLoop:
 ; Swap to the player 2 character, swaps stats, palette, gfx...
 ; ------------------------------------------------------------
 SwapCharPlayerTwo:
+  LDA #DPCM_DrumSample_B
+  STA DPCMQueue
+	LDX #$08
+  STX ChangeCharacterPoofTimer
+
   LDY #$00
 SwapCharPlayerTwoLoop:
   LDA PlayerTwoStatsRam, Y
