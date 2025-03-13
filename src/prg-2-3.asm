@@ -11089,10 +11089,24 @@ CheckCollisionWithPlayer_StandingOnHead:
   BEQ CheckLifTable
 
 StompEnemy:
+	LDA ObjectType, X
+  CMP #Enemy_Egg
+  BEQ CheckLifTable
+  CMP #Enemy_CrystalBall
+  BEQ CheckLifTable
+  CMP #Enemy_Key
+  BEQ CheckLifTable
+	CMP #Enemy_Pidgit
+  BEQ CheckLifTable
+  CMP #Enemy_ClawgripRock
+  BEQ CheckLifTable
+
   INC PlayerInAir
 	LDA #$A8
 	STA PlayerYVelocity
 
+  LDA #$00 ; Make the enemy drag from the top nametable instead, so there no glitch gfx
+  STA EnemyArray_46E, X
   JSR TurnIntoPuffOfSmoke
   LDA #SoundEffect1_EnemyHit
   STA SoundEffectQueue1
