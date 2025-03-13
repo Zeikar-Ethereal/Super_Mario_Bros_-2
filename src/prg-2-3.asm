@@ -11083,6 +11083,22 @@ CheckCollisionWithPlayer_StandingOnHead:
 	AND #SpriteFlags46E_Unliftable
 	BNE CheckCollisionWithPlayer_NoLift
 
+  ; Check if we have the special attribute to stomp enemies
+  LDA CharacterSpecialAttribute
+  AND #StompEnemies
+  BEQ CheckLifTable
+
+StompEnemy:
+  INC PlayerInAir
+	LDA #$A8
+	STA PlayerYVelocity
+
+  JSR TurnIntoPuffOfSmoke
+  LDA #SoundEffect1_EnemyHit
+  STA SoundEffectQueue1
+  BNE CheckCollisionWithPlayer_NoLift
+
+CheckLifTable:
 	; check B button
 	BIT Player1JoypadPress
 	BVC CheckCollisionWithPlayer_NoLift

@@ -912,6 +912,8 @@ DoesNotShrink = $40
 RegularFloat = $00
 UpwardFloat = $20
 
+NoStomp = $00
+StompEnemies = $10
 
 kCharacterStatsTotal = $18
 

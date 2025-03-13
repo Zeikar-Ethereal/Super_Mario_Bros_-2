@@ -329,7 +329,7 @@ MarioStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E8 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
 
 ToadStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -355,7 +355,7 @@ ToadStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E3 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
 
 LuigiStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -381,7 +381,7 @@ LuigiStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EA ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
 
 PrincessStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -407,7 +407,7 @@ PrincessStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
 
 ImajinStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -433,7 +433,7 @@ ImajinStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E8 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CannotRun | DoesNotShrink | RegularFloat ; Special attributes
+  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp ; Special attributes
 
 MamaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -459,7 +459,7 @@ MamaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EA ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CannotRun | DoesNotShrink | RegularFloat ; Special attributes
+  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp ; Special attributes
 
 PapaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -485,7 +485,7 @@ PapaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E3 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CannotRun | DoesNotShrink | RegularFloat ; Special attributes
+  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp ; Special attributes
 
 LinaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -511,33 +511,33 @@ LinaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CannotRun | DoesNotShrink | RegularFloat ; Special attributes
+  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp ; Special attributes
 
 MerioStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
-	.db $06 ; Pick-up Speed, frame 2/6 - pulling
-	.db $04 ; Pick-up Speed, frame 3/6 - ducking
-	.db $02 ; Pick-up Speed, frame 4/6 - ducking
-	.db $06 ; Pick-up Speed, frame 5/6 - ducking
-	.db $0C ; Pick-up Speed, frame 6/6 - ducking
-	.db $B3 ; Jump Speed, still - no object
-	.db $B3 ; Jump Speed, still - with object
+	.db $04 ; Pick-up Speed, frame 2/6 - pulling
+	.db $02 ; Pick-up Speed, frame 3/6 - ducking
+	.db $01 ; Pick-up Speed, frame 4/6 - ducking
+	.db $04 ; Pick-up Speed, frame 5/6 - ducking
+	.db $07 ; Pick-up Speed, frame 6/6 - ducking
+	.db $B0 ; Jump Speed, still - no object
+	.db $B0 ; Jump Speed, still - with object
 	.db $98 ; Jump Speed, charged - no object
 	.db $98 ; Jump Speed, charged - with object
-	.db $AC ; Jump Speed, running - no object
-	.db $B3 ; Jump Speed, running - with object
+	.db $A6 ; Jump Speed, running - no object
+	.db $AA ; Jump Speed, running - with object
 	.db $E0 ; Jump Speed - in quicksand
-	.db $3C ; Floating Time
+	.db $00 ; Floating Time
 	.db $07 ; Gravity without Jump button pressed
 	.db $04 ; Gravity with Jump button pressed
 	.db $08 ; Gravity in quicksand
 	.db $18 ; Running Speed, right - no object
-	.db $15 ; Running Speed, right - with object
+	.db $18 ; Running Speed, right - with object
 	.db $04 ; Running Speed, right - in quicksand
 	.db $E8 ; Running Speed, left - no object
-	.db $EB ; Running Speed, left - with object
+	.db $E8 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat ; Special attributes
+  .db CanRun | Shrink | RegularFloat | StompEnemies ; Special attributes
 
 LolStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -563,7 +563,7 @@ LolStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
 
 ToadetteStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -589,7 +589,7 @@ ToadetteStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
 
 RosalinaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -615,7 +615,7 @@ RosalinaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | UpwardFloat ; Special attributes
+  .db CanRun | Shrink | UpwardFloat | NoStomp ; Special attributes
 
 CharacterPalette:
 MarioPalette:
