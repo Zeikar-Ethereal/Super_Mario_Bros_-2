@@ -2625,6 +2625,11 @@ loc_BANK0_8CE5:
 	LDY JumpFloatTimer
 	BEQ PlayerGravity_Falling
 
+  LDA CharacterSpecialAttribute
+  AND #UpwardFloat
+  BNE RosalinaFloat
+
+StandardFloat:
 	DEC JumpFloatTimer
 	LDA byte_RAM_10
 	LSR A
@@ -2635,6 +2640,12 @@ loc_BANK0_8CE5:
 	LDA FloatingYVelocity, Y
 	STA PlayerYVelocity
 	RTS
+
+RosalinaFloat:
+  DEC JumpFloatTimer
+  LDA #$FC
+  STA PlayerYVelocity
+  RTS
 
 PlayerGravity_Falling:
 	LDY PlayerYVelocity
