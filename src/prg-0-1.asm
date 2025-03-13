@@ -2860,6 +2860,24 @@ loc_BANK0_8DDF:
 ; 1.5x max speed when the run button is held!
 ; BUG BUG fix for doki doki panic later
 loc_BANK0_8DE0:
+RunCheckHook:
+  LDA CharacterSpecialAttribute
+  AND #CannotRun
+  BEQ CheckNormalRunBehavior
+
+NoRunningAllowedBehavior:
+	LDA RunSpeedRight, Y
+  CMP PlayerXVelocity
+	BPL CheckLeftNoRunning
+  STA PlayerXVelocity
+CheckLeftNoRunning:
+	LDA RunSpeedLeft, Y
+	CMP PlayerXVelocity
+	BMI loc_BANK0_8E05
+	STA PlayerXVelocity
+  JMP loc_BANK0_8E05
+
+CheckNormalRunBehavior:
 	LDA RunSpeedRight, Y
 	BIT Player1JoypadHeld
 	BVC loc_BANK0_8DEC
