@@ -10,6 +10,7 @@ OptionSelectLoop:
   JSR OptionMenuAnimationCHRHandling
 WaitMenuSelect:
   DEC OptionSelectSeedCounter
+  JSR UpdateSpriteLogicOptionSelect
   JSR WaitForNMI_Menu
   JMP OptionSelectLoop ; Jump back to the loop
 ;  LDA Player1JoypadPress

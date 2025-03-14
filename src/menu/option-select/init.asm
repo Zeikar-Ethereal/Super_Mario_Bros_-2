@@ -14,6 +14,8 @@ OptionSelectInit:
   STA SpriteCHR3
   LDA #CHRStartOptionAnimation
   STA SpriteCHR4
+  LDA #$9D
+  STA BackgroundCHR1
 
   LDA #CHRAnimationSpeedOption
   STA CHRTableTimer
@@ -26,7 +28,7 @@ OptionSelectInit:
   STA ScreenUpdateIndex
   LDA PPUSTATUS
 
-  JSR EnableNMI_Menu
+  JSR EnableNMI_OptionSelect
 
   JSR WaitForNMI_Menu
 
@@ -36,6 +38,14 @@ OptionSelectInit:
   LDA #$04
   STA ScreenUpdateIndex
   JSR WaitForNMI_Menu
+
+  LDY #$00
+SpriteDumpOptionSelectLoop:
+  LDA SpritesOptionSelectTable, Y
+  STA SpriteDMAArea, Y
+  INY
+  CPY #$20
+  BNE SpriteDumpOptionSelectLoop
 
   JSR WaitForNMI_Menu_TurnOnPPU
 

@@ -132,6 +132,7 @@ CastRollSprite3A:
 FadeCounter:
 	.dsb 1 ; 6                ; $0025
 CastRollSprite3B:
+WaitSpecificAmountOfNMICounter:
 	.dsb 1 ; 7                ; $0026
 CastRollSprite3C:
 	.dsb 1 ; 8                ; $0027

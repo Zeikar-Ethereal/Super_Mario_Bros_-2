@@ -19,6 +19,8 @@
 
 .pad $b000, $ff
 
+.include "src/menu/option-select/sprites.asm"
+
 .include "src/menu/option-select/init.asm"
 
 .include "src/menu/option-select/loop.asm"

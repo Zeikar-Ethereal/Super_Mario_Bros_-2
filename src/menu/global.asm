@@ -54,6 +54,12 @@ EnableNMI_Menu:
 	STA PPUCTRL
   RTS
 
+EnableNMI_OptionSelect:
+  LDA #PPUCtrl_Base2000 | PPUCtrl_WriteHorizontal | PPUCtrl_Sprite1000 | PPUCtrl_Background0000 | PPUCtrl_SpriteSize8x16 | PPUCtrl_NMIEnabled
+	STA PPUCtrlMirror
+	STA PPUCTRL
+  RTS
+
 CleanupBeforeCharacterSelect:
 ; Set the gameplay function before wiping out the memory
   LDX GamePlayMode
@@ -274,6 +280,21 @@ WaitFixedAmountNMILoop:
   JSR WaitForNMI_Menu
   DEY
   BNE WaitFixedAmountNMILoop
+  RTS
+
+; ------------------------------------------------------------
+; Wait a fix amount of NMI
+; Call JSR WaitFixedAmountNMILoop if using the Y param
+; ------------------------------------------------------------
+WaitFixedAmountOptionSelectNMI:
+  LDY #$03
+  STY WaitSpecificAmountOfNMICounter
+WaitFixedAmountOptionSelectNMILoop:
+  JSR UpdateSpriteLogicOptionSelect
+  JSR OptionMenuAnimationCHRHandling
+  JSR WaitForNMI_Menu
+  DEC WaitSpecificAmountOfNMICounter
+  BPL WaitFixedAmountOptionSelectNMILoop
   RTS
 
 ; ------------------------------------------------------------

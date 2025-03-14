@@ -96,9 +96,9 @@ PaletteColorTableTitleScreen:
 ; ------------------------------------------------------------
 
 OptionMenuBackgroundPalettes:
-	.db $0F, $0F, $0F, $0F
+	.db $0F, $13, $02, $30
 	.db $0F, $30, $26, $0F
-	.db $0F, $35, $25, $30 ; Border
+	.db $0F, $35, $25, $0F ; Border
 	.db $0F, $35, $25, $0F ; Text part of the screen
 
 OptionMenuSpritePalettes:
@@ -116,14 +116,30 @@ MenuBorder:
 ; Fill time
   .db $20, $64, $58, $21
   .db $20, $C4, $58, $33
-  .db $22, $C4, $58, $21
+  .db $22, $C4, $58, $65
   .db $20, $83, $D2, $31
-  .db $20, $9C, $D2, $31
+  .db $20, $9C, $D2, $66
   .db $20, $E4, $58, $6E
 
 ; Single -> <-
   .db $20, $C3, $01, $23
   .db $20, $DC, $01, $34
+
+; Super top half
+  .db $23, $14, $05
+  .db $60, $61, $62, $63, $64
+
+; Super bottom half, Mario Bros 2 top part
+  .db $23, $34, $0B
+  .db $70, $71, $72, $73, $74, $75, $76, $77, $78, $79, $7A
+
+; Mario Bros 2 middle part
+  .db $23, $54, $0B
+  .db $6B, $6C, $6D, $25, $26, $27, $28, $29, $2A, $E0, $E1
+
+; Mario Bros 2 bottom part
+  .db $23, $74, $0B
+  .db $7B, $7C, $7D, $35, $36, $37, $38, $39, $3A, $F0, $F1
 
 AttributeOptionMenu:
   .db $23, $C0, $30
@@ -347,17 +363,17 @@ MenuFourthOption:
   .db $6E, $B9, $BA, $BB, $B8, $6E, $6E, $BC, $BD, $BE, $BF, $6E, $D0, $D1, $D2, $D3, $C8, $C8, $C8, $C8, $C8, $D0, $D2, $D3
 
 TraditionalPalette:
-  .db $3F, $09, $07, $35, $25, $30, $0F, $35, $25, $0F
+  .db $3F, $09, $07, $35, $25, $0F, $0F, $35, $25, $0F
   .db $00
 
 TagTeamPalette:
-  .db $3F, $09, $07, $31, $21, $30, $0F, $31, $21, $0F
+  .db $3F, $09, $07, $31, $21, $0F, $0F, $31, $21, $0F
   .db $00
 
 SharedControlPalette:
-  .db $3F, $09, $07, $39, $29, $30, $0F, $39, $29, $0F
+  .db $3F, $09, $07, $39, $29, $0F, $0F, $39, $29, $0F
   .db $00
 
 ChaosSwapPalette:
-  .db $3F, $09, $07, $3D, $2D, $30, $0F, $3D, $2D, $0F
+  .db $3F, $09, $07, $3D, $2D, $0F, $0F, $3D, $2D, $0F
   .db $00
