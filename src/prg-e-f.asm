@@ -224,7 +224,7 @@ CarryYOffsetSmallLo:
 	.db $FF ; Luigi
   .db $02 ; Imajin
   .db $FF ; Mama
-	.db $04 ; Papa
+	.db $FC ; Papa
 	.db $FE ; Lina
 	.db $02 ; Merio
 	.db $FF ; Lol
@@ -238,7 +238,7 @@ CarryYOffsetSmallHi:
 	.db $FF ; Luigi
   .db $00 ; Imajin
 	.db $FF ; Mama
-	.db $00 ; Papa
+	.db $FF ; Papa
 	.db $FF ; Lina
 	.db $00 ; Merio
 	.db $FF ; Lol
@@ -3432,6 +3432,10 @@ loc_BANKF_F350:
 
 	LDA PlayerCurrentSize
 	BEQ loc_BANKF_F382
+
+  LDA CharacterSpecialAttribute
+  AND #DoesNotShrink
+  BNE loc_BANKF_F382
 
 	LDA byte_RAM_0
 	CLC
