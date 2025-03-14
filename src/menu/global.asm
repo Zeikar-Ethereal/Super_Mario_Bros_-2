@@ -283,21 +283,6 @@ WaitFixedAmountNMILoop:
   RTS
 
 ; ------------------------------------------------------------
-; Wait a fix amount of NMI
-; Call JSR WaitFixedAmountNMILoop if using the Y param
-; ------------------------------------------------------------
-WaitFixedAmountOptionSelectNMI:
-  LDY #$03
-  STY WaitSpecificAmountOfNMICounter
-WaitFixedAmountOptionSelectNMILoop:
-  JSR UpdateSpriteLogicOptionSelect
-  JSR OptionMenuAnimationCHRHandling
-  JSR WaitForNMI_Menu
-  DEC WaitSpecificAmountOfNMICounter
-  BPL WaitFixedAmountOptionSelectNMILoop
-  RTS
-
-; ------------------------------------------------------------
 ; Initialisation of full palette buffer
 ; ------------------------------------------------------------
 InitPPUPaletteBufferParams:

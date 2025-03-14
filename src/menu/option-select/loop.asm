@@ -1,26 +1,23 @@
 OptionSelectLoop:
-
-;; Input reading
-;  LDA Player1JoypadPress
-;  BEQ UpdateSpriteOptionMenu ; If we have no input, jump to the next step
-;  JSR ReadInputOptionMenu
-;UpdateSpriteOptionMenu:
-;  NOP
   JSR ReadInputOptionMenu
-  JSR OptionMenuAnimationCHRHandling
-WaitMenuSelect:
+  JSR FrameUpdateOptionSelect
+  JMP OptionSelectLoop ; Jump back to the loop
+
+; Stuff that need to be updated every frame, chr animation, sprites and the seed counter
+FrameUpdateOptionSelect:
   DEC OptionSelectSeedCounter
+  JSR OptionMenuAnimationCHRHandling
   JSR UpdateSpriteLogicOptionSelect
   JSR WaitForNMI_Menu
-  JMP OptionSelectLoop ; Jump back to the loop
-;  LDA Player1JoypadPress
-;  CMP #ControllerInput_Start
-;  BNE CheckCursorInputTitleScreen
-;  JMP TitleScreen_Exit ; Leave the title screen
-;
-;OptionSelectLoopWait:
-;  JSR WaitForNMI_TitleScreen
-;  JMP OptionSelectLoop
+  RTS
+
+; Wait a fix amount of NMI, but with the frame update
+WaitFixedAmountOptionSelectNMI:
+  JSR FrameUpdateOptionSelect
+  JSR FrameUpdateOptionSelect
+  JSR FrameUpdateOptionSelect
+  JSR FrameUpdateOptionSelect ; LOL
+  RTS
 
 ; Range for our index buffer is #$04-#$08
 ; Check enum for their name
@@ -89,7 +86,7 @@ FadeOutToOtherOption:
 ; First fadeout
   LDA #$00 ; Greyyyyy
   STA PPUBuffer_301 + 9
-  JSR WaitFixedAmountNMI
+  JSR WaitFixedAmountOptionSelectNMI
 ; Second fadeout
   LDA #$3F
   STA PPUBuffer_301 ; Dumb trick to save time
@@ -97,13 +94,13 @@ FadeOutToOtherOption:
   STA PPUBuffer_301 + 9
   LDA PPUBuffer_301 + 3
   STA PPUBuffer_301 + 8
-  JSR WaitFixedAmountNMI
+  JSR WaitFixedAmountOptionSelectNMI
 ; Last fadeout
   LDA #$3F
   STA PPUBuffer_301 ; This is literally stupid
   LDA PPUBuffer_301 + 3 ; Get true background color
   STA PPUBuffer_301 + 9
-  JSR WaitForNMI_Menu
+  JSR FrameUpdateOptionSelect
   RTS
 
 FadeInToOtherOption:
@@ -115,13 +112,13 @@ FadeInToOtherOption:
   STA PPUBuffer_301 + 7
   STA PPUBuffer_301 + 8
   STA PPUBuffer_301 + 9
-  JSR WaitFixedAmountNMI
+  JSR WaitFixedAmountOptionSelectNMI
 ; Second fadeout
   LDA #$3F
   STA PPUBuffer_301 ; Dumb trick to save time
   LDA #$10 ; More 50 shades of greyy
   STA PPUBuffer_301 + 9
-  JSR WaitFixedAmountNMI
+  JSR WaitFixedAmountOptionSelectNMI
 ; Third Fadeout
   LDA #$3F
   STA PPUBuffer_301 ; Dumb trick to save time
@@ -129,7 +126,7 @@ FadeInToOtherOption:
   STA PPUBuffer_301 + 9
   LDA PPUBuffer_301 + 4
   STA PPUBuffer_301 + 8
-  JSR WaitForNMI_Menu
+  JSR FrameUpdateOptionSelect
   RTS
 
 FadeOutDumpPaletteUpdate:
@@ -199,7 +196,8 @@ UpdateGFXMenuOptionLoop:
 NoCarryUpdateGFXMenuOption:
   TXA
   PHA
-  JSR WaitForNMI_Menu
+  JSR FrameUpdateOptionSelect
+;  JSR WaitForNMI_Menu
   PLA
   TAX
 
