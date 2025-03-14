@@ -22,6 +22,16 @@ UpdateSpriteLogicOptionSelect:
 UpdateSpritePositionOSLoop:
   INC SpriteDMAArea, X
   DEC SpriteDMAArea + 3, X
+
+  LDA #OptionSelectSeedCounter
+  AND #$0F
+  EOR #$0F
+  BNE Skip
+
+  LDA SpriteDMAArea + 1, X
+  EOR #$20
+  STA SpriteDMAArea + 1, X
+Skip:
   INX
   INX
   INX

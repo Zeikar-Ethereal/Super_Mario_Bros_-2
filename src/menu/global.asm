@@ -147,7 +147,7 @@ FadeInDone:
 ; Params: None
 ; ---------------------------------------------------------------------
 IncreaseBrightnessPalette:
-  LDY #$19
+  LDY #$1F ; BUG BUG, used to be something else, check later if this bug out and buffer overflow
 IncreaseBrightnessPaletteLoop:
   LDA PPU_PaletteBufferBegin, Y
   CMP #$0F ; Check if black
