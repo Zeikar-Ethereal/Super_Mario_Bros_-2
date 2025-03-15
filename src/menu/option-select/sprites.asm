@@ -11,36 +11,36 @@ SpritesOptionSelectTable:
   .db $00, $F4, $00, $00
 
 ; Scroll down left 2 sprites
-	.db $1F, $01, $30, $48
-	.db $1F, $03, $30, $50
+	.db $1F, $01, $30, $44
+	.db $1F, $03, $30, $4C
 	.db $60, $05, $31, $B8
 	.db $60, $07, $31, $C0
 
 ; Scroll down right 2 sprites
-	.db $D0, $09, $32, $A8
-	.db $D0, $0B, $32, $B0
-	.db $00, $0D, $33, $B8
-	.db $00, $0F, $33, $C0
+	.db $75, $09, $32, $AA
+	.db $75, $0B, $32, $B2
+	.db $02, $0D, $33, $02
+	.db $02, $0F, $33, $0A
 
 ; Scroll up left 1 sprite
-	.db $20, $11, $30, $A8
-	.db $20, $13, $30, $B0
+	.db $2C, $11, $30, $A1
+	.db $2C, $13, $30, $A9
 
 ; Scroll up right 1 sprite
-	.db $00, $1D, $30, $A8
-	.db $00, $1F, $30, $B0
+	.db $A5, $1D, $30, $DB
+	.db $A5, $1F, $30, $E3
 
 ; Scroll Up left (big sprite)
-	.db $3F, $15, $30, $48
-	.db $3F, $17, $30, $50
-	.db $4F, $35, $30, $48
-	.db $4F, $37, $30, $50
+	.db $37, $15, $30, $46
+	.db $37, $17, $30, $4E
+	.db $47, $35, $30, $46
+	.db $47, $37, $30, $4E
 
 ; Scroll Up right (big sprite)
-	.db $5F, $19, $33, $48
-	.db $5F, $1B, $33, $50
-	.db $6F, $39, $33, $48
-	.db $6F, $3B, $33, $50
+	.db $B4, $19, $33, $43
+	.db $B4, $1B, $33, $4B
+	.db $C4, $39, $33, $43
+	.db $C4, $3B, $33, $4B
 
 UpdateSpriteLogicOptionSelect:
   LDA OptionSelectSeedCounter
@@ -58,8 +58,8 @@ ScrollDowndLeft:
   DEC SpriteDMAArea + 43
   INC SpriteDMAArea + 44
   DEC SpriteDMAArea + 47
-;
-;ScrollDownRight:
+
+ScrollDownRight:
   INC SpriteDMAArea + 48
   INC SpriteDMAArea + 51
   INC SpriteDMAArea + 52
@@ -176,6 +176,7 @@ SwapSpritesIncBig:
 LeaveUpdateSpriteLogicOptionSelect:
   RTS
 
+; Read the routine name
 DumpSpriteOptionSelect:
   LDY #$00
 SpriteDumpOptionSelectLoop:
