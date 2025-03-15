@@ -102,10 +102,10 @@ OptionMenuBackgroundPalettes:
 	.db $0F, $35, $25, $0F ; Text part of the screen
 
 OptionMenuSpritePalettes:
-	.db $0F, $35, $25, $15
-	.db $0F, $30, $27, $0F
-	.db $0F, $30, $13, $0F
-	.db $0F, $30, $23, $0F
+	.db $0F, $30, $16, $0F
+	.db $0F, $38, $10, $0F
+	.db $0F, $30, $25, $0F
+	.db $0F, $38, $2A, $0F
 
 MenuBorder:
   .db $20, $63, $01, $20
