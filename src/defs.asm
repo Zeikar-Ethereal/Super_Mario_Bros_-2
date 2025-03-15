@@ -917,4 +917,12 @@ StompEnemies = $10
 
 kCharacterStatsTotal = $18
 
+
+;Sprites Option Select
+TotalSizeOptionSelectSprite = $70
+RowNumberToProcessOptionSelect = $0B
+RowNumberToProcessOptionSelectBig = $07
+StartingIndexSpriteOptionSelectY = $20
+StartingIndexSpriteOptionSelectTile = $21
+
 .endinl
