@@ -77,3 +77,6 @@ Swaps players at
 random intervals.
 No warnings. Good luck
 ::::::::::::::::::::::
+
+  .db $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E
+  .db $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F

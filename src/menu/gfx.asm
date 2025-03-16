@@ -29,19 +29,94 @@ TitleLayout:
 	.db $21, $EE, $04, $FC, $FC, $FC, $20
 	.db $22, $0E, $04, $22, $22, $22, $21
 
-; test for scrolling
-  .db $22, $50, $02, $B0, $B1
-  .db $22, $70, $04, $98, $9A, $9C, $9E
-  .db $22, $90, $04, $99, $9B, $9D, $9F
-  .db $23, $A0, $60, $A9
-  .db $27, $A0, $60, $A9
-  .db $23, $80, $60, $A9
-  .db $27, $80, $60, $A9
-  .db $23, $60, $60, $E8
-  .db $27, $60, $60, $E8
+; First screen
+; Hill, door, pillar
+  .db $23, $30, $0C
+  .db $77, $79, $77, $79, $F5, $87, $7B, $7D, $FB, $FB, $6B, $6D
+
+  .db $23, $10, $0C
+  .db $76, $78, $77, $79, $F4, $86, $7B, $7D, $FB, $FB, $6B, $6D
+
+  .db $22, $F0, $0C
+  .db $A5, $A5, $77, $79, $81, $83, $7B, $7D, $FB, $FB, $6A, $6C
+
+  .db $22, $D0, $08
+  .db $A4, $A4, $77, $79, $80, $82, $7B, $7D
+
+  .db $22, $B2, $06
+  .db $77, $79, $7B, $79, $7B, $7D
+
+  .db $22, $92, $06
+  .db $76, $78, $7A, $78, $7A, $7C
+
+; Plant
+  .db $23, $22, $02, $B0, $B1
+  .db $23, $28, $02, $B0, $B1
+
+; Cloud
+  .db $22, $20, $03, $B4, $B6, $B8
+  .db $22, $40, $03, $B5, $B7, $B9
+
+; Mushroom Block
+  .db $23, $0C, $02, $6E, $70
+  .db $23, $2C, $02, $6F, $71
+
+; Tree
+  .db $22, $84, $86
+  .db $64, $65, $68, $68, $68, $68
+  .db $22, $85, $86
+  .db $66, $67, $69, $69, $69, $69
+  .db $22, $C0, $84
+  .db $64, $65, $68, $68
+  .db $22, $C1, $84
+  .db $66, $67, $69, $69
+
+; Ground
+  .db $23, $40, $20
+  .db $60, $62, $60, $62, $60, $62, $60, $62, $60, $62, $60, $62, $60, $62, $60
+  .db $62, $60, $62, $60, $62, $60, $62, $60, $62, $60, $62, $60, $62
+  .db $A6, $A6, $A6, $A6 ; Spike top half
+
+  .db $23, $60, $20
+  .db $61, $63, $61, $63, $61, $63, $61, $63, $61, $63, $61, $63, $61, $63, $61
+  .db $63, $61, $63, $61, $63, $61, $63, $61, $63, $61, $63, $61, $63
+  .db $A7, $A7, $A7, $A7 ; Spike bottom half
+
+  .db $23, $80, $20
+  .db $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF
+  .db $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE
+
+  .db $23, $A0, $20
+  .db $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE
+  .db $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF
+
+; Second screen
+  .db $27, $40, $20
+  .db $60, $62, $60, $62, $60, $62, $60, $62, $60, $62, $60, $62, $60, $62, $60
+  .db $62, $60, $62, $60, $62, $60, $62, $60, $62, $60, $62, $60, $62, $60, $62, $60, $62
+
+  .db $27, $60, $20
+  .db $61, $63, $61, $63, $61, $63, $61, $63, $61, $63, $61, $63, $61, $63, $61
+  .db $63, $61, $63, $61, $63, $61, $63, $61, $63, $61, $63, $61, $63, $61, $63, $61, $63
+
+  .db $27, $80, $20
+  .db $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF
+  .db $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE
+
+  .db $27, $A0, $20
+  .db $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE
+  .db $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF, $AE, $AF
+
+;  .db $23, $80, $60, $A9
+;  .db $23, $A0, $60, $A9
+;  .db $27, $A0, $60, $A9
+;  .db $27, $80, $60, $A9
+;  .db $27, $60, $60, $E8
 
 ; Attribute table
-;	.db $23, $CA, $04, $80, $A0, $A0, $20
+	.db $23, $E8, $07, $30, $23, $00, $00, $DC, $DF, $40
+	.db $23, $F0, $07, $F6, $F2, $F1, $F1, $FF, $FD, $F4
+  .db $23, $F8, $48, $0A
 ;	.db $23, $D1, $0E, $80, $A8, $AA, $AA, $A2, $22, $00, $00, $88, $AA, $AA, $AA, $AA, $22
 ;	.db $23, $E3, $02, $88, $22
 ;	.db $23, $EA, $04, $F0, $F8, $F2, $F0
@@ -54,16 +129,16 @@ IFDEF PAD_TITLE_SCREEN_PPU_DATA
 ENDIF
 
 TitleBackgroundPalettes:
-	.db $22, $37, $16, $07 ; Most of screen, outline, etc.
-	.db $22, $30, $31, $0F ; Unused
-	.db $22, $30, $0F, $0F ; Logo
-	.db $22, $30, $0F, $0F ; Copyright, Story
+	.db $0F, $30, $12, $0F ; Most of screen, outline, etc.
+	.db $0F, $30, $16, $0F ; Unused
+	.db $0F, $27, $17, $0F ; Logo
+	.db $0F, $29, $1A, $0F ; Copyright, Story
 
 TitleSpritePalettes:
-	.db $22, $30, $28, $0F ; Unused DDP character palettes
-	.db $22, $30, $25, $0F ; There are no sprites on the title screen,
-	.db $22, $30, $12, $0F ; so these are totally unused
-	.db $22, $30, $23, $0F
+	.db $0F, $30, $28, $0F ; Unused DDP character palettes
+	.db $0F, $30, $25, $0F ; There are no sprites on the title screen,
+	.db $0F, $30, $12, $0F ; so these are totally unused
+	.db $0F, $30, $23, $0F
 
 TitleAttributeData1:
 	.db $23, $CB, $42, $FF
