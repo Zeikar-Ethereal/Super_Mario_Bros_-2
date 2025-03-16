@@ -29,6 +29,17 @@ TitleLayout:
 	.db $21, $EE, $04, $FC, $FC, $FC, $20
 	.db $22, $0E, $04, $22, $22, $22, $21
 
+; Stars & clouds
+  .db $22, $67, $02, $B2, $B3
+
+  .db $22, $33, $03, $B4, $B6, $B8
+  .db $22, $53, $03, $B5, $B7, $B9
+
+  .db $26, $47, $03, $B4, $B6, $B8
+  .db $26, $67, $03, $B5, $B7, $B9
+
+  .db $26, $34, $02, $B2, $B3
+
 ; First screen
 ; Hill, door, pillar
   .db $23, $30, $0C
@@ -52,10 +63,6 @@ TitleLayout:
 ; Plant
   .db $23, $22, $02, $B0, $B1
   .db $23, $28, $02, $B0, $B1
-
-; Cloud
-  .db $22, $20, $03, $B4, $B6, $B8
-  .db $22, $40, $03, $B5, $B7, $B9
 
 ; Mushroom Block
   .db $23, $0C, $02, $6E, $70

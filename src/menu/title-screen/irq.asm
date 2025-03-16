@@ -20,7 +20,7 @@ IRQ:
 ; Constant horizontal scrolling
 ; Also setup the scanline counter for the next IRQ
 ; ------------------------------------------------------------
-  LDA #$15 ; Scanline 215
+  LDA #$1C ; Scanline 215
   STA MMC3_IRQDisable
   STA MMC3_IRQLatch
   STA MMC3_IRQReload
