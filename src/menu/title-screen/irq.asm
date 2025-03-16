@@ -69,11 +69,15 @@ SecondIRQHandling:
   STY SecondIRQTimer ; Reset scroll timer
   DEC XPositionSecondIRQ
 UpdatePPUSctrlSecond:
+  LDA XPositionSecondIRQ
+  CMP #$FF
   BNE IRQLoadScroll
+  LDA PPUCtrlSecondIRQ
   EOR #$01
   STA PPUCtrlSecondIRQ
 
 IRQLoadScroll:
+  LDA PPUCtrlSecondIRQ
   LDX XPositionSecondIRQ
   LDY #$00
 
