@@ -875,6 +875,7 @@ UpdatePallettePPUBuffer = $02
 CHRAnimationSpeedTitleScreen = $08
 SpritePaletteTimer = $06
 SpritePaletteStartingIndex = $0B
+FirstIRQScrollTimer = $00
 SecondIRQScrollTimer = $02
 FadeoutTimer = $04
 

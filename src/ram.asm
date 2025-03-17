@@ -106,7 +106,7 @@ CursorLocation:
 	.dsb 1 ; 8                ; $001d
 PlayerYHi:
 CastRollSpriteSetupTemp:
-FirstIRQ:
+FirstIRQTimer
 PickAgainCharSelect:
 	.dsb 1 ; $001e
 ObjectYHi:
