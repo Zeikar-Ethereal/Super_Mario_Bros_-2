@@ -875,8 +875,8 @@ UpdatePallettePPUBuffer = $02
 CHRAnimationSpeedTitleScreen = $08
 SpritePaletteTimer = $06
 SpritePaletteStartingIndex = $0B
-FirstIRQScrollTimer = $00
-SecondIRQScrollTimer = $02
+FirstIRQScrollTimer = $03
+SecondIRQScrollTimer = $01
 FadeoutTimer = $04
 
 ; Option Enum

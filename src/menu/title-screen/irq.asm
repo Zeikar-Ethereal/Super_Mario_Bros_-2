@@ -23,7 +23,7 @@ IRQ:
 ;      setup the indirect JMP pointer for the next call.   
 ; ------------------------------------------------------------
 FirstIRQ:
-  LDA #$1C
+  LDA #$1B
   STA MMC3_IRQDisable
   STA MMC3_IRQLatch
   STA MMC3_IRQReload
@@ -34,6 +34,8 @@ LoadFirstIRQParams:
   LDX XPositionFirstIRQ
   LDY #$08 ; Loop to wait
   JSR WaitSubRoutineIRQ
+  NOP
+  NOP
   NOP
 
 ; Magic happen here!
@@ -79,29 +81,36 @@ Exit_IRQ:
 ; ------------------------------------------------------------
 SecondIRQ:
   LDA PPUCtrlSecondIRQ
-  STA MMC3_IRQDisable ; acknowledge the IRQ by disabling it
-  DEC SecondIRQTimer
-  BPL IRQLoadScroll
-  LDY #SecondIRQScrollTimer
-  STY SecondIRQTimer ; Reset scroll timer
-  DEC XPositionSecondIRQ
-UpdatePPUSctrlSecond:
-  LDA XPositionSecondIRQ
-  CMP #$FF
-  BNE IRQLoadScroll
-  LDA PPUCtrlSecondIRQ
-  EOR #$01
-  STA PPUCtrlSecondIRQ
+  STA MMC3_IRQDisable ; Acknowledge the IRQ by disabling it
 
 IRQLoadScroll:
   LDA PPUCtrlSecondIRQ
   LDX XPositionSecondIRQ
-  LDY #$00
+  LDY #$0A ; Loop to wait
+  JSR WaitSubRoutineIRQ
+  NOP
+  NOP
+  NOP
+  NOP
 
-SetSecondIRQScroll:
-  STA PPUCTRL ; Swap between PPUCtrl_Base2000 and PPUCtrl_Base2400
+; It's magic!
   STX PPUSCROLL ; X Position
   STY PPUSCROLL ; Y Position
+  STA PPUCTRL ; Swap between PPUCtrl_Base2000 and PPUCtrl_Base2400
+
+TimerHandlerSecondIRQ:
+  DEC SecondIRQTimer
+  BPL SetFirstPointerIRQ
+  LDY #SecondIRQScrollTimer
+  STY SecondIRQTimer ; Reset scroll timer
+
+  DEC XPositionSecondIRQ
+  LDA XPositionSecondIRQ
+  CMP #$FF
+  BNE SetFirstPointerIRQ
+  LDA PPUCtrlSecondIRQ
+  EOR #$01
+  STA PPUCtrlSecondIRQ
 
 SetFirstPointerIRQ:
   LDA #<FirstIRQ

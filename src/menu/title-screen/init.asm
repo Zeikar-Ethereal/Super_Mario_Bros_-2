@@ -123,9 +123,9 @@ DumpPPU_BufferInRamLoop:
 	STA MusicQueue1
   JSR WaitForNMI_Menu
 
-  LDA #<DoNothingIRQ
+  LDA #<FirstIRQ
   STA FuncLoTemp
-  LDA #>DoNothingIRQ
+  LDA #>FirstIRQ
   STA FuncHiTemp ; Setup next IRQ subroutine for next frame
 
   CLI ; Enable IRQ
