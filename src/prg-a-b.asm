@@ -278,9 +278,9 @@ locret_BANKA_83C8:
 
 CharacterStatsLo:
   .db <MarioStats
-  .db <LuigiStats
-  .db <ToadStats
   .db <PrincessStats
+  .db <ToadStats
+  .db <LuigiStats
   .db <ImajinStats
   .db <MamaStats
   .db <PapaStats
@@ -292,9 +292,9 @@ CharacterStatsLo:
 
 CharacterStatsHi:
   .db >MarioStats
-  .db >LuigiStats
-  .db >ToadStats
   .db >PrincessStats
+  .db >ToadStats
+  .db >LuigiStats
   .db >ImajinStats
   .db >MamaStats
   .db >PapaStats
