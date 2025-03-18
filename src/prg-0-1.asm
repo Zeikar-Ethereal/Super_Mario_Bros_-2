@@ -1932,9 +1932,7 @@ ENDIF
   AND #DoesNotShrink
   BEQ RegularChangingSize
 
-DokiDokiChangingSize:
-  INC PlayerCurrentSize
-  BNE loc_BANK0_8A26; Always branch
+  JMP DokiDokiChangingSize
 
 RegularChangingSize:
 	LDY PlayerCurrentSize
@@ -4955,6 +4953,12 @@ ENDIF
 ENDIF
 
 ; End of function TitleScreen
+
+DokiDokiChangingSize:
+  LDA PlayerCurrentSize
+  EOR #$01
+  STA PlayerCurrentSize
+  JMP loc_BANK0_8A26
 
 
 IFDEF RESPAWN_INSTEAD_OF_DEATH
