@@ -11401,9 +11401,17 @@ DamagePlayer:
 	LDY #$00
 	STY PlayerYVelocity
 	STY PlayerXVelocity
+
+; Really fun figuring out where this shit is...
+  LDA CharacterSpecialAttribute
+  AND #DoesNotShrink
+  BNE BouncheAfterTakingDamage
+
+  LDA PlayerHealth
 	CMP #$10
 	BCC loc_BANK3_BA2C
 
+BouncheAfterTakingDamage:
 	LDA PlayerScreenX
 	SEC
 	SBC SpriteTempScreenX

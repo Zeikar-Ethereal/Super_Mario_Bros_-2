@@ -1917,7 +1917,6 @@ HandlePlayerState:
 IFDEF CONTROLLER_2_DEBUG
 	JSR CheckPlayer2Joypad
 ENDIF
-;  JSR CheckCharacterSwap ; Read the subroutine name
 	LDA PlayerState ; Handles player states?
 	CMP #PlayerState_Lifting
 	BCS loc_BANK0_8A26 ; If the player is changing size, just handle that
@@ -1929,6 +1928,15 @@ ENDIF
 	EOR PlayerCurrentSize
 	BEQ loc_BANK0_8A26
 
+  LDA CharacterSpecialAttribute
+  AND #DoesNotShrink
+  BEQ RegularChangingSize
+
+DokiDokiChangingSize:
+  INC PlayerCurrentSize
+  BNE loc_BANK0_8A26; Always branch
+
+RegularChangingSize:
 	LDY PlayerCurrentSize
 	LDA GrowShrinkSFXIndexes, Y
 	STA SoundEffectQueue2
