@@ -4960,7 +4960,6 @@ DokiDokiChangingSize:
   STA PlayerCurrentSize
   JMP loc_BANK0_8A26
 
-
 IFDEF RESPAWN_INSTEAD_OF_DEATH
 HandlePlayerState_Respawning:
 	; Start from zero

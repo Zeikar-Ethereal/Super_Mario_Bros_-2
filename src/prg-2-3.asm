@@ -4569,10 +4569,10 @@ CharacterYOffsetCrouch:
 	.db $0A ; Toad
 	.db $0D ; Luigi
 
-	.db $0A ; Imajin
-	.db $0D ; Mama
-	.db $0A ; Papa
-	.db $0E ; Lina
+	.db $08 ; Imajin
+	.db $0A ; Mama
+	.db $08 ; Papa
+	.db $08 ; Lina
 
 	.db $0A ; Merio
 	.db $0D ; Lol
@@ -4585,10 +4585,10 @@ CharacterYOffsetCrouchSmall:
 	.db $04 ; Small Toad
 	.db $06 ; Small Luigi
 
-	.db $04 ; Small Imajin
-	.db $06 ; Small Mama
-	.db $04 ; Small Papa
-	.db $07 ; Small Lina
+	.db $08 ; Small Imajin
+	.db $0A ; Small Mama
+	.db $08 ; Small Papa
+	.db $08 ; Small Lina
 
 	.db $04 ; Small Merio
 	.db $06 ; Small Lol

@@ -195,9 +195,9 @@ CarryYOffsetBigLo:
 	.db $FC ; Toad
 	.db $F7 ; Luigi
   .db $FA ; Imajin
-  .db $F7 ; Mama
-	.db $FC ; Papa
-	.db $F6 ; Lina
+  .db $FA ; Mama
+	.db $FA ; Papa
+	.db $FA ; Lina
 	.db $FA ; Merio
 	.db $F7 ; Lol
 	.db $FC ; Toadette
@@ -222,10 +222,10 @@ CarryYOffsetSmallLo:
 	.db $FE ; Princess
 	.db $04 ; Toad
 	.db $FF ; Luigi
-  .db $02 ; Imajin
-  .db $FF ; Mama
-	.db $FC ; Papa
-	.db $FE ; Lina
+  .db $FA ; Imajin
+  .db $FA ; Mama
+	.db $FA ; Papa
+	.db $FA ; Lina
 	.db $02 ; Merio
 	.db $FF ; Lol
 	.db $04 ; Toadette
@@ -236,7 +236,7 @@ CarryYOffsetSmallHi:
 	.db $FF ; Princess
 	.db $00 ; Toad
 	.db $FF ; Luigi
-  .db $00 ; Imajin
+  .db $FF ; Imajin
 	.db $FF ; Mama
 	.db $FF ; Papa
 	.db $FF ; Lina
