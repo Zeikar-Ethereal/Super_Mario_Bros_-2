@@ -567,27 +567,27 @@ LolStats:
 
 ToadetteStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
-	.db $06 ; Pick-up Speed, frame 2/6 - pulling
-	.db $04 ; Pick-up Speed, frame 3/6 - ducking
-	.db $02 ; Pick-up Speed, frame 4/6 - ducking
-	.db $06 ; Pick-up Speed, frame 5/6 - ducking
-	.db $0C ; Pick-up Speed, frame 6/6 - ducking
-	.db $B3 ; Jump Speed, still - no object
-	.db $B3 ; Jump Speed, still - with object
+	.db $00 ; Pick-up Speed, frame 2/6 - pulling
+	.db $00 ; Pick-up Speed, frame 3/6 - ducking
+	.db $00 ; Pick-up Speed, frame 4/6 - ducking
+	.db $00 ; Pick-up Speed, frame 5/6 - ducking
+	.db $00 ; Pick-up Speed, frame 6/6 - ducking
+	.db $B2 ; Jump Speed, still - no object
+	.db $B2 ; Jump Speed, still - with object
 	.db $98 ; Jump Speed, charged - no object
 	.db $98 ; Jump Speed, charged - with object
-	.db $AC ; Jump Speed, running - no object
-	.db $B3 ; Jump Speed, running - with object
+	.db $AD ; Jump Speed, running - no object
+	.db $AD ; Jump Speed, running - with object
 	.db $E0 ; Jump Speed - in quicksand
-	.db $3C ; Floating Time
+	.db $00 ; Floating Time
 	.db $07 ; Gravity without Jump button pressed
 	.db $04 ; Gravity with Jump button pressed
 	.db $08 ; Gravity in quicksand
 	.db $18 ; Running Speed, right - no object
-	.db $15 ; Running Speed, right - with object
+	.db $1D ; Running Speed, right - with object
 	.db $04 ; Running Speed, right - in quicksand
 	.db $E8 ; Running Speed, left - no object
-	.db $EB ; Running Speed, left - with object
+	.db $E3 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
   .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
 
@@ -635,7 +635,7 @@ PapaPalette:
 LinaPalette:
   .db $0F, $06, $25, $36
 MerioPalette:
-	.db $0F, $16, $18, $27
+	.db $0F, $01, $16, $27
 LolPalette:
   .db $0F, $01, $12, $36
 ToadettePalette:
