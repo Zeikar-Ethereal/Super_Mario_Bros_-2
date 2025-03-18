@@ -916,6 +916,8 @@ UpwardFloat = $20
 NoStomp = $00
 StompEnemies = $10
 
+DigEverything = $08
+
 kCharacterStatsTotal = $18
 
 

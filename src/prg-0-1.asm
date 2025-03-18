@@ -3758,10 +3758,15 @@ TileBehavior_CheckPickUp:
 	CMP #$0C
 	BCS loc_BANK0_917C
 
+  LDA CharacterSpecialAttribute
+  AND #DigEverything
+  BNE SandStuff
+
 	LDA byte_RAM_0
 	CMP #BackgroundTile_DiggableSand
 	BNE loc_BANK0_916E
 
+SandStuff:
 	LDA #$0E
 	BNE loc_BANK0_9177
 
@@ -4095,50 +4100,50 @@ byte_BANK0_92E0:
 	.db $0B
 
 
-; Unused?
+; Unused? BUG BUG MAKE SURE THIS IS REALLY FREE SPACE
 ; Copy of DetermineVerticalScroll
-_code_12E3:
-	LDX NeedsScroll
-	BNE locret_BANK0_9311
-
-	LDA PlayerState
-	CMP #PlayerState_Lifting
-	BCS locret_BANK0_9311
-
-	LDA PlayerScreenYLo
-	LDY PlayerScreenYHi
-	BMI loc_BANK0_92FF
-
-	BNE loc_BANK0_9305
-
-	CMP #$B4
-	BCS loc_BANK0_9305
-
-	CMP #$21
-	BCS loc_BANK0_9307
-
-loc_BANK0_92FF:
-	LDY PlayerInAir
-	BNE loc_BANK0_9307
-
-	BEQ loc_BANK0_9306
-
-loc_BANK0_9305:
-	INX
-
-loc_BANK0_9306:
-	INX
-
-loc_BANK0_9307:
-	LDA VerticalScrollDirection
-	STX VerticalScrollDirection
-	BNE locret_BANK0_9311
-
-loc_BANK0_930F:
-	STX NeedsScroll
-
-locret_BANK0_9311:
-	RTS
+;_code_12E3:
+;	LDX NeedsScroll
+;	BNE locret_BANK0_9311
+;
+;	LDA PlayerState
+;	CMP #PlayerState_Lifting
+;	BCS locret_BANK0_9311
+;
+;	LDA PlayerScreenYLo
+;	LDY PlayerScreenYHi
+;	BMI loc_BANK0_92FF
+;
+;	BNE loc_BANK0_9305
+;
+;	CMP #$B4
+;	BCS loc_BANK0_9305
+;
+;	CMP #$21
+;	BCS loc_BANK0_9307
+;
+;loc_BANK0_92FF:
+;	LDY PlayerInAir
+;	BNE loc_BANK0_9307
+;
+;	BEQ loc_BANK0_9306
+;
+;loc_BANK0_9305:
+;	INX
+;
+;loc_BANK0_9306:
+;	INX
+;
+;loc_BANK0_9307:
+;	LDA VerticalScrollDirection
+;	STX VerticalScrollDirection
+;	BNE locret_BANK0_9311
+;
+;loc_BANK0_930F:
+;	STX NeedsScroll
+;
+;locret_BANK0_9311:
+;	RTS
 
 
 PlayerCollisionDirectionTable:

@@ -589,7 +589,7 @@ ToadetteStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E3 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp | DigEverything ; Special attributes
 
 RosalinaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
