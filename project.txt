@@ -1,82 +1,24 @@
 Smb2 ++ planner
 
 Title screen:
-  IRQ = 90% done, but fix needed
-  Glowing text 100% done
-  Fade in/out 100% done
-  Graphic 10% done
+  IRQ = 100%
+  Glowing text 100%
+  Fade in/out 100%
+  Graphics 90%
 
 Option menu:
-  0%
+  100%
 
 Bug fixes:
   8 CHR animation 100%
   B dropping item while crouching 100%
-  Fixing enemy stack bug 0%
+  Fixing enemy stack bug 100%
 
 Game mode single player:
-  Vanilla 100%
-  Tag 0%
+  100% both
 
-  2 Player:
-    Traditional = Require both controllers
-    2P1C = Require both controllers
-    Tag team = Require both controllers
-    Chaos = Require both controllers
-    Chaos Char swap = Require both controllers
+Maybe add echo/alt character.
+1 character need work, garfield most likely
 
-
-12 characters
-
-Traditional
-2P1C
-Tag Team
-Chaos
-Chaos Swap
-
-20 characters x 5 row
-
-Traditional:
-Player take turn
-
+; BUG THAT NEED FIXING
 BUG BUG subcon doesn't call the function pointer
-
-Each player turns
-change when the current
-player
-die, complete a level or use a warp
-
-Traditional description
-::::::::::::::::::::::
-Players take turns;
-death, warping, or
-level completion swaps
-the current player.
-::::::::::::::::::::::
-
-
-Tag Team
-::::::::::::::::::::::
-Press select to swap
-players mid-game. Only
-the current player can 
-trigger a swap.
-::::::::::::::::::::::
-
-Shared control
-::::::::::::::::::::::
-Both players control
-the same character.
-Player 1: Directions.
-Player 2: A/B.
-::::::::::::::::::::::
-
-Chaos Swap
-::::::::::::::::::::::
-Swaps players at
-random intervals.
-No warnings. Good luck
-::::::::::::::::::::::
-
-  .db $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E
-  .db $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F, $7E, $7F

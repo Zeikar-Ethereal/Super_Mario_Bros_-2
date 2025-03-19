@@ -637,7 +637,7 @@ LinaPalette:
 MerioPalette:
 	.db $0F, $01, $16, $27
 LolPalette:
-  .db $0F, $01, $12, $36
+  .db $0F, $06, $27, $30
 ToadettePalette:
   .db $0F, $0D, $24, $36
 RosalinaPalette:
