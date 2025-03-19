@@ -53,7 +53,7 @@ Character_Mama = $05
 Character_Papa = $06
 Character_Lina = $07
 Character_Merio = $08
-Character_Lol = $09
+Character_Garfield = $09
 Character_Toadette = $0A
 Character_Rosalina = $0B
 
@@ -802,11 +802,11 @@ CHRBANK_Mama = $91
 CHRBANK_Papa = $92
 CHRBANK_Lina = $93
 CHRBANK_Merio = $94
-CHRBANK_Lol = $95
+CHRBANK_Garfield = $95
 CHRBANK_Toadette = $97
 CHRBANK_Rosalina = $96
 CHRBANK_MerioSmall = $98
-CHRBANK_LolSmall = $99
+CHRBANK_GarfieldSmall = $99
 CHRBANK_ToadetteSmall = $9B
 CHRBANK_RosalinaSmall = $9A
 
@@ -918,6 +918,8 @@ StompEnemies = $10
 
 DigEverything = $08
 RegularDig = $00
+
+
 
 kCharacterStatsTotal = $18
 

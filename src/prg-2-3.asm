@@ -4575,7 +4575,7 @@ CharacterYOffsetCrouch:
 	.db $08 ; Lina
 
 	.db $0A ; Merio
-	.db $0D ; Lol
+	.db $0D ; Garfield
 	.db $0A ; Toadette
 	.db $0E ; Rosalina
 
@@ -4591,7 +4591,7 @@ CharacterYOffsetCrouchSmall:
 	.db $08 ; Small Lina
 
 	.db $04 ; Small Merio
-	.db $06 ; Small Lol
+	.db $06 ; Small Garfield
 	.db $04 ; Small Toadette
 	.db $07 ; Small Rosalina
 

@@ -3464,6 +3464,18 @@ PlayerTileCollision_CheckCherryAndClimbable_AfterTick:
 	CMP #BackgroundTile_Cherry
 	BNE PlayerTileCollision_Climbable_Exit
 
+  LDA CurrentCharacter
+  CMP #Character_Garfield
+  BNE RegularCherryGrab
+
+GarfieldCherryGrab:
+	LDA #$9F ; Triple the time of the original, which is at 3
+	STA StarInvincibilityTimer
+	LDA #Music1_Invincible
+	STA MusicQueue1
+  JMP PlayerTileCollision_Cherry
+
+RegularCherryGrab:
 	INC CherryCount
 	LDA CherryCount
 	SBC #$05

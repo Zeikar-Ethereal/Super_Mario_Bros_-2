@@ -2,14 +2,14 @@
 RealCharacterIndexTable:
   .db Character_Mario, Character_Luigi, Character_Toad, Character_Princess
   .db Character_Imajin, Character_Mama, Character_Papa, Character_Lina
-  .db Character_Merio, Character_Lol, Character_Toadette, Character_Rosalina
+  .db Character_Merio, Character_Garfield, Character_Toadette, Character_Rosalina
   ; Place holder for now
 
 ; Truth table with the real cursor index, if indexing from the character
 RealCursorIndexTable:
   .db Character_Mario, Character_Luigi, Character_Toad, Character_Princess
   .db Character_Imajin, Character_Mama, Character_Papa, Character_Lina
-  .db Character_Merio, Character_Lol, Character_Toadette, Character_Rosalina
+  .db Character_Merio, Character_Garfield, Character_Toadette, Character_Rosalina
   ; Place holder for now
 
 ; Curse method to index directly into the DMA memory for the palette

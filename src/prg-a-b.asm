@@ -261,21 +261,6 @@ locret_BANKA_83C8:
 
 ; End of function DrawTitleCardWorldImage
 
-;StatOffsets:
-;	.db (MarioStats - CharacterStats)
-;	.db (PrincessStats - CharacterStats)
-;	.db (ToadStats - CharacterStats)
-;	.db (LuigiStats - CharacterStats)
-;	.db (ImajinStats - CharacterStats)
-;	.db (MamaStats - CharacterStats)
-;	.db (PapaStats - CharacterStats)
-;	.db (LinaStats - CharacterStats)
-;	.db (MerioStats - CharacterStats)
-;	.db (LolStats - CharacterStats)
-;	.db (ToadetteStats - CharacterStats)
-;	.db (ToadetteStats - CharacterStats)
-;	.db (RosalinaStats - CharacterStats)
-
 CharacterStatsLo:
   .db <MarioStats
   .db <PrincessStats
@@ -286,7 +271,7 @@ CharacterStatsLo:
   .db <PapaStats
   .db <LinaStats
   .db <MerioStats
-  .db <LolStats
+  .db <GarfieldStats
   .db <ToadetteStats
   .db <RosalinaStats
 
@@ -300,7 +285,7 @@ CharacterStatsHi:
   .db >PapaStats
   .db >LinaStats
   .db >MerioStats
-  .db >LolStats
+  .db >GarfieldStats
   .db >ToadetteStats
   .db >RosalinaStats
 
@@ -539,7 +524,7 @@ MerioStats:
 	.db $FC ; Running Speed, left - in quicksand
   .db CanRun | Shrink | RegularFloat | StompEnemies | RegularDig ; Special attributes
 
-LolStats:
+GarfieldStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
 	.db $06 ; Pick-up Speed, frame 2/6 - pulling
 	.db $04 ; Pick-up Speed, frame 3/6 - ducking
@@ -636,7 +621,7 @@ LinaPalette:
   .db $0F, $06, $25, $36
 MerioPalette:
 	.db $0F, $01, $16, $27
-LolPalette:
+GarfieldPalette:
   .db $0F, $06, $27, $30
 ToadettePalette:
   .db $0F, $0D, $24, $36

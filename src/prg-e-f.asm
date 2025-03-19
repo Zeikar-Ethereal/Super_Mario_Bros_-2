@@ -199,7 +199,7 @@ CarryYOffsetBigLo:
 	.db $FA ; Papa
 	.db $FA ; Lina
 	.db $FA ; Merio
-	.db $F7 ; Lol
+	.db $F7 ; Garfield
 	.db $FC ; Toadette
 	.db $F6 ; Rosalina
 
@@ -213,7 +213,7 @@ CarryYOffsetBigHi:
 	.db $FF ; Papa
 	.db $FF ; Lina
 	.db $FF ; Merio
-	.db $FF ; Lol
+	.db $FF ; Garfield
 	.db $FF ; Toadette
 	.db $FF ; Rosalina
 
@@ -227,7 +227,7 @@ CarryYOffsetSmallLo:
 	.db $FA ; Papa
 	.db $FA ; Lina
 	.db $02 ; Merio
-	.db $FF ; Lol
+	.db $FF ; Garfield
 	.db $04 ; Toadette
 	.db $FE ; Rosalina
 
@@ -241,7 +241,7 @@ CarryYOffsetSmallHi:
 	.db $FF ; Papa
 	.db $FF ; Lina
 	.db $00 ; Merio
-	.db $FF ; Lol
+	.db $FF ; Garfield
 	.db $00 ; Toadette
 	.db $FF ; Rosalina
 
@@ -5830,8 +5830,8 @@ CHRBank_CharacterSize:
 
   .db CHRBANK_Merio
   .db CHRBANK_MerioSmall
-  .db CHRBANK_Lol
-  .db CHRBANK_LolSmall
+  .db CHRBANK_Garfield
+  .db CHRBANK_GarfieldSmall
   .db CHRBANK_Toadette
   .db CHRBANK_ToadetteSmall
   .db CHRBANK_Rosalina

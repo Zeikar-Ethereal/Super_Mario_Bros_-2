@@ -117,7 +117,7 @@ PlayerSelectMerioSprites1:
 	.db $AF, $84, $00, $48
 	.db $AF, $86, $00, $50
 
-PlayerSelectLolSprites1:
+PlayerSelectGarfieldSprites1:
 	.db $9F, $88, $00, $68
 	.db $9F, $8A, $00, $70
 	.db $AF, $8C, $00, $68
@@ -164,7 +164,7 @@ PlayerSelectLinaSprites2:
 PlayerSelectMerioSprites2:
 	.db $A0
 
-PlayerSelectLolSprites2:
+PlayerSelectGarfieldSprites2:
 	.db $A8
 
 PlayerSelectToadetteSprites2:
@@ -188,7 +188,7 @@ PlayerSelectPaletteOffsets:
 	.db (PlayerSelectSpritePalettes_Papa - PlayerSelectSpritePalettes)
 	.db (PlayerSelectSpritePalettes_Lina - PlayerSelectSpritePalettes)
 	.db (PlayerSelectSpritePalettes_Merio - PlayerSelectSpritePalettes)
-	.db (PlayerSelectSpritePalettes_Lol - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Garfield - PlayerSelectSpritePalettes)
 	.db (PlayerSelectSpritePalettes_Toadette - PlayerSelectSpritePalettes)
 	.db (PlayerSelectSpritePalettes_Rosalina - PlayerSelectSpritePalettes)
 
@@ -211,7 +211,7 @@ PlayerSelectSpritePalettes_Lina:
 	.db $0F, $25, $36, $06
 PlayerSelectSpritePalettes_Merio:
 	.db $0F, $27, $16, $01
-PlayerSelectSpritePalettes_Lol:
+PlayerSelectSpritePalettes_Garfield:
 	.db $0F, $30, $27, $06
 PlayerSelectSpritePalettes_Toadette:
 	.db $0F, $37, $24, $07
