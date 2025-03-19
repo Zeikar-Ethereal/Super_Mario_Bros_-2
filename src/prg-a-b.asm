@@ -329,7 +329,7 @@ MarioStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E8 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp | RegularDig ; Special attributes
 
 ToadStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -355,7 +355,7 @@ ToadStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E3 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp | RegularDig ; Special attributes
 
 LuigiStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -381,7 +381,7 @@ LuigiStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EA ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp | RegularDig ; Special attributes
 
 PrincessStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -407,7 +407,7 @@ PrincessStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp | RegularDig ; Special attributes
 
 ImajinStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -433,7 +433,7 @@ ImajinStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E8 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp ; Special attributes
+  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp | RegularDig ; Special attributes
 
 MamaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -459,7 +459,7 @@ MamaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EA ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp ; Special attributes
+  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp | RegularDig ; Special attributes
 
 PapaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -485,7 +485,7 @@ PapaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E3 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp ; Special attributes
+  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp | RegularDig ; Special attributes
 
 LinaStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -511,7 +511,7 @@ LinaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp ; Special attributes
+  .db CannotRun | DoesNotShrink | RegularFloat | NoStomp | RegularDig ; Special attributes
 
 MerioStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -537,7 +537,7 @@ MerioStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $E8 ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat | StompEnemies ; Special attributes
+  .db CanRun | Shrink | RegularFloat | StompEnemies | RegularDig ; Special attributes
 
 LolStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -563,7 +563,7 @@ LolStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | RegularFloat | NoStomp ; Special attributes
+  .db CanRun | Shrink | RegularFloat | NoStomp | RegularDig ; Special attributes
 
 ToadetteStats:
 	.db $00 ; Pick-up Speed, frame 1/6 - pulling
@@ -615,7 +615,7 @@ RosalinaStats:
 	.db $E8 ; Running Speed, left - no object
 	.db $EB ; Running Speed, left - with object
 	.db $FC ; Running Speed, left - in quicksand
-  .db CanRun | Shrink | UpwardFloat | NoStomp ; Special attributes
+  .db CanRun | Shrink | UpwardFloat | NoStomp | RegularDig ; Special attributes
 
 CharacterPalette:
 MarioPalette:

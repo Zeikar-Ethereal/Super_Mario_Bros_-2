@@ -917,6 +917,7 @@ NoStomp = $00
 StompEnemies = $10
 
 DigEverything = $08
+RegularDig = $00
 
 kCharacterStatsTotal = $18
 

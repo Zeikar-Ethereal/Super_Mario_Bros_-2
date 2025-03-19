@@ -9250,14 +9250,19 @@ loc_BANK3_AE28:
 
 	BMI loc_BANK3_AE45
 
-	LDX byte_RAM_0 ; X has the new enemy index
+;	LDX byte_RAM_0 ; X has the new enemy index
+  LDA byte_RAM_0
+  PHA
+  TAX
 	LDA #Enemy_AutobombFire
 	; Set the enemy type and attributes
 	; BUG: The subroutine overwrites RAM_0 (enemy index)
 	; Should have pushed it to stack instead.
 	JSR EnemyBehavior_SpitProjectile
 
-	LDX byte_RAM_0
+  PLA
+  TAX
+;	LDX byte_RAM_0
 	DEC ObjectYLo, X
 	DEC ObjectYLo, X
 	LDX byte_RAM_12
