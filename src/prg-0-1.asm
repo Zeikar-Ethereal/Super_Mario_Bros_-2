@@ -3471,7 +3471,10 @@ PlayerTileCollision_CheckCherryAndClimbable_AfterTick:
 GarfieldCherryGrab:
 	LDA #$9F ; Triple the time of the original, which is at 3
 	STA StarInvincibilityTimer
-	LDA #Music1_Invincible
+  LDA MusicPlaying1
+  CMP #Music1_CharacterSelect
+  BEQ PlayerTileCollision_Cherry
+	LDA #Music1_CharacterSelect
 	STA MusicQueue1
   JMP PlayerTileCollision_Cherry
 
