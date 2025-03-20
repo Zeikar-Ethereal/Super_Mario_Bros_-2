@@ -4969,28 +4969,64 @@ ENDIF
 ; ------------------------------------------------------------
 ; Desc:
 ;      Give you a random outcome when garfield grab a cherry.
-;      8 total outcome are possible.
-;      0x00 Regular cherry
-;      0x01 Instantly give a star with the regular time
-;      0x02 Nothing :)
-;      0x03 Give the player a coin
-;      0x04 Restore player health
-;      0x05 Earthquake! (POW block)
-;      0x06 Stopwatch Timer
-;      0x07 1up!
+;      8 total outcomes are possible.
+;      25% for a regular cherry
+;      18.75% chance to give the player a coin
+;      12.5% to restore player health
+;      12.5% to cause an earthquake! (POW block)
+;      12.5% to trigger the stopwatch timer
+;      6.25% for an instant star with the regular timer
+;      6.25% for nothing :)
+;      6.25% to gain a 1up!
 ; Params:
-;         GlobalTimer(RAM) AND #$07 for RMB
+;         GlobalTimer(RAM) AND #$0F for MSB
 ; ------------------------------------------------------------
 
-; most stupid way to save time
-DegenIndexTable:
-;  .db $00, $
+GarfieldCherryTableLo:
+  .db <NothingGarfield
+  .db <RestorePlayerHealthCherry
+  .db <EarthquakeCherry
+  .db <GiveACoin
+  .db <OneUpCherry
+  .db <EarthquakeCherry
+  .db <RegularCherry
+  .db <StopWatchCherry
+  .db <RegularCherry
+  .db <GiveACoin
+  .db <RegularCherry
+  .db <StopWatchCherry
+  .db <GiveACoin
+  .db <InstantStar
+  .db <RestorePlayerHealthCherry
+  .db <RegularCherry
+
+GarfieldCherryTableHi:
+  .db >NothingGarfield
+  .db >RestorePlayerHealthCherry
+  .db >EarthquakeCherry
+  .db >GiveACoin
+  .db >OneUpCherry
+  .db >EarthquakeCherry
+  .db >RegularCherry
+  .db >StopWatchCherry
+  .db >RegularCherry
+  .db >GiveACoin
+  .db >RegularCherry
+  .db >StopWatchCherry
+  .db >GiveACoin
+  .db >InstantStar
+  .db >RestorePlayerHealthCherry
+  .db >RegularCherry
 
 GarfieldCherryGrab:
   LDA byte_RAM_10
-  AND #$07
+  AND #$0F
   TAY
-  JMP OneUpCherry
+  LDA GarfieldCherryTableLo, Y
+  STA FuncLoTemp
+  LDA GarfieldCherryTableHi, Y
+  STA FuncHiTemp
+  JMP (FuncLoTemp)
 
 RegularCherry:
   JMP RegularCherryGrab
