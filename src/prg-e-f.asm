@@ -921,7 +921,7 @@ loc_BANKF_E5E1:
 	JSR EnableNMI
 
 SubArea_Loop:
-	JSR WaitForNMI
+	JSR WaitForNMI ; TODO check here for subspaceeeee
 
 	JSR sub_BANK0_87AA
 

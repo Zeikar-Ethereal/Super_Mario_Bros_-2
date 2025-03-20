@@ -3468,15 +3468,7 @@ PlayerTileCollision_CheckCherryAndClimbable_AfterTick:
   CMP #Character_Garfield
   BNE RegularCherryGrab
 
-GarfieldCherryGrab:
-	LDA #$9F ; Triple the time of the original, which is at 3
-	STA StarInvincibilityTimer
-  LDA MusicPlaying1
-  CMP #Music1_CharacterSelect
-  BEQ PlayerTileCollision_Cherry
-	LDA #Music1_CharacterSelect
-	STA MusicQueue1
-  JMP PlayerTileCollision_Cherry
+  JMP GarfieldCherryGrab
 
 RegularCherryGrab:
 	INC CherryCount
@@ -4973,6 +4965,81 @@ ENDIF
 ENDIF
 
 ; End of function TitleScreen
+
+; ------------------------------------------------------------
+; Desc:
+;      Give you a random outcome when garfield grab a cherry.
+;      8 total outcome are possible.
+;      0x00 Regular cherry
+;      0x01 Instantly give a star with the regular time
+;      0x02 Nothing :)
+;      0x03 Give the player a coin
+;      0x04 Restore player health
+;      0x05 Earthquake! (POW block)
+;      0x06 Stopwatch Timer
+;      0x07 1up!
+; Params:
+;         GlobalTimer(RAM) AND #$07 for RMB
+; ------------------------------------------------------------
+
+; most stupid way to save time
+DegenIndexTable:
+;  .db $00, $
+
+GarfieldCherryGrab:
+  LDA byte_RAM_10
+  AND #$07
+  TAY
+  JMP OneUpCherry
+
+RegularCherry:
+  JMP RegularCherryGrab
+
+InstantStar:
+  LDA #$3F
+  STA StarInvincibilityTimer
+	LDA #Music1_Invincible
+	STA MusicQueue1
+  JMP PlayerTileCollision_Cherry
+
+NothingGarfield:
+	LDA #BackgroundTile_Sky
+	JMP loc_BANK0_937C
+
+GiveACoin:
+	INC SlotMachineCoins
+	LDA #SoundEffect2_CoinGet
+	STA SoundEffectQueue2
+	LDA #BackgroundTile_Sky
+	JMP loc_BANK0_937C
+
+RestorePlayerHealthCherry:
+  JSR RestorePlayerToFullHealth
+  JMP RegularCherryGrab
+
+EarthquakeCherry:
+  LDA #$20
+	STA POWQuakeTimer
+	LDA #SoundEffect3_POWRumble
+	STA SoundEffectQueue3
+	LDA #BackgroundTile_Sky
+	JMP loc_BANK0_937C
+
+StopWatchCherry:
+  LDA #$FF
+  STA StopwatchTimer
+	LDA #BackgroundTile_Sky
+	JMP loc_BANK0_937C
+
+OneUpCherry:
+  INC ExtraLives
+  BNE NoOverflowOneUpCherry
+  DEC ExtraLives
+NoOverflowOneUpCherry:
+  LDA #SoundEffect1_1UP
+  STA SoundEffectQueue1
+	LDA #BackgroundTile_Sky
+	JMP loc_BANK0_937C
 
 DokiDokiChangingSize:
   LDA PlayerCurrentSize
