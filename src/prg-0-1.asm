@@ -3618,8 +3618,8 @@ loc_BANK0_90AE:
 	STA EnemyState, X
 
   LDA CurrentCharacter
-  AND #Character_Garfield
-  BEQ Regular_loc_BANK0_90AE
+  CMP #Character_Garfield
+  BNE Regular_loc_BANK0_90AE
 
   CPY #$07 ; rocket
   BEQ Regular_loc_BANK0_90AE
@@ -5109,21 +5109,21 @@ DokiDokiChangingSize:
   JMP loc_BANK0_8A26
 
 PickUpToEnemyTypeTableGarfield:
-	.db Enemy_MushroomBlock ; $00
-	.db Enemy_MushroomBlock ; $01
-	.db Enemy_MushroomBlock ; $02
-	.db Enemy_POWBlock ; $03
+	.db Enemy_Egg ; $00
+	.db Enemy_BobOmb ; $01
+	.db Enemy_VegetableSmall ; $02
+	.db Enemy_VegetableLarge ; $03
 	.db Enemy_Coin ; $04
-	.db Enemy_VegetableLarge ; $05
-	.db Enemy_VegetableSmall ; $06
-	.db Enemy_Rocket ; $07
-	.db Enemy_Shell ; $08
-	.db Enemy_Bomb ; $09
-	.db Enemy_SubspacePotion ; $0A
-	.db Enemy_Mushroom1up ; $0B
-	.db Enemy_POWBlock ; $0C
-	.db Enemy_BobOmb ; $0D
-	.db Enemy_MushroomBlock ; $0E ; this one seems to be overridden for digging in sand
+	.db Enemy_Shell ; $05
+	.db Enemy_Bomb ; $06
+	.db Enemy_MushroomBlock ; $07
+	.db Enemy_POWBlock ; $08
+	.db Enemy_SubspacePotion ; $09
+	.db Enemy_Mushroom1up ; $0A
+	.db Enemy_CrystalBall ; $0B
+	.db Enemy_Stopwatch ; $0C
+	.db Enemy_MushroomBlock ; $0D
+	.db Enemy_Shell ; $0E
 	.db Enemy_MushroomBlock ; $0F
 
 IFDEF RESPAWN_INSTEAD_OF_DEATH
