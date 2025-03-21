@@ -3767,8 +3767,15 @@ TileBehavior_CheckPickUp:
 
   LDA CharacterSpecialAttribute
   AND #DigEverything
-  BNE SandStuff
+  BEQ RegularDigCheck
 
+ToadetteDig:
+  LDA byte_RAM_0
+  CMP #BackgroundTile_MushroomBlock ; Without this check, the game is unbeatable
+  BNE SandStuff
+  BEQ loc_BANK0_916E 
+
+RegularDigCheck:
 	LDA byte_RAM_0
 	CMP #BackgroundTile_DiggableSand
 	BNE loc_BANK0_916E
