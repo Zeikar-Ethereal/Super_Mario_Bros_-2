@@ -5634,7 +5634,10 @@ CorkRoomCharacterGravity:
 
 
 ApplyCorkRoomGravity:
-	LDY CurrentCharacter
+  LDA CurrentCharacter
+  AND #$03
+  TAY
+;	LDY CurrentCharacter
 	LDA CorkRoomCharacterGravity, Y
 	CLC
 	ADC PlayerYVelocity
