@@ -3616,7 +3616,25 @@ loc_BANK0_9080:
 
 loc_BANK0_90AE:
 	STA EnemyState, X
+
+  LDA CurrentCharacter
+  AND #Character_Garfield
+  BEQ Regular_loc_BANK0_90AE
+
+  CPY #$07 ; rocket
+  BEQ Regular_loc_BANK0_90AE
+  CPY #$0E ; sand block
+  BEQ Regular_loc_BANK0_90AE
+
+  LDA byte_RAM_10
+  AND #$0F
+  TAY
+  LDA PickUpToEnemyTypeTableGarfield, Y
+  JMP loc_BANK0_90AF
+
+Regular_loc_BANK0_90AE:
 	LDA PickUpToEnemyTypeTable, Y ; What sprite is spawned for you when lifting a bg object
+loc_BANK0_90AF:
 	STA ObjectType, X
 
 	LDY #$FF ; regular bomb fuse
@@ -5089,6 +5107,24 @@ DokiDokiChangingSize:
   EOR #$01
   STA PlayerCurrentSize
   JMP loc_BANK0_8A26
+
+PickUpToEnemyTypeTableGarfield:
+	.db Enemy_MushroomBlock ; $00
+	.db Enemy_MushroomBlock ; $01
+	.db Enemy_MushroomBlock ; $02
+	.db Enemy_POWBlock ; $03
+	.db Enemy_Coin ; $04
+	.db Enemy_VegetableLarge ; $05
+	.db Enemy_VegetableSmall ; $06
+	.db Enemy_Rocket ; $07
+	.db Enemy_Shell ; $08
+	.db Enemy_Bomb ; $09
+	.db Enemy_SubspacePotion ; $0A
+	.db Enemy_Mushroom1up ; $0B
+	.db Enemy_POWBlock ; $0C
+	.db Enemy_BobOmb ; $0D
+	.db Enemy_MushroomBlock ; $0E ; this one seems to be overridden for digging in sand
+	.db Enemy_MushroomBlock ; $0F
 
 IFDEF RESPAWN_INSTEAD_OF_DEATH
 HandlePlayerState_Respawning:
