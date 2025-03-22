@@ -30,6 +30,34 @@ LoopWait:
 ; ------------------------------------------------------------
 UpdateSpriteTitleScreenRoutine:
 
+UpdateShyGuyCarpet:
+  LDA TitleScreenSeedCounter
+  AND #$0F
+  EOR #$0F
+  BNE MakeSpriteMoveLeftTitleScreen
+  LDX #$08
+  LDY #$00
+UpdateShyGuyCrapetLoop:
+  LDA $0239, Y
+  EOR #$01
+  STA $0239, Y
+  INY
+  INY
+  INY
+  INY
+  DEX
+  BNE UpdateShyGuyCrapetLoop
+
+MakeSpriteMoveLeftTitleScreen:
+  DEC $025B
+  DEC $025F
+  DEC $0263
+  DEC $0267
+  DEC $026B
+  DEC $026F
+  DEC $0273
+  DEC $0277
+
 UpdateSpritePalette:
   DEC PaletteTimer
   BPL LeaveUpdateSpriteTitleScreen
@@ -67,6 +95,7 @@ UpdateCHRAnimation:
   LDY #CHRBank_Animated1
 UpdateChrTable:
   STY SpriteCHR3
+  STY BackgroundCHR1
   INY
   STY SpriteCHR4
 LeaveTitleScreenChrHandling:

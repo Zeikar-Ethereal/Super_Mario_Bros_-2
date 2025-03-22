@@ -3787,11 +3787,7 @@ TileBehavior_CheckPickUp:
   AND #DigEverything
   BEQ RegularDigCheck
 
-ToadetteDig:
-  LDA byte_RAM_0
-  CMP #BackgroundTile_MushroomBlock ; Without this check, the game is unbeatable
-  BNE SandStuff
-  BEQ loc_BANK0_916E 
+  JMP ToadetteDig
 
 RegularDigCheck:
 	LDA byte_RAM_0
@@ -5125,6 +5121,18 @@ PickUpToEnemyTypeTableGarfield:
 	.db Enemy_MushroomBlock ; $0D
 	.db Enemy_Shell ; $0E
 	.db Enemy_MushroomBlock ; $0F
+
+ToadetteDig:
+  LDA InSubspaceOrJar
+  CMP #$01 ; If we're in a vase, get out. Prevent a softlock in world 5
+  BEQ NoToadetteDig
+  LDA byte_RAM_0
+  CMP #BackgroundTile_MushroomBlock ; Without this check, the game is unbeatable
+  BEQ NoToadetteDig
+  JMP SandStuff
+
+NoToadetteDig:
+  JMP loc_BANK0_916E
 
 IFDEF RESPAWN_INSTEAD_OF_DEATH
 HandlePlayerState_Respawning:

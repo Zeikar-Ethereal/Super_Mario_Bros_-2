@@ -46,10 +46,10 @@ SetBankNametbleTitleScreen:
   STY SpriteCHR2
   LDY #CHRBank_Animated1
   STY SpriteCHR3
+  STY BackgroundCHR1
   INY
   STY SpriteCHR4
-  LDA #$3C
-  STA BackgroundCHR1
+;  LDA #$3C
   LDA #$3E
   STA BackgroundCHR2
 

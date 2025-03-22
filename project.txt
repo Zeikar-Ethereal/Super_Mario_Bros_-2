@@ -22,3 +22,33 @@ Maybe add echo/alt character.
 
 ; BUG THAT NEED FIXING
 BUG BUG subcon doesn't call the function pointer
+
+  .db $5E, $90, $00, $1E
+  .db $5E, $92, $00, $26
+  .db $5E, $94, $00, $2E
+  .db $5E, $96, $00, $36
+
+  .db $66, $91, $00, $1E
+  .db $66, $93, $00, $26
+  .db $66, $95, $00, $2E
+  .db $66, $97, $00, $36
+
+  .db $6E, $B0, $00, $1E
+  .db $6E, $B2, $00, $26
+  .db $6E, $B4, $00, $2E
+  .db $6E, $B6, $00, $36
+
+  .db $76, $B1, $00, $1E
+  .db $76, $B3, $00, $26
+  .db $76, $B5, $00, $2E
+  .db $76, $B7, $00, $36
+
+  .db $7E, $98, $00, $1E
+  .db $7E, $9A, $00, $26
+  .db $7E, $9C, $00, $2E
+  .db $7E, $9E, $00, $36
+
+  .db $66, $BA, $01, $26
+  .db $6E, $BB, $01, $26
+  .db $66, $BE, $01, $2E
+  .db $6E, $BF, $01, $2E

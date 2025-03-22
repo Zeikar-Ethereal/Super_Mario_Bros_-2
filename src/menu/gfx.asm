@@ -156,6 +156,13 @@ TitleLayout:
   .db $26, $BB, $85
   .db $8A, $8B, $8b, $8B, $8D
 
+; 2025
+  .db $21, $BA, $04
+  .db $35, $37, $39, $3B
+
+; By Producks
+  .db $21, $F3, $0B
+  .db $40, $42, $FB, $44, $46, $48, $4A, $4C, $4E, $50, $52
 
 ; Attribute table
 	.db $23, $E8, $07, $30, $23, $00, $00, $DC, $DF, $40
@@ -186,8 +193,8 @@ TitleBackgroundPalettes:
 	.db $0F, $29, $1A, $0F ; Copyright, Story
 
 TitleSpritePalettes:
-	.db $0F, $30, $28, $0F ; Unused DDP character palettes
-	.db $0F, $30, $25, $0F ; There are no sprites on the title screen,
+	.db $0F, $25, $02, $16 ; Unused DDP character palettes
+	.db $0F, $30, $16, $02 ; There are no sprites on the title screen,
 	.db $0F, $30, $12, $0F ; so these are totally unused
 	.db $0F, $30, $23, $0F
 
