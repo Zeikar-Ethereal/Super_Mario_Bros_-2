@@ -1244,10 +1244,10 @@ ENDIF
 
 	JSR ClearNametablesAndSprites
 
-IFDEF REV_A
-	JSR EnableNMI
-	JSR WaitForNMI
-ENDIF
+;IFDEF REV_A
+;	JSR EnableNMI
+;	JSR WaitForNMI
+;ENDIF
 
 	JSR LoadBonusChanceCHRBanks
 

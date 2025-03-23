@@ -61,7 +61,7 @@ PRESERVE_UNUSED_SPACE = 1
 ;          at the worst possible time.
 ;          The fix just waits for an NMI cycle before doing its work.
 ;
-; REV_A = 1
+ REV_A = 1
 
 ; ----------------------------------------
 ; Build Super Mario USA ROM.

@@ -15,9 +15,7 @@ SpriteTitleScreenDMAInitTable:
   .db $AF, $DE, $02, $90 ; E
   .db $AF, $EB, $02, $98 ; R
 
-
-
-; subcon cude
+; subcon dude
   .db $56, $80, $01, $D7
   .db $56, $82, $01, $DF
   .db $5E, $84, $01, $D7
