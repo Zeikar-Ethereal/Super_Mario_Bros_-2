@@ -5123,16 +5123,15 @@ PickUpToEnemyTypeTableGarfield:
 	.db Enemy_MushroomBlock ; $0F
 
 ToadetteDig:
-  LDA InSubspaceOrJar
-  CMP #$01 ; If we're in a vase, get out. Prevent a softlock in world 5
-  BEQ NoToadetteDig
+  LDA InJarType
+  BNE NoToadetteDig
   LDA byte_RAM_0
   CMP #BackgroundTile_MushroomBlock ; Without this check, the game is unbeatable
   BEQ NoToadetteDig
   JMP SandStuff
 
 NoToadetteDig:
-  JMP loc_BANK0_916E
+  JMP RegularDigCheck
 
 IFDEF RESPAWN_INSTEAD_OF_DEATH
 HandlePlayerState_Respawning:
