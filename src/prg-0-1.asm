@@ -5117,8 +5117,8 @@ PickUpToEnemyTypeTableGarfield:
 	.db Enemy_SubspacePotion ; $09
 	.db Enemy_Mushroom1up ; $0A
 	.db Enemy_CrystalBall ; $0B
-	.db Enemy_Stopwatch ; $0C
-	.db Enemy_MushroomBlock ; $0D
+	.db Enemy_VegetableLarge ; $0C
+	.db Enemy_VegetableLarge ; $0D
 	.db Enemy_Shell ; $0E
 	.db Enemy_MushroomBlock ; $0F
 
