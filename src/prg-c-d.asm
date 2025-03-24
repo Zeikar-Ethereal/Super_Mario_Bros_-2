@@ -1229,6 +1229,12 @@ CastRoll_TriclydeTextLoop:
 	STA CastRollSpriteIndex
 
 locret_BANKC_8897:
+  LDA CastRollSpriteIndex
+  CMP #$10
+  BNE locret_BANKC_889769
+  LDA #CHRBank_EndingCast1 + 2
+  STA SpriteCHR3
+locret_BANKC_889769:
 	RTS
 
 ; ---------------------------------------------------------------------------
