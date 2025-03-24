@@ -618,9 +618,11 @@ MarioDream_CastRollSetup:
 	INY
 	STY SpriteCHR2
 	INY
-	STY SpriteCHR3
+;	STY SpriteCHR3
 	INY
 	STY SpriteCHR4
+  LDY #$A0
+  STY SpriteCHR3
 
 	; Top cropping sprites
 	LDX #$07
@@ -1678,10 +1680,21 @@ locret_BANKC_8B07:
 
 
 CastRoll_SpritePointersHi:
+	.db >CastRoll_Empty
 	.db >CastRoll_Mario
 	.db >CastRoll_Luigi
 	.db >CastRoll_Princess
 	.db >CastRoll_Toad
+;
+	.db >CastRoll_Imajin
+	.db >CastRoll_Mama
+	.db >CastRoll_Papa
+	.db >CastRoll_Lina
+	.db >CastRoll_Merio
+	.db >CastRoll_Garfield
+	.db >CastRoll_Toadette
+	.db >CastRoll_Rosalina
+;
 	.db >CastRoll_Shyguy
 	.db >CastRoll_Snifit
 	.db >CastRoll_Ninji
@@ -1709,10 +1722,21 @@ CastRoll_SpritePointersHi:
 	.db >CastRoll_Triclyde
 
 CastRoll_SpritePointersLo:
+	.db <CastRoll_Empty
 	.db <CastRoll_Mario
 	.db <CastRoll_Luigi
 	.db <CastRoll_Princess
 	.db <CastRoll_Toad
+;
+	.db <CastRoll_Imajin
+	.db <CastRoll_Mama
+	.db <CastRoll_Papa
+	.db <CastRoll_Lina
+	.db <CastRoll_Merio
+	.db <CastRoll_Garfield
+	.db <CastRoll_Toadette
+	.db <CastRoll_Rosalina
+;
 	.db <CastRoll_Shyguy
 	.db <CastRoll_Snifit
 	.db <CastRoll_Ninji
@@ -1739,6 +1763,25 @@ CastRoll_SpritePointersLo:
 	.db <CastRoll_Clawglip
 	.db <CastRoll_Triclyde
 
+
+; For padding, the code is a war crime to change
+CastRoll_Empty:
+	.db $D0, $3E, $00, $30
+	.db $D0, $3E, $00, $38 ; 4
+	.db $D0, $3E, $00, $40 ; 8
+	.db $D0, $3E, $00, $48 ; $C
+	.db $F9, $3E, $00, $30 ; $10
+	.db $F9, $3E, $00, $38 ; $14
+	.db $F9, $3E, $00, $40 ; $18
+	.db $F9, $3E, $00, $48 ; $1C
+	.db $F9, $3E, $00, $24 ; $20
+	.db $F9, $3E, $00, $2C ; $24
+	.db $F9, $3E, $00, $34 ; $28
+	.db $F9, $3E, $00, $3C ; $2C
+	.db $F9, $3E, $00, $44 ; $30
+	.db $F9, $3E, $00, $4C ; $34
+	.db $F9, $3E, $00, $54 ; $38
+	.db $F9, $3E, $00, $5C ; $3C
 
 CastRoll_Mario:
 	.db $D0, $3E, $00, $30
@@ -1808,6 +1851,142 @@ CastRoll_Toad:
 	.db $F9, $D6, $00, $48 ; $34
 	.db $F9, $3E, $00, $50 ; $38
 	.db $F9, $3E, $00, $58 ; $3C
+CastRoll_Imajin:
+	.db $D0, $3E, $00, $30 ; $00
+	.db $D0, $80, $00, $38 ; $04
+	.db $D0, $82, $00, $40 ; $08
+	.db $D0, $3E, $00, $48 ; $0C
+	.db $F9, $3E, $00, $30 ; $10
+	.db $F9, $84, $00, $38 ; $14
+	.db $F9, $86, $00, $40 ; $18
+	.db $F9, $3E, $00, $48 ; $1C
+	.db $F9, $3E, $00, $20 ; $20
+	.db $F9, $E0, $00, $28 ; $24 i
+	.db $F9, $E8, $00, $30 ; $28 m
+	.db $F9, $D0, $00, $38 ; $2C a
+	.db $F9, $E2, $00, $40 ; $30 j
+	.db $F9, $E0, $00, $48 ; $34 i
+	.db $F9, $EA, $00, $50 ; $38 n
+	.db $F9, $3E, $00, $58 ; $3C
+CastRoll_Mama:
+	.db $D0, $3E, $00, $30 ; $00
+	.db $D0, $88, $00, $38 ; $04
+	.db $D0, $8A, $00, $40 ; $08
+	.db $D0, $3E, $00, $48 ; $0C
+	.db $F9, $3E, $00, $30 ; $10
+	.db $F9, $8C, $00, $38 ; $14
+	.db $F9, $8E, $00, $40 ; $18
+	.db $F9, $3E, $00, $48 ; $1C
+	.db $F9, $3E, $00, $20 ; $20
+	.db $F9, $3E, $00, $28 ; $24
+	.db $F9, $E8, $00, $30 ; $28 m
+	.db $F9, $D0, $00, $38 ; $2C a
+	.db $F9, $E8, $00, $40 ; $30 m
+	.db $F9, $D0, $00, $48 ; $34 a
+	.db $F9, $3E, $00, $50 ; $38
+	.db $F9, $3E, $00, $58 ; $3C
+CastRoll_Papa:
+	.db $D0, $3E, $00, $30 ; $00
+	.db $D0, $90, $00, $38 ; $04
+	.db $D0, $92, $00, $40 ; $08
+	.db $D0, $3E, $00, $48 ; $0C
+	.db $F9, $3E, $00, $30 ; $10
+	.db $F9, $94, $00, $38 ; $14
+	.db $F9, $96, $00, $40 ; $18
+	.db $F9, $3E, $00, $48 ; $1C
+	.db $F9, $3E, $00, $20 ; $20
+	.db $F9, $3E, $00, $28 ; $24
+	.db $F9, $EE, $00, $30 ; $28 p
+	.db $F9, $D0, $00, $38 ; $2C a
+	.db $F9, $EE, $00, $40 ; $30 p
+	.db $F9, $D0, $00, $48 ; $34 a
+	.db $F9, $3E, $00, $50 ; $38
+	.db $F9, $3E, $00, $58 ; $3C
+CastRoll_Lina:
+	.db $D0, $3E, $00, $30 ; $00
+	.db $D0, $98, $00, $38 ; $04
+	.db $D0, $9A, $00, $40 ; $08
+	.db $D0, $3E, $00, $48 ; $0C
+	.db $F9, $3E, $00, $30 ; $10
+	.db $F9, $9C, $00, $38 ; $14
+	.db $F9, $9E, $00, $40 ; $18
+	.db $F9, $3E, $00, $48 ; $1C
+	.db $F9, $3E, $00, $20 ; $20
+	.db $F9, $3E, $00, $28 ; $24
+	.db $F9, $E6, $00, $30 ; $28 l
+	.db $F9, $E0, $00, $38 ; $2C i
+	.db $F9, $EA, $00, $40 ; $30 n
+	.db $F9, $D0, $00, $48 ; $34 a
+	.db $F9, $3E, $00, $50 ; $38
+	.db $F9, $3E, $00, $58 ; $3C
+CastRoll_Merio:
+	.db $D0, $3E, $00, $30 ; $00
+	.db $D0, $A0, $00, $38 ; $04
+	.db $D0, $A2, $00, $40 ; $08
+	.db $D0, $3E, $00, $48 ; $0C
+	.db $F9, $3E, $00, $30 ; $10
+	.db $F9, $A4, $00, $38 ; $14
+	.db $F9, $A6, $00, $40 ; $18
+	.db $F9, $3E, $00, $48 ; $1C
+	.db $F9, $3E, $00, $24 ; $20
+	.db $F9, $E8, $00, $2C ; $24
+	.db $F9, $D8, $00, $34 ; $28 e
+	.db $F9, $F2, $00, $3C ; $2C
+	.db $F9, $E0, $00, $44 ; $30
+	.db $F9, $EC, $00, $4C ; $34
+	.db $F9, $3E, $00, $54 ; $38
+	.db $F9, $3E, $00, $5C ; $3C
+CastRoll_Garfield:
+	.db $D0, $3E, $00, $30 ; $00
+	.db $D0, $A8, $00, $38 ; $04
+	.db $D0, $AA, $00, $40 ; $08
+	.db $D0, $3E, $00, $48 ; $0C
+	.db $F9, $3E, $00, $30 ; $10
+	.db $F9, $AC, $00, $38 ; $14
+	.db $F9, $AE, $00, $40 ; $18
+	.db $F9, $3E, $00, $48 ; $1C
+	.db $F9, $DC, $00, $20 ; $20 g
+	.db $F9, $D0, $00, $28 ; $24 a
+	.db $F9, $F2, $00, $30 ; $28 r
+	.db $F9, $DA, $00, $38 ; $2C f 
+	.db $F9, $E0, $00, $40 ; $30 i
+	.db $F9, $D8, $00, $48 ; $34 e
+	.db $F9, $E6, $00, $50 ; $38 l
+	.db $F9, $D6, $00, $58 ; $3C d
+CastRoll_Toadette:
+	.db $D0, $3E, $00, $30 ; $00
+	.db $D0, $B0, $00, $38 ; $04
+	.db $D0, $B2, $00, $40 ; $08
+	.db $D0, $3E, $00, $48 ; $0C
+	.db $F9, $3E, $00, $30 ; $10
+	.db $F9, $B4, $00, $38 ; $14
+	.db $F9, $B6, $00, $40 ; $18
+	.db $F9, $3E, $00, $48 ; $1C
+	.db $F9, $F6, $00, $20 ; $20 t
+	.db $F9, $EC, $00, $28 ; $24 o
+	.db $F9, $D0, $00, $30 ; $28 a
+	.db $F9, $D6, $00, $38 ; $2C d
+	.db $F9, $D8, $00, $40 ; $30 e
+	.db $F9, $F6, $00, $48 ; $34 t 
+	.db $F9, $F6, $00, $50 ; $38 t
+	.db $F9, $D8, $00, $58 ; $3C e
+CastRoll_Rosalina:
+	.db $D0, $3E, $00, $30 ; $00
+	.db $D0, $B8, $00, $38 ; $04
+	.db $D0, $BA, $00, $40 ; $08
+	.db $D0, $3E, $00, $48 ; $0C
+	.db $F9, $3E, $00, $30 ; $10
+	.db $F9, $BC, $00, $38 ; $14
+	.db $F9, $BE, $00, $40 ; $18
+	.db $F9, $3E, $00, $48 ; $1C
+	.db $F9, $F2, $00, $20 ; $20 r
+	.db $F9, $EC, $00, $28 ; $24 o
+	.db $F9, $F4, $00, $30 ; $28 s
+	.db $F9, $D0, $00, $38 ; $2C a
+	.db $F9, $E6, $00, $40 ; $30 l
+	.db $F9, $E0, $00, $48 ; $34 i
+	.db $F9, $EA, $00, $50 ; $38 n
+	.db $F9, $D0, $00, $58 ; $3C a
 CastRoll_Shyguy:
 	.db $D0, $3E, $00, $30
 	.db $D0, $3E, $00, $38 ; 4
