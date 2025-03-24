@@ -5553,7 +5553,7 @@ EnemyTilemap1:
 	; Panser (spit?)
 	.db $A4, $A4 ; $B0
 	;  Sand
-	.db $4D, $4D ; $B2
+	.db $3C, $3C ; $B2
 	.db $8C, $8C ; $B4
 	; Spark
 	.db $A6, $A6 ; $B6
