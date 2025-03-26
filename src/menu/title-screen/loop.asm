@@ -16,9 +16,11 @@ CheckCursorInputTitleScreen:
   STA CursorLocation
   JSR UpdateTextPalette
 
+
 UpdateSpriteTitleScreen:
   JSR UpdateSpriteTitleScreenRoutine
   JSR TitleScreenCHRHandling
+  JSR CheckForCheatCode
 LoopWait:
   INC TitleScreenSeedCounter
   JSR WaitForNMI_Menu
@@ -99,4 +101,59 @@ UpdateChrTable:
   INY
   STY SpriteCHR4
 LeaveTitleScreenChrHandling:
+  RTS
+
+ExtraLivesCode:
+  .db ControllerInput_Left, ControllerInput_Right, ControllerInput_Left, ControllerInput_Right, ControllerInput_Up, ControllerInput_Down
+
+ExtraContinuesCode:
+  .db ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_Up
+
+CheckForCheatCode:
+  LDA Player1JoypadPress
+  BEQ LeaveCheckForCheatCode ; If no input, leave
+
+CheckForExtraLives:
+  LDY ExtraLivesCheatCounter
+  CMP #ExtraLivesCode, Y
+  BNE ResetExtraLivesCheatCounter
+
+  INY
+  STY ExtraLivesCheatCounter
+  CPY #$06
+  BNE CheckForExtraContinues
+
+  LDA CheatCode
+  ORA #$01
+  STA CheatCode
+  LDA #Music2_MushroomGetJingle
+  STA MusicQueue2
+
+ResetExtraLivesCheatCounter:
+  LDA #$00
+  STA ExtraLivesCheatCounter
+
+; Check for extra continues
+CheckForExtraContinues:
+  LDA Player1JoypadPress
+  LDY ExtraContinuesCheatCounter
+  CMP #ExtraContinuesCode, Y
+  BNE ResetExtraContinuesCheatCounter
+
+  INY
+  STY ExtraContinuesCheatCounter
+  CPY #$06
+  BNE LeaveCheckForCheatCode
+
+  LDA CheatCode
+  ORA #$02
+  STA CheatCode
+  LDA #Music2_CrystalGetFanfare
+  STA MusicQueue2
+
+ResetExtraContinuesCheatCounter:
+  LDA #$00
+  STA ExtraContinuesCheatCounter
+
+LeaveCheckForCheatCode:
   RTS

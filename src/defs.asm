@@ -931,4 +931,8 @@ RowNumberToProcessOptionSelectBig = $07
 StartingIndexSpriteOptionSelectY = $20
 StartingIndexSpriteOptionSelectTile = $21
 
+; Cheat
+ExtraLivesCheat = $01
+ExtraContinuesCheat = $02
+
 .endinl

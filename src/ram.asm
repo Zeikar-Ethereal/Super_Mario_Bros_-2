@@ -163,8 +163,10 @@ ObjectYLo:
 	.dsb 1 ; $0033
 	.dsb 1 ; 1                ; $0034
 CastRollSpriteActive1:
+ExtraLivesCheatCounter:
 	.dsb 1 ; 2                ; $0035
 CastRollSpriteActive2:
+ExtraContinuesCheatCounter:
 	.dsb 1 ; 3                ; $0036
 CastRollSpriteActive3:
 	.dsb 1 ; 4                ; $0037
@@ -1134,6 +1136,7 @@ TwoPlayerCharacterSelect:
 ; FOR RENT
 	.dsb 1 ; $04ba
 ; FOR RENT
+CheatCode:
 	.dsb 1 ; $04bb
 SkyColor:
 	.dsb 1 ; $04bc

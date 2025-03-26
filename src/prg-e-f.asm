@@ -565,7 +565,16 @@ StartGame:
 
 	INC GameMilestoneCounter
 SetNumContinues:
+  LDA CheatCode
+  AND #ExtraContinuesCheat
+  BNE RegularContinuesCount
+
+  LDA #$FF
+  BNE SetNumberOfContinues
+
+RegularContinuesCount:
 	LDA #$02 ; Number of continues on start
+SetNumberOfContinues:
 	STA Continues
 
 ; We return here after picking "CONTINUE" from the game over menu.
