@@ -1136,7 +1136,6 @@ TwoPlayerCharacterSelect:
 ; FOR RENT
 	.dsb 1 ; $04ba
 ; FOR RENT
-CheatCode:
 	.dsb 1 ; $04bb
 SkyColor:
 	.dsb 1 ; $04bc
@@ -2258,6 +2257,7 @@ ENDIF
 
 ItemCarryYOffsetsRAM = $7f00
 ChangeCharacterPoofTimer = $7e81
+CheatCode = $7E80 
 
 ; Allocate 36 bytes total. 3 bytes for the parameters, 32 bytes for colors and 1 bytes for the terminating 0
 PPU_PaletteBuffer = $7E00

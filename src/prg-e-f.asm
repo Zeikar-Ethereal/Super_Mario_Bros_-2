@@ -567,9 +567,9 @@ StartGame:
 SetNumContinues:
   LDA CheatCode
   AND #ExtraContinuesCheat
-  BNE RegularContinuesCount
+  BEQ RegularContinuesCount
 
-  LDA #$FF
+  LDA #$07
   BNE SetNumberOfContinues
 
 RegularContinuesCount:
@@ -579,7 +579,16 @@ SetNumberOfContinues:
 
 ; We return here after picking "CONTINUE" from the game over menu.
 ContinueGame:
+  LDA CheatCode
+  AND #ExtraLivesCheat
+  BEQ RegularLifeCount
+
+  LDA #$15
+  BNE SetLifeCount
+
+RegularLifeCount:
 	LDA #$03 ; Number of lives to start
+SetLifeCount:
 	STA ExtraLives
 
 GoToWorldStartingLevel:

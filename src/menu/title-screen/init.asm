@@ -62,6 +62,9 @@ SetBankNametbleTitleScreen:
   LDA #SpritePaletteTimer ; Set sprite palette countdown until a color swap
   STA PaletteTimer
 
+	LDA #VMirror
+	JSR ChangeNametableMirroring
+
 	JSR ClearNametablesAndSprites
 
 	LDA PPUSTATUS
