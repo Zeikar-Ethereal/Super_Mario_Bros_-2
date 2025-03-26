@@ -12410,8 +12410,8 @@ POWQuakeOffsets:
 
 SkyFlashColors:
 	.db $26
-	.db $2A
-	.db $22
+	.db $26
+	.db $26
 	.db $26
 
 ; =============== S U B R O U T I N E =======================================
