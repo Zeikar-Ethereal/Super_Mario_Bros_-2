@@ -788,6 +788,12 @@ DoSuicideCheatCheck:
 	JSR KillPlayer ; KILL THYSELF
 
 PauseScreenExitCheck:
+  LDA CurrentPlayer
+  BEQ CheckPauseInputPauseScreen
+  LDA Player2JoypadPress
+  STA Player1JoypadPress
+
+CheckPauseInputPauseScreen:
 	LDA Player1JoypadPress
 	AND #ControllerInput_Start
 	BNE HidePauseScreen
