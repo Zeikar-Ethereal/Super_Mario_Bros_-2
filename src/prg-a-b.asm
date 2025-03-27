@@ -631,29 +631,29 @@ RosalinaPalette:
 ; Player 2 player palette
 CharacterPaletteAlt:
 MarioPaletteAlt:
-	.db $0F, $01, $36, $27
+	.db $0F, $01, $13, $27
 PrincessPaletteAlt:
-	.db $0F, $06, $25, $36
+	.db $0F, $06, $27, $36
 ToadPaletteAlt:
-	.db $0F, $01, $30, $27
+	.db $0F, $01, $2C, $27
 LuigiPaletteAlt:
-	.db $0F, $01, $2A, $36
+	.db $0F, $01, $30, $36
 ImajinPaletteAlt:
-	.db $0F, $01, $30, $27
+	.db $0F, $01, $35, $27
 MamaPaletteAlt:
-  .db $0F, $01, $12, $36
+  .db $0F, $00, $10, $36
 PapaPaletteAlt:
-  .db $0F, $06, $37, $27
+  .db $0F, $06, $30, $27
 LinaPaletteAlt:
-  .db $0F, $06, $25, $36
+  .db $0F, $08, $28, $36
 MerioPaletteAlt:
-	.db $0F, $01, $16, $27
+	.db $0F, $01, $1A, $27
 GarfieldPaletteAlt:
-  .db $0F, $06, $27, $30
+  .db $0F, $06, $26, $30
 ToadettePaletteAlt:
-  .db $0F, $0D, $24, $36
+  .db $0F, $0D, $16, $36
 RosalinaPaletteAlt:
-  .db $0F, $08, $2C, $36
+  .db $0F, $08, $13, $36
 
 ;
 ; What is this for? It gets copied to RAM and then...that's all.
@@ -801,19 +801,33 @@ loc_BANKA_8458:
 	CPY #kCharacterStatsTotal
 	BCC loc_BANKA_8458
 
+SetPalette:
 	LDA CurrentCharacter
 	ASL A
 	ASL A
 	TAY
-	LDX #$00
-loc_BANKA_846B:
+
+  LDX CurrentPlayer
+  BEQ SetPlayerOnePalette
+  DEX ; Set back index to 0
+SetPlayerTwoPalette::
+	LDA CharacterPaletteAlt, Y
+	STA RestorePlayerPalette0, X
+	INY
+	INX
+	CPX #$04
+	BCC SetPlayerTwoPalette
+  JMP DumpCharacterSelectPalette
+
+SetPlayerOnePalette:
 	LDA CharacterPalette, Y
 	STA RestorePlayerPalette0, X
 	INY
 	INX
 	CPX #$04
-	BCC loc_BANKA_846B
+	BCC SetPlayerOnePalette
 
+DumpCharacterSelectPalette:
 	LDY #$4C
 loc_BANKA_8479:
 	LDA PlayerSelectPalettes, Y
