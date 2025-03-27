@@ -628,6 +628,33 @@ ToadettePalette:
 RosalinaPalette:
   .db $0F, $08, $2C, $36
 
+; Player 2 player palette
+CharacterPaletteAlt:
+MarioPaletteAlt:
+	.db $0F, $01, $36, $27
+PrincessPaletteAlt:
+	.db $0F, $06, $25, $36
+ToadPaletteAlt:
+	.db $0F, $01, $30, $27
+LuigiPaletteAlt:
+	.db $0F, $01, $2A, $36
+ImajinPaletteAlt:
+	.db $0F, $01, $30, $27
+MamaPaletteAlt:
+  .db $0F, $01, $12, $36
+PapaPaletteAlt:
+  .db $0F, $06, $37, $27
+LinaPaletteAlt:
+  .db $0F, $06, $25, $36
+MerioPaletteAlt:
+	.db $0F, $01, $16, $27
+GarfieldPaletteAlt:
+  .db $0F, $06, $27, $30
+ToadettePaletteAlt:
+  .db $0F, $0D, $24, $36
+RosalinaPaletteAlt:
+  .db $0F, $08, $2C, $36
+
 ;
 ; What is this for? It gets copied to RAM and then...that's all.
 ;
@@ -746,7 +773,7 @@ CopyPlayerTwoPalette:
 	TAY
 	LDX #$00
 CopyPlayerTwoPaletteLoop:
-  LDA CharacterPalette, Y
+  LDA CharacterPaletteAlt, Y
   STA PlayerTwoPaletteRam, X
   INY
   INX

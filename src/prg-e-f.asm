@@ -3352,46 +3352,47 @@ ChangePlayerPoofTiles:
 ; Renders the player sprite
 ;
 RenderPlayer:
-;	LDA ChangeCharacterPoofTimer
-;	BEQ RenderPlayer_AfterChangeCharacterPoof
-;
-;	DEC ChangeCharacterPoofTimer
-;
-;	; tile
-;	LDY ChangeCharacterPoofTimer
-;	LDA ChangePlayerPoofTiles, Y
-;	STA SpriteDMAArea + $01
-;	STA SpriteDMAArea + $05
-;	STA SpriteDMAArea + $09
-;	STA SpriteDMAArea + $0D
-;
-;	; attributes
-;	LDA #ObjAttrib_Palette1
-;	STA SpriteDMAArea + $02
-;	STA SpriteDMAArea + $0A
-;	LDA #ObjAttrib_Palette1 | ObjAttrib_16x32
-;	STA SpriteDMAArea + $06
-;	STA SpriteDMAArea + $0E
-;
-;	; y-position
-;	LDA PlayerScreenYLo
-;	STA SpriteDMAArea + $00
-;	STA SpriteDMAArea + $04
-;	CLC
-;	ADC #$10
-;	STA SpriteDMAArea + $08
-;	STA SpriteDMAArea + $0C
-;
-;	; x-position
-;	LDA PlayerScreenX
-;	STA SpriteDMAArea + $03
-;	STA SpriteDMAArea + $0B
-;	CLC
-;	ADC #$08
-;	STA SpriteDMAArea + $07
-;	STA SpriteDMAArea + $0F
-;
-;RenderPlayer_AfterChangeCharacterPoof:
+	LDA ChangeCharacterPoofTimer
+	BEQ RenderPlayer_AfterChangeCharacterPoof
+
+	DEC ChangeCharacterPoofTimer
+
+	; tile
+	LDY ChangeCharacterPoofTimer
+	LDA ChangePlayerPoofTiles, Y
+	STA SpriteDMAArea + $21
+	STA SpriteDMAArea + $25
+	STA SpriteDMAArea + $29
+	STA SpriteDMAArea + $2D
+
+	; attributes
+	LDA #ObjAttrib_Palette1
+	STA SpriteDMAArea + $22
+	STA SpriteDMAArea + $2A
+	LDA #ObjAttrib_Palette1 | ObjAttrib_16x32
+	STA SpriteDMAArea + $26
+	STA SpriteDMAArea + $2E
+
+	; y-position
+	LDA PlayerScreenYLo
+	STA SpriteDMAArea + $20
+	STA SpriteDMAArea + $24
+	CLC
+	ADC #$10
+	STA SpriteDMAArea + $28
+	STA SpriteDMAArea + $2C
+
+	; x-position
+	LDA PlayerScreenX
+	STA SpriteDMAArea + $23
+	STA SpriteDMAArea + $2B
+	CLC
+	ADC #$08
+	STA SpriteDMAArea + $27
+	STA SpriteDMAArea + $2F
+  RTS
+
+RenderPlayer_AfterChangeCharacterPoof:
 
 	LDY_abs PlayerState
 	CPY #PlayerState_ChangingSize
