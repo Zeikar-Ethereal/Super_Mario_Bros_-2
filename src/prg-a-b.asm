@@ -639,7 +639,7 @@ ToadPaletteAlt:
 LuigiPaletteAlt:
 	.db $0F, $01, $30, $36
 ImajinPaletteAlt:
-	.db $0F, $01, $35, $27
+	.db $0F, $06, $26, $36
 MamaPaletteAlt:
   .db $0F, $00, $10, $36
 PapaPaletteAlt:
