@@ -1,39 +1,22 @@
-Smb2 ++ planner
+TODO:
 
-Title screen:
-  IRQ = 100%
-  Glowing text 100%
-  Fade in/out 100%
-  Graphics 90%
+Test all these
 
-Option menu:
-  100%
+Traditional mode Good
+Swap mode Good
+Shared Controls Good
+Chaos Swap Good
 
-Bug fixes:
-  8 CHR animation 100%
-  B dropping item while crouching 100%
-  Fixing enemy stack bug 100%
+Check FryGuy fix Good
+Check stack overflow for autoBomb Good
 
-Game mode single player:
-  100% both
+Test characters
+Merio X
+Toadette X
+GarField X
+Rosalina should be fine
 
-Maybe add echo/alt character.
-1 character need work, garfield most likely
+Test all endings Good
 
-; BUG THAT NEED FIXING
-BUG BUG subcon doesn't call the function pointer
 
-Art credit:
-
-Rosalina 
-Koopss20
-
-Toadette 
-P-P
-
-Garfield 
-Jon Gandee
-Hansungkee
-
-Merio
-Valis emma
+Test palette swap Good

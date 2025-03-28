@@ -32,6 +32,14 @@ InitMemoryLoop2:
 	INY
 	BNE InitMemoryLoop2
 
+  LDA #$00
+  TAY
+InitMemoryLoop3:
+; Clear $7E00-$7EFF
+  STA $7E00, Y
+  INY
+  BNE InitMemoryLoop3
+
 ; Restore bank C/D after the memory got zero'd out
   LDA #PRGBank_C_D
   STA MMC3PRGBankTemp
