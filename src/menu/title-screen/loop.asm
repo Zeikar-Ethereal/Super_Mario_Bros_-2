@@ -107,7 +107,7 @@ ExtraLivesCode:
   .db ControllerInput_Left, ControllerInput_Right, ControllerInput_Left, ControllerInput_Right, ControllerInput_Up, ControllerInput_Down
 
 ExtraContinuesCode:
-  .db ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_Up
+  .db ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_Right
 
 CheckForCheatCode:
   LDA Player1JoypadPress
