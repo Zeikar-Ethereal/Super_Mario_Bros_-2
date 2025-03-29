@@ -3338,7 +3338,6 @@ DamageInvulnBlinkFrames:
 	.db $01, $01, $01, $02, $02, $04, $04, $04
 
 ChangePlayerPoofTiles:
-	.db $5E
 	.db $3A
 	.db $3A
 	.db $3A
@@ -3346,6 +3345,7 @@ ChangePlayerPoofTiles:
 	.db $38
 	.db $38
 	.db $36
+  .db $34
 	.db $34
 
 ;
