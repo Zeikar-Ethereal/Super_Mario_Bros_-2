@@ -20,7 +20,7 @@ BPS tool: https://www.romhacking.net/utilities/893/
 IPS tool: https://www.romhacking.net/utilities/240/
 
 **************************************
-       Selectable Characters
+        Selectable Characters
 **************************************
 
 ~ Vanilla Characters ~
@@ -59,7 +59,7 @@ Ability: Levitate while floating.
 Graphics by: Koopss20
 
 **************************************
-          2-Player Modes
+           2-Player Modes
 **************************************
 
 Four 2-player modes are available.
@@ -109,7 +109,7 @@ Start with 7 continues:
 B B B B B →
 
 **************************************
-             Credits
+              Credits
 **************************************
 
 - Xkeeper0: Disassembly
