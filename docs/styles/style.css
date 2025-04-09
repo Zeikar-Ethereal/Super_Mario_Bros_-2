@@ -36,6 +36,21 @@ details > summary.character {
   user-select: none;
 }
 
+details > summary.table {
+  text-align: justify;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+}
+
+table {
+  border: 2px solid rgb(140 140 140);
+}
+
+th,
+td {
+  border: 1px solid rgb(160 160 160);
+}
 
 /* Classes */
 .cheats {
@@ -88,6 +103,7 @@ details > summary.character {
   user-select: none;
 }
 
+
 /* Character sub section div */
 
 .character-sub-section {
@@ -98,3 +114,7 @@ details > summary.character {
   margin-top: 0%;
   margin-bottom: 0%;
 }
+
+/* .table { */
+  /* padding-left: 2%; */
+/* } */
