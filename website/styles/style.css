@@ -1,0 +1,99 @@
+html {
+  background-image: url("../images/bg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-color: black;
+}
+
+body {
+  color: rgb(255, 255, 255);
+  width: 800px;
+  margin: 0 auto;
+  background-color: #0c0a14;
+  padding: 0 20px 20px 20px;
+  border: 5px solid black;
+  font-size: 16px;
+  font-family: 'Open Sans';
+}
+
+h1 {
+  font-size: 50px;
+  font-family: 'Itim', cursive;
+}
+
+details > summary {
+  cursor: pointer;
+  font-size: 35px;
+  user-select: none;
+}
+
+details > summary.character {
+  text-align: justify;
+  cursor: pointer;
+  font-size: 25px;
+  user-select: none;
+}
+
+
+/* Classes */
+.cheats {
+  font-family: 'Potta One';
+  font-size: 20px;
+  color:springgreen;
+}
+
+.character {
+  padding-left: 2%;
+}
+
+.details_text {
+  padding-left: 1%;
+}
+
+.link {
+  color: aqua;
+}
+
+/* Div section */
+.section{
+  padding-left: 1%;
+}
+
+.section > p {
+  margin-top: 0%;
+  margin-bottom: 0%;
+}
+
+.section > ul {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 3%;
+}
+
+.section > li {
+  margin-left: 0%;
+}
+
+.section > h2 {
+  /* margin-top: 1%; */
+  margin-bottom: 1%;
+  color:tomato;
+}
+
+.section > details > summary {
+  cursor: pointer;
+  font-size: 25px;
+  user-select: none;
+}
+
+/* Character sub section div */
+
+.character-sub-section {
+  padding-left: 1%;
+}
+
+.character-sub-section > p {
+  margin-top: 0%;
+  margin-bottom: 0%;
+}

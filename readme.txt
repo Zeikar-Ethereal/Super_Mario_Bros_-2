@@ -18,6 +18,7 @@ There are also .ips and .bps files. I highly recommend using .bps, but both opti
 Online tool for patching (BPS and IPS): https://hack64.net/tools/patcher.php
 BPS tool: https://www.romhacking.net/utilities/893/
 IPS tool: https://www.romhacking.net/utilities/240/
+BPS & IPS tool: https://www.smwcentral.net/?p=section&a=details&id=11474
 
 **************************************
         Selectable Characters
