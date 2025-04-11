@@ -5515,7 +5515,6 @@ SoloMode:
 ; Traditional mode, GameplayMode = 1
 ; Each player take turns to play
 ; CurrentPlayer swap everytime a player die or beat a level
-; Enable the players to pick a different character or the same one
 ; -----------------------------------------------------------------
 TraditionalMode:
   LDA CurrentPlayer
@@ -5531,7 +5530,6 @@ LeaveTraditionalMode:
 ; Tag mode, GameplayMode = 2
 ; Pressing select on the current player will hand over
 ; the control to the other player.
-; Enable the players to pick a different character or the same one
 ; -----------------------------------------------------------------
 TagMode:
   LDA CurrentPlayer ; Check which player is currently playing
@@ -5567,7 +5565,6 @@ SwapTagModeSecondPlayer:
 
 ; ------------------------------------------------------------
 ; 1P2C, GameplayMode = 3
-; 1P2C is short for 1 player 2 controller
 ; Player 1 controls the dpad
 ; Player 2 controls the A/B buttons
 ; ------------------------------------------------------------
@@ -5593,11 +5590,13 @@ OnePlayerTwoControllers:
 ; Chaos mode, GameplayMode = 4
 ; Players control the same character, but who controls it
 ; swap at random time
+; The whole process of swapping is done for a total of 3 frames
+; Frame 1: If timer == 0, setup the next func pointer to generate a random number
+; Frame 2: Generate a random number and set the func pointer to the swap
+; Frame 3: Swap, then setup back the func pointer to frame 1.
 ; ------------------------------------------------------------
 
-; ------------------------------------------------------------
-; Cursed way to do things with self-modifying code...
-; ------------------------------------------------------------
+; Cursed way to do things
 RunTimerChaos:
   LDA CurrentPlayer
   BEQ DecreaseTimerChaos ; Check if we need to swap inputs

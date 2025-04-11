@@ -236,7 +236,9 @@ DumpGFXMenuOptionLoop:
   RTS
 
 ; ------------------------------------------------------------
-; Stuff
+; Animate the CHR table
+; Params: 
+;         None
 ; ------------------------------------------------------------
 OptionMenuAnimationCHRHandling:
   DEC CHRTableTimer
