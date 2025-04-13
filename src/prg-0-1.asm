@@ -5125,6 +5125,9 @@ PickUpToEnemyTypeTableGarfield:
 ToadetteDig:
   LDA InJarType
   BNE NoToadetteDig
+  LDA Player1JoypadHeld
+  AND #ControllerInput_Up
+  BNE NoToadetteDig
   LDA byte_RAM_0
   CMP #BackgroundTile_MushroomBlock ; Without this check, the game is unbeatable
   BEQ NoToadetteDig
