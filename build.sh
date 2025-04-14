@@ -23,7 +23,11 @@ if [ $# -eq 0 ]; then
 	echo '[3] Prototype music + Warrio & Waluigi'
 	read -p 'Enter a number to select a version: ' input
 
-  case $input in
+else
+  input="$1"
+fi
+
+case $input in
 	"0")
 	build
 	;;
@@ -37,14 +41,9 @@ if [ $# -eq 0 ]; then
 	build $PROTO_MUSIC $WARIO_WALUIGI
 	;;
 	*)
-  echo Invalid argument
-  error
-esac
-
-else
+  echo Custom flags compilation
   build $@
-fi
-
+esac
 
 if [ $? -ne 0 ] ; then # Check if any error happened during the building process
   error
