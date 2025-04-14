@@ -3554,10 +3554,15 @@ EnemyBehavior_SubspacePotion_CheckGroundCollision:
 	LDA #$10
 	STA byte_RAM_5BB
 
+  ; No potion door allowed in a jar. Avoid a softlock
+  LDA InJarType
+  BNE DestroySubSpaceDoor ; If we are in a jar, destroy the door.
+
 	; No Subspace Doors allowed in vertical levels
 	LDA IsHorizontalLevel
 	BNE EnemyBehavior_SubspacePotion_CreateDoor
 
+DestroySubSpaceDoor:
 	LDA #DPCM_BossHurt
 	STA DPCMQueue
 	JSR EnemyDestroy

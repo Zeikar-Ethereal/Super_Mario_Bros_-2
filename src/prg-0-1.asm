@@ -5105,22 +5105,40 @@ DokiDokiChangingSize:
   JMP loc_BANK0_8A26
 
 PickUpToEnemyTypeTableGarfield:
-	.db Enemy_Egg ; $00
-	.db Enemy_BobOmb ; $01
-	.db Enemy_VegetableSmall ; $02
-	.db Enemy_VegetableLarge ; $03
-	.db Enemy_Coin ; $04
-	.db Enemy_Shell ; $05
-	.db Enemy_Bomb ; $06
-	.db Enemy_MushroomBlock ; $07
-	.db Enemy_POWBlock ; $08
-	.db Enemy_SubspacePotion ; $09
-	.db Enemy_Mushroom1up ; $0A
-	.db Enemy_CrystalBall ; $0B
-	.db Enemy_VegetableLarge ; $0C
-	.db Enemy_VegetableLarge ; $0D
-	.db Enemy_Shell ; $0E
-	.db Enemy_MushroomBlock ; $0F
+ 	.db Enemy_Egg ; $00
+ 	.db Enemy_BobOmb ; $01
+ 	.db Enemy_VegetableSmall ; $02
+ 	.db Enemy_VegetableLarge ; $03
+ 	.db Enemy_Coin ; $04
+ 	.db Enemy_Shell ; $05
+ 	.db Enemy_Bomb ; $06
+ 	.db Enemy_MushroomBlock ; $07
+ 	.db Enemy_POWBlock ; $08
+ 	.db Enemy_SubspacePotion ; $09
+ 	.db Enemy_Mushroom1up ; $0A
+ 	.db Enemy_CrystalBall ; $0B
+ 	.db Enemy_VegetableLarge ; $0C
+ 	.db Enemy_VegetableLarge ; $0D
+ 	.db Enemy_Shell ; $0E
+ 	.db Enemy_MushroomBlock ; $0F
+
+;PickUpToEnemyTypeTableGarfield:
+;	.db Enemy_SubspacePotion ; $00
+;	.db Enemy_SubspacePotion ; $01
+;	.db Enemy_SubspacePotion ; $02
+;	.db Enemy_SubspacePotion ; $03
+;	.db Enemy_SubspacePotion ; $04
+;	.db Enemy_SubspacePotion ; $05
+;	.db Enemy_SubspacePotion ; $06
+;	.db Enemy_SubspacePotion ; $07
+;	.db Enemy_SubspacePotion ; $08
+;	.db Enemy_SubspacePotion ; $09
+;	.db Enemy_SubspacePotion ; $0A
+;	.db Enemy_SubspacePotion ; $0B
+;	.db Enemy_SubspacePotion ; $0C
+;	.db Enemy_SubspacePotion ; $0D
+;	.db Enemy_SubspacePotion ; $0E
+;	.db Enemy_SubspacePotion ; $0F
 
 ToadetteDig:
   LDA InJarType
