@@ -121,11 +121,11 @@ ENDIF
 ; Restore the prototype's DPCM samples and/or music;
 ; NOTE: The prototype underground music requires the shortened prototype ending music to fit
 ; everything in the music header table. Use EXPAND_MUSIC to remove this restriction.
- PROTOTYPE_DPCM_SAMPLES = 1
- PROTOTYPE_INSTRUMENTS = 1
- PROTOTYPE_MUSIC_STARMAN = 1
- PROTOTYPE_MUSIC_UNDERGROUND = 1
- PROTOTYPE_MUSIC_ENDING = 1
+; PROTOTYPE_DPCM_SAMPLES = 1
+; PROTOTYPE_INSTRUMENTS = 1
+; PROTOTYPE_MUSIC_STARMAN = 1
+; PROTOTYPE_MUSIC_UNDERGROUND = 1
+; PROTOTYPE_MUSIC_ENDING = 1
 
 ; Include debugging tools
 ; (push Select to open the debug menu)

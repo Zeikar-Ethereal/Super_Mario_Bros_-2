@@ -1,73 +1,53 @@
 #!/bin/sh
+# Modified script from the smb2 disassembly https://github.com/Xkeeper0/smb2
+# Last modification: 2025-04-14 Producks
 
-PRG0="47ba60fad332fdea5ae44b7979fe1ee78de1d316ee027fea2ad5fe3c0d86f25a"
-PRG1="6ca47e9da206914730895e45fef4f7393e59772c1c80e9b9befc1a01d7ecf724"
-SM_USA="c63bacd07cf0d2336e8a4f9b9c556d0758629f102211d989d92495e117a8b3a0"
-
-
-compareHash() {
-	echo $1 $2 | sha256sum --check > /dev/null 2>&1
-}
+# Compilation flag
+PROTO_MUSIC="-dPROTOTYPE_DPCM_SAMPLES -dPROTOTYPE_INSTRUMENTS -dPROTOTYPE_MUSIC_STARMAN -dPROTOTYPE_MUSIC_UNDERGROUND -dPROTOTYPE_MUSIC_ENDING"
+WARIO_WALUIGI="-dWARIO_WALUIGI"
 
 build() {
+  echo 'Assembling...'
 	tools/asm6f smb2.asm -m -n -c -L bin/smb2.nes "$@" > bin/assembler.log
 }
 
-
-
-if [ "$1" = "test" ] ; then
-
-	buildErr=0
-
-	build
-
-	if [ $? -ne 0 ] ; then
-		echo 'Failed building PRG0!'
-		buildErr=1
-
-	elif ! compareHash $PRG0 'bin/smb2.nes' ; then
-		echo 'PRG0 build did not match PRG0!'
-		buildErr=1
-	fi
-
-	build -dREV_A
-
-	if [ $? -ne 0 ] ; then
-		echo 'Failed building PRG1!'
-		buildErr=1
-
-	elif ! compareHash $PRG1 'bin/smb2.nes' ; then
-		echo 'PRG1 build did not match PRG1!'
-		buildErr=1
-	fi
-
-	build -dSM_USA
-
-	if [ $? -ne 0 ] ; then
-		echo 'Failed building SM_USA!'
-		buildErr=1
-
-	elif ! compareHash $SM_USA 'bin/smb2.nes' ; then
-		echo 'SM_USA build did not match SM_USA!'
-		buildErr=1
-	fi
-
-	if [ $buildErr -ne 0 ] ; then
-		echo 'Test failed'
-		exit $buildErr
-	else
-		echo 'Test passed: PRG0 and PRG1 built and matched original ROMs'
-		exit $buildErr
-	fi
-
-fi
-
-echo 'Assembling...'
-build $@
-
-if [ $? -ne 0 ] ; then
+error () {
 	echo 'Build failed!'
 	exit 1
+}
+
+if [ $# -eq 0 ]; then
+	echo '[0] Vanilla music + Merio & Garfield'
+	echo '[1] Prototype music + Merio & Garfield'
+	echo '[2] Vanilla music + Warrio & Waluigi'
+	echo '[3] Prototype music + Warrio & Waluigi'
+	read -p 'Enter a number to select a version: ' input
+
+  case $input in
+	"0")
+	build
+	;;
+	"1")
+	build $PROTO_MUSIC
+	;;
+	"2")
+	build $WARIO_WALUIGI
+	;;
+	"3")
+	build $PROTO_MUSIC $WARIO_WALUIGI
+	;;
+	*)
+  echo Invalid argument
+  error
+esac
+
+else
+  build $@
+fi
+
+
+if [ $? -ne 0 ] ; then # Check if any error happened during the building process
+  error
 fi
 
 echo 'Build succeeded.'
