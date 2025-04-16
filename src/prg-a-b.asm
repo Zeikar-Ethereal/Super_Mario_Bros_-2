@@ -619,10 +619,19 @@ PapaPalette:
   .db $0F, $06, $37, $27
 LinaPalette:
   .db $0F, $06, $25, $36
+
+IFDEF WARIO_WALUIGI
+WarioPalette:
+	.db $0F, $01, $16, $27
+WaluigiPalette:
+  .db $0F, $03, $13, $36 ; Waluigi palette if compiled with this flag
+ELSE
 MerioPalette:
 	.db $0F, $01, $16, $27
 GarfieldPalette:
   .db $0F, $06, $27, $30
+ENDIF
+
 ToadettePalette:
   .db $0F, $0D, $24, $36
 RosalinaPalette:

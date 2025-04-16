@@ -165,6 +165,10 @@ ENDIF
 ; ----------------------------------------
 ; extra CHR-ROM pages
 IFDEF EXPAND_CHR
+IFDEF WARIO_WALUIGI
+.incbin "expand_WW.chr"
+ELSE
 .incbin "expand.chr"
+ENDIF
 ;.dsb (16 * $2000), $00
 ENDIF
