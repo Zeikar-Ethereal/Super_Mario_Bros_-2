@@ -810,6 +810,28 @@ loc_BANKA_8458:
 	CPY #kCharacterStatsTotal
 	BCC loc_BANKA_8458
 
+ApplyCheatCodeStats:
+
+; Check for doki doki run cheat
+  LDA CheatCode
+  AND #DokiDokiRunCheat
+  BEQ CheckFloatCheat
+  LDA CharacterSpecialAttribute
+  AND #$7F
+  STA CharacterSpecialAttribute
+  STA $7E27
+  STA $7E47
+
+CheckFloatCheat:
+; Check for all character float cheat
+  LDA CheatCode
+  AND #AllCharactersFloatCheat
+  BEQ SetPalette
+  LDA #$FF
+  STA JumpFloatLength
+  STA $7E1D
+  STA $7E3D
+
 SetPalette:
 	LDA CurrentCharacter
 	ASL A
