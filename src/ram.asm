@@ -169,16 +169,20 @@ CastRollSpriteActive2:
 ExtraContinuesCheatCounter:
 	.dsb 1 ; 3                ; $0036
 CastRollSpriteActive3:
+DokiDokiRunCheatCounter:
 	.dsb 1 ; 4                ; $0037
 CastRollSpriteActive4:
+WarioWaluigiCheatCounter:
 	.dsb 1 ; 5                ; $0038
 CastRollSpriteCounter1:
 MenuPointerLo:
+AllCharactersFloatCheatCounter:
 	.dsb 1 ; 6                ; $0039
 CastRollSpriteCounter2:
 MenuPointerHi:
 	.dsb 1 ; 7                ; $003a
 CastRollSpriteCounter3:
+TempVariableCheat:
 	.dsb 1 ; 8                ; $003b
 
 CastRoll_Temp9:

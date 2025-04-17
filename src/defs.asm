@@ -934,5 +934,8 @@ StartingIndexSpriteOptionSelectTile = $21
 ; Cheat
 ExtraLivesCheat = $01
 ExtraContinuesCheat = $02
+DokiDokiRunCheat = $04
+WarioWaluigiCheat = $08
+AllCharactersFloatCheat = $10
 
 .endinl

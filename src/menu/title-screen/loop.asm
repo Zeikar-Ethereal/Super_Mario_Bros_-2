@@ -103,57 +103,74 @@ UpdateChrTable:
 LeaveTitleScreenChrHandling:
   RTS
 
+; Subroutine with pointers would work here, but I am lazy and this will do for now
+CheckForCheatCode:
+  LDY #$00
+CheckForCheatCodeLoop:
+  JSR CheatCheckSubRoutine
+  INY
+  CPY #$05
+  BNE CheckForCheatCodeLoop
+  RTS
+
 ExtraLivesCode:
   .db ControllerInput_Left, ControllerInput_Right, ControllerInput_Left, ControllerInput_Right, ControllerInput_Up, ControllerInput_Down
 
 ExtraContinuesCode:
   .db ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_B, ControllerInput_Right
 
-CheckForCheatCode:
+DokiDokiRunCode:
+  .db ControllerInput_Up, ControllerInput_Up, ControllerInput_Down, ControllerInput_Down, ControllerInput_Right, ControllerInput_Right
+
+WarioWaluigiCode:
+  .db ControllerInput_Right, ControllerInput_Right, ControllerInput_Up, ControllerInput_Right, ControllerInput_Right, ControllerInput_Up
+
+AllCharactersFloatCode:
+  .db ControllerInput_Select, ControllerInput_Select, ControllerInput_Select, ControllerInput_Select, ControllerInput_Left, ControllerInput_Select
+
+StartingIndexTableCheats:
+  .db $00, $06, $0C, $12, $18
+
+CheatCodeTableCode:
+  .db ExtraLivesCheat, ExtraContinuesCheat, DokiDokiRunCheat, WarioWaluigiCheat, AllCharactersFloatCheat
+
+; ------------------------------------------------------------
+; Desc:
+;       Check for a cheat code according to the index stored in Y
+;       Will applay the cheat code if it match
+; Params:
+;         Y = Index of the cheat code to check
+; ------------------------------------------------------------
+CheatCheckSubRoutine:
   LDA Player1JoypadPress
-  BEQ LeaveCheckForCheatCode ; If no input, leave
+  BEQ LeaveCheatSubRoutine ; If we have no input, leave!
+  LDA StartingIndexTableCheats, Y
+  STA TempVariableCheat
+  LDA ExtraLivesCheatCounter, Y
+  CLC
+  ADC TempVariableCheat
+  TAX ; Now X own the current index we need to check
 
-CheckForExtraLives:
-  LDY ExtraLivesCheatCounter
-  CMP #ExtraLivesCode, Y
-  BNE ResetExtraLivesCheatCounter
-
-  INY
-  STY ExtraLivesCheatCounter
-  CPY #$06
-  BNE CheckForExtraContinues
-
-  LDA CheatCode
-  ORA #$01
-  STA CheatCode
-  LDA #Music2_MushroomGetJingle
-  STA MusicQueue2
-
-ResetExtraLivesCheatCounter:
-  LDA #$00
-  STA ExtraLivesCheatCounter
-
-; Check for extra continues
-CheckForExtraContinues:
   LDA Player1JoypadPress
-  LDY ExtraContinuesCheatCounter
-  CMP #ExtraContinuesCode, Y
-  BNE ResetExtraContinuesCheatCounter
+  CMP ExtraLivesCode, X
+  BNE ResetCheatCounter
 
-  INY
-  STY ExtraContinuesCheatCounter
-  CPY #$06
-  BNE LeaveCheckForCheatCode
-
-  LDA CheatCode
-  ORA #$02
-  STA CheatCode
-  LDA #Music2_CrystalGetFanfare
+  LDA ExtraLivesCheatCounter, Y
+  TAX
+  INX
+  TXA
+  STA ExtraLivesCheatCounter, Y
+  CMP #$06
+  BNE LeaveCheatSubRoutine
+  LDA #Music2_BossClearFanfare
   STA MusicQueue2
+  LDA CheatCode
+  ORA CheatCodeTableCode, Y
+  STA CheatCode
 
-ResetExtraContinuesCheatCounter:
+ResetCheatCounter:
   LDA #$00
-  STA ExtraContinuesCheatCounter
+  STA ExtraLivesCheatCounter, Y
 
-LeaveCheckForCheatCode:
+LeaveCheatSubRoutine:
   RTS
