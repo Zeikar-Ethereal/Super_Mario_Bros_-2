@@ -119,6 +119,23 @@ SetConfirmSpriteLoop:
   BPL SetConfirmSpriteLoop
 
 ; Set the character
+  LDA CheatCode
+  AND #WarioWaluigiCheat
+  BEQ RegularSetCharacterPOne
+
+CheatCharacterSetterPOne:
+  LDA CursorLocation
+  CMP #Character_Merio
+  BEQ SpecialIncrementPOne
+  CMP #Character_Garfield
+  BNE RegularSetCharacterPOne
+
+SpecialIncrementPOne:
+  CLC
+  ADC #$04
+  STA CursorLocation
+
+RegularSetCharacterPOne:
   LDA CursorLocation
   TAY
   LDA RealCharacterIndexTable, Y

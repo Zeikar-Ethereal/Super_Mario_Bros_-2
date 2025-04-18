@@ -191,6 +191,8 @@ PlayerSelectPaletteOffsets:
 	.db (PlayerSelectSpritePalettes_Garfield - PlayerSelectSpritePalettes)
 	.db (PlayerSelectSpritePalettes_Toadette - PlayerSelectSpritePalettes)
 	.db (PlayerSelectSpritePalettes_Rosalina - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Wario - PlayerSelectSpritePalettes)
+	.db (PlayerSelectSpritePalettes_Waluigi - PlayerSelectSpritePalettes)
 
 PlayerSelectSpritePalettes:
 PlayerSelectSpritePalettes_Mario:
@@ -217,6 +219,11 @@ PlayerSelectSpritePalettes_Toadette:
 	.db $0F, $37, $24, $07
 PlayerSelectSpritePalettes_Rosalina:
 	.db $0F, $36, $2C, $08
+PlayerSelectSpritePalettes_Wario:
+	.db $0F, $37, $24, $07
+PlayerSelectSpritePalettes_Waluigi:
+	.db $0F, $36, $13, $03
+
 
 PlayerSelectPLetterX:
 	.db $48

@@ -274,6 +274,8 @@ CharacterStatsLo:
   .db <GarfieldStats
   .db <ToadetteStats
   .db <RosalinaStats
+  .db <MerioStats ; For Wario
+  .db <GarfieldStats ; For Waluigi
 
 CharacterStatsHi:
   .db >MarioStats
@@ -288,6 +290,8 @@ CharacterStatsHi:
   .db >GarfieldStats
   .db >ToadetteStats
   .db >RosalinaStats
+  .db >MerioStats ; For Wario
+  .db >GarfieldStats ; For Waluigi
 
 CharacterStats:
 MarioStats:
@@ -619,23 +623,18 @@ PapaPalette:
   .db $0F, $06, $37, $27
 LinaPalette:
   .db $0F, $06, $25, $36
-
-IFDEF WARIO_WALUIGI
-WarioPalette:
-	.db $0F, $01, $16, $27
-WaluigiPalette:
-  .db $0F, $03, $13, $36 ; Waluigi palette if compiled with this flag
-ELSE
 MerioPalette:
 	.db $0F, $01, $16, $27
 GarfieldPalette:
   .db $0F, $06, $27, $30
-ENDIF
-
 ToadettePalette:
   .db $0F, $0D, $24, $36
 RosalinaPalette:
   .db $0F, $08, $2C, $36
+WarioPalette:
+	.db $0F, $01, $16, $27
+WaluigiPalette:
+  .db $0F, $03, $13, $36
 
 ; Player 2 player palette
 CharacterPaletteAlt:
@@ -663,6 +662,10 @@ ToadettePaletteAlt:
   .db $0F, $0D, $16, $36
 RosalinaPaletteAlt:
   .db $0F, $08, $13, $36
+WarioPaletteAlt:
+	.db $0F, $01, $16, $27
+WaluigiPaletteAlt:
+  .db $0F, $03, $13, $36
 
 ;
 ; What is this for? It gets copied to RAM and then...that's all.

@@ -56,6 +56,8 @@ Character_Merio = $08
 Character_Garfield = $09
 Character_Toadette = $0A
 Character_Rosalina = $0B
+Character_Wario = $0C
+Character_Waluigi = $0D
 
 ; ---------------------------------------------------------------------------
 
@@ -809,6 +811,12 @@ CHRBANK_MerioSmall = $98
 CHRBANK_GarfieldSmall = $99
 CHRBANK_ToadetteSmall = $9B
 CHRBANK_RosalinaSmall = $9A
+
+CHRBANK_Waluigi = $A1
+CHRBANK_WaluigiSmall = $A2
+
+CHRBANK_Wario = $A3
+CHRBANK_WarioSmall = $A4
 
 CHRBank_CommonEnemies1 = $08
 CHRBank_CommonEnemies2 = $09

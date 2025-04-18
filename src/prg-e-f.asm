@@ -5861,6 +5861,13 @@ CHRBank_CharacterSize:
   .db CHRBANK_Rosalina
   .db CHRBANK_RosalinaSmall
 
+; Cheat code character
+  .db CHRBANK_Wario
+  .db CHRBANK_WarioSmall
+
+  .db CHRBANK_Waluigi
+  .db CHRBANK_WaluigiSmall
+
 LoadWorldCHRBanks:
 	LDY #CHRBank_CommonEnemies1
 	STY SpriteCHR2

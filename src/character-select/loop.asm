@@ -84,8 +84,8 @@ UpdatePaletteCharacter:
 DumpNewPaletteCharacter:
 
 ; Handle slot 1 for player 1 cursor
-  LDA CursorLocation
-  TAY
+  LDY CursorLocation
+  JSR GetTrueIndex
   LDA PlayerSelectPaletteOffsets, Y
   TAY
   LDA #$3F
@@ -106,8 +106,8 @@ DumpNewPaletteCharacter:
   BEQ FinishPlayerOneDumpPalette
 
 ; Do player 2 stuff here
-  LDA CursorLocationPTwo
-  TAY
+  LDY CursorLocationPTwo
+  JSR GetTrueIndex
   LDA PlayerSelectPaletteOffsets, Y
   TAY
   LDA PlayerSelectSpritePalettes, Y
@@ -133,6 +133,31 @@ FinishPlayerOneDumpPalette:
 	STA PPUBuffer_301 + 7
   LDA #$07
   STA byte_RAM_300
+  RTS
+
+
+; ------------------------------------------------------------
+; Desc:
+;         Get correct Y position for the pallete, check
+;         for cheat code.
+; params:
+;         Y = Cursor location
+; ------------------------------------------------------------
+GetTrueIndex:
+  LDA CheatCode
+  AND #WarioWaluigiCheat
+  BEQ LeaveGetTrueIndex
+  CPY #Character_Merio
+  BEQ IncrementTrueIndex
+  CPY #Character_Garfield
+  BNE LeaveGetTrueIndex
+
+IncrementTrueIndex:
+  INY
+  INY
+  INY
+  INY
+LeaveGetTrueIndex:
   RTS
 
 
