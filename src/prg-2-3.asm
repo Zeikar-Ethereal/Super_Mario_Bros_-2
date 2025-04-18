@@ -11110,6 +11110,8 @@ StompEnemy:
   BEQ CheckLifTable
   CMP #Enemy_ClawgripRock
   BEQ CheckLifTable
+  CMP #Enemy_Mushroom
+  BEQ CheckLifTable
 
   INC PlayerInAir
 	LDA #$A8
