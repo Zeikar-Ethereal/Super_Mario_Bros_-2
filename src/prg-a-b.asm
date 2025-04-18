@@ -632,7 +632,7 @@ ToadettePalette:
 RosalinaPalette:
   .db $0F, $08, $2C, $36
 WarioPalette:
-	.db $0F, $01, $16, $27
+	.db $0F, $05, $27, $36
 WaluigiPalette:
   .db $0F, $03, $13, $36
 

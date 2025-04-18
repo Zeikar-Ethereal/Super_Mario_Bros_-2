@@ -220,7 +220,7 @@ PlayerSelectSpritePalettes_Toadette:
 PlayerSelectSpritePalettes_Rosalina:
 	.db $0F, $36, $2C, $08
 PlayerSelectSpritePalettes_Wario:
-	.db $0F, $37, $24, $07
+	.db $0F, $37, $27, $06
 PlayerSelectSpritePalettes_Waluigi:
 	.db $0F, $36, $13, $03
 
