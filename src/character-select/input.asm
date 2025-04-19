@@ -119,12 +119,14 @@ SetConfirmSpriteLoop:
   BPL SetConfirmSpriteLoop
 
 ; Set the character
-  LDY CursorLocation
-  JSR GetRealCharacterIndex
+  LDA CursorLocation
+  TAY
+  LDA RealCharacterIndexTable, Y
   STA CurrentcharacterPOne
 
 LeaveCheckConfirmationCharSelect:
   RTS
+
 
 CheckForConfirmationCharSelectTwo:
   LDA Player2JoypadPress
@@ -163,37 +165,10 @@ SetConfirmSpriteLoopTwo:
   BPL SetConfirmSpriteLoopTwo
 
 ; Set the character
-  LDY CursorLocationPTwo
-  JSR GetRealCharacterIndex
+  LDA CursorLocationPTwo
+  TAY
+  LDA RealCharacterIndexTable, Y
   STA CurrentCharacterPTwo
 
 LeaveCheckConfirmationCharSelectTwo:
-  RTS
-
-; ------------------------------------------------------------
-; Desc:
-;         Get the true index of a character and return the result
-;         in the accumulator. Also check for cheat Wario/Waluigi cheat code
-; Params:
-;         Y = Cursor location
-; ------------------------------------------------------------
-
-GetRealCharacterIndex:
-  LDA CheatCode
-  AND #WarioWaluigiCheat
-  BEQ +
-
-  CPY #Character_Merio
-  BEQ -
-  CPY #Character_Garfield
-  BNE +
-
--:
-  INY
-  INY
-  INY
-  INY
-
-+:
-  LDA RealCharacterIndexTable, Y
   RTS
