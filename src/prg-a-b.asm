@@ -274,8 +274,6 @@ CharacterStatsLo:
   .db <GarfieldStats
   .db <ToadetteStats
   .db <RosalinaStats
-  .db <MerioStats ; For Wario
-  .db <GarfieldStats ; For Waluigi
 
 CharacterStatsHi:
   .db >MarioStats
@@ -290,8 +288,6 @@ CharacterStatsHi:
   .db >GarfieldStats
   .db >ToadetteStats
   .db >RosalinaStats
-  .db >MerioStats ; For Wario
-  .db >GarfieldStats ; For Waluigi
 
 CharacterStats:
 MarioStats:
@@ -631,29 +627,25 @@ ToadettePalette:
   .db $0F, $0D, $24, $36
 RosalinaPalette:
   .db $0F, $08, $2C, $36
-WarioPalette:
-	.db $0F, $05, $27, $36
-WaluigiPalette:
-  .db $0F, $03, $13, $36
 
 ; Player 2 player palette
 CharacterPaletteAlt:
 MarioPaletteAlt:
-	.db $0F, $01, $13, $27
+	.db $0F, $01, $11, $27
 PrincessPaletteAlt:
 	.db $0F, $06, $27, $36
 ToadPaletteAlt:
-	.db $0F, $01, $2C, $27
+	.db $0F, $16, $30, $27
 LuigiPaletteAlt:
-	.db $0F, $01, $30, $36
+	.db $0F, $01, $20, $36
 ImajinPaletteAlt:
-	.db $0F, $06, $26, $36
+	.db $0F, $07, $38, $27
 MamaPaletteAlt:
-  .db $0F, $00, $10, $36
+  .db $0F, $03, $13, $36
 PapaPaletteAlt:
-  .db $0F, $06, $30, $27
+  .db $0F, $03, $30, $27
 LinaPaletteAlt:
-  .db $0F, $08, $28, $36
+  .db $0F, $05, $23, $36
 MerioPaletteAlt:
 	.db $0F, $01, $1A, $27
 GarfieldPaletteAlt:
@@ -661,11 +653,7 @@ GarfieldPaletteAlt:
 ToadettePaletteAlt:
   .db $0F, $0D, $16, $36
 RosalinaPaletteAlt:
-  .db $0F, $08, $13, $36
-WarioPaletteAlt:
-	.db $0F, $01, $16, $27
-WaluigiPaletteAlt:
-  .db $0F, $03, $13, $36
+  .db $0F, $08, $25, $36
 
 ;
 ; What is this for? It gets copied to RAM and then...that's all.
@@ -812,28 +800,6 @@ loc_BANKA_8458:
 	INY
 	CPY #kCharacterStatsTotal
 	BCC loc_BANKA_8458
-
-ApplyCheatCodeStats:
-
-; Check for doki doki run cheat
-  LDA CheatCode
-  AND #DokiDokiRunCheat
-  BEQ CheckFloatCheat
-  LDA CharacterSpecialAttribute
-  AND #$7F
-  STA CharacterSpecialAttribute
-  STA $7E27
-  STA $7E47
-
-CheckFloatCheat:
-; Check for all character float cheat
-  LDA CheatCode
-  AND #AllCharactersFloatCheat
-  BEQ SetPalette
-  LDA #$FF
-  STA JumpFloatLength
-  STA $7E1D
-  STA $7E3D
 
 SetPalette:
 	LDA CurrentCharacter

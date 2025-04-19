@@ -202,8 +202,6 @@ CarryYOffsetBigLo:
 	.db $F7 ; Garfield
 	.db $FC ; Toadette
 	.db $F6 ; Rosalina
-  .db $FA ; Wario
-  .db $F7 ; Waluigi
 
 CarryYOffsetBigHi:
 	.db $FF ; Mario
@@ -218,8 +216,6 @@ CarryYOffsetBigHi:
 	.db $FF ; Garfield
 	.db $FF ; Toadette
 	.db $FF ; Rosalina
-  .db $FF ; Wario
-  .db $FF ; Waluigi
 
 CarryYOffsetSmallLo:
 	.db $02 ; Mario
@@ -234,8 +230,6 @@ CarryYOffsetSmallLo:
 	.db $FF ; Garfield
 	.db $04 ; Toadette
 	.db $FE ; Rosalina
-  .db $02 ; Wario
-  .db $FF ; Waluigi
 
 CarryYOffsetSmallHi:
 	.db $00 ; Mario
@@ -250,8 +244,6 @@ CarryYOffsetSmallHi:
 	.db $FF ; Garfield
 	.db $00 ; Toadette
 	.db $FF ; Rosalina
-  .db $00 ; Wario
-  .db $FF ; Waluigi
 
 ;
 ; Load A with an index and call this to
@@ -5868,13 +5860,6 @@ CHRBank_CharacterSize:
   .db CHRBANK_ToadetteSmall
   .db CHRBANK_Rosalina
   .db CHRBANK_RosalinaSmall
-
-; Cheat code character
-  .db CHRBANK_Wario
-  .db CHRBANK_WarioSmall
-
-  .db CHRBANK_Waluigi
-  .db CHRBANK_WaluigiSmall
 
 LoadWorldCHRBanks:
 	LDY #CHRBank_CommonEnemies1
